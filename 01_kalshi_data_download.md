@@ -59,40 +59,45 @@ Installed 84 packages in 151ms
 
 ## Download Kalshi Data
 
-### Step 4: Run the data collection tool
+### Step 4: Install Homebrew (Mac only, required for the next step)
+
+Homebrew is a package manager for Mac that installs command-line tools.
 
 ```bash
-make index
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-This opens an interactive menu:
+After installation, add Homebrew to your PATH:
+```bash
+echo >> /Users/your-username/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> /Users/your-username/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ```
-> Kalshi Markets: Backfills Kalshi markets data to parquet files
-  Kalshi Trades: Backfills Kalshi trades data to parquet files
-  ...
+
+Replace `your-username` with your actual Mac username.
+
+### Step 5: Download the complete dataset
+
+```bash
+make setup
 ```
 
-### Step 5: Download Markets data (contract metadata)
+This will:
+1. Automatically install `aria2c` (a fast download tool) if not already installed
+2. Download the complete dataset (`data.tar.zst`, ~36GB) from Cloudflare R2 Storage
+3. Automatically extract it to `data/`
 
-Use the **arrow keys** to select `Kalshi Markets`, then press **Enter**.
+This takes approximately **2-3 hours** depending on your internet speed. Do not close the terminal or let your computer sleep during the download.
 
-**Markets vs Trades — what's the difference?**
-
-| | Kalshi Markets | Kalshi Trades |
-|---|---|---|
-| Each row is | One contract's basic info | One individual trade |
-| Contains | ticker, title, close time, result | timestamp, price, volume |
-| File size | Small (a few hundred MB) | Large |
-| Purpose | Find the correct ticker for the election contract | Calculate daily price changes Δp |
-
-**Important:** The indexer downloads from newest to oldest. The 2024 election contracts appear after approximately 350,000 records have been downloaded. When the counter reaches ~350,000, press `Control + C` to pause and check whether 2024 data has appeared.
-
-Data is saved to:
+Data will be saved to:
 ```
-data/kalshi/markets/
+data/kalshi/markets/    # contract metadata
+data/kalshi/trades/     # trade records
 ```
 
 Files are in **Parquet format** (read with pandas or duckdb — cannot be opened directly in Excel).
+
+**Note:** `make index` was tested but does not download historical contracts in chronological order, making it unreliable for retrieving 2024 election data. Use `make setup` instead.
 
 ---
 
@@ -104,7 +109,7 @@ Files are in **Parquet format** (read with pandas or duckdb — cannot be opened
 | `ls` | List contents of current folder |
 | `pwd` | Show current folder path |
 | `uv sync` | Install project dependencies |
-| `make index` | Launch data collection menu |
+| `make setup` | Download complete dataset (~36GB) |
 | `uv run script.py` | Run a Python script |
 | `Control + C` | Stop the currently running program |
 | `rm -rf folder/` | Delete a folder and all its contents |
@@ -113,8 +118,8 @@ Files are in **Parquet format** (read with pandas or duckdb — cannot be opened
 
 ## Key Notes
 
-1. The indexer downloads **from newest to oldest** — 2024 data takes time to appear
-2. Pressing `Control + C` **does not corrupt data** — progress is saved automatically
+1. `make setup` requires **~36GB of free disk space** and takes 2-3 hours
+2. Do **not** close the terminal or sleep your computer during download
 3. Parquet files require **pandas or duckdb** to read — not directly openable in Excel
 4. `yes_price` is in **cents (0–100)**, not decimals
-5. Kalshi's public API only serves **currently active contracts** — historical data must come from local Parquet files
+5. Kalshi's public API only serves **currently active contracts** — historical data must come from the downloaded dataset
