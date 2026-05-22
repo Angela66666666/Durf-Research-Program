@@ -1,6 +1,6 @@
 .DS_Store
 *.DS_Store
-etf_data/
+etf_data/*.parquet
 Empirical Strategies.html
 *.docx
 *.sas
