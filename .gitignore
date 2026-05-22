@@ -1,0 +1,9 @@
+.DS_Store
+*.DS_Store
+etf_data/
+Empirical Strategies.html
+*.docx
+*.sas
+data_explore_example*.py
+prediction-market-analysis/data/
+prediction-market-analysis/get_kalshi_data.py
