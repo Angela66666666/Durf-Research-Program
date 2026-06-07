@@ -51,7 +51,6 @@ pip install yfinance
 ### Step 2: Run the script
 
 ```bash
-cd /Users/liu/Desktop/Durf/etf_data
 python download_etf_returns.py
 ```
 
