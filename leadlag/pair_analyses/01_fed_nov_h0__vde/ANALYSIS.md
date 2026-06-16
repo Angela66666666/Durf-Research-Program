@@ -15,7 +15,7 @@
 
 ## 1. Why We Chose This Pair
 
-Out of the 14 contracts × multiple ETFs with credible regression results in `leadlag_event_unified_results.csv`, this pair scores best on six dimensions:
+Out of the 14 contracts × multiple ETFs with credible regression results in `leadlag_event_unified_kalshi_etf.csv`, this pair scores best on six dimensions:
 
 | Scoring dimension | Value | Assessment |
 |---|---|---|
@@ -138,7 +138,7 @@ This conclusion is simultaneously supported by three lines of evidence:
 
 | Evidence type | Source | Content |
 |---|---|---|
-| **Statistical** | `leadlag_event_unified_results.csv` | 7 significant coefficients, all negative; `etf_leads_kalshi` direction has more significant coefs than `kalshi_leads_etf` |
+| **Statistical** | `leadlag_event_unified_kalshi_etf.csv` | 7 significant coefficients, all negative; `etf_leads_kalshi` direction has more significant coefs than `kalshi_leads_etf` |
 | **Macro visual** | Figure 1 | 50-day inverse correlation is uncontestable |
 | **Micro visual** | Figure 3 Panels B & C | Tick-level evidence of VDE leading Kalshi by 20–30 minutes |
 
