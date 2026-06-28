@@ -110,25 +110,35 @@ def activity_bucket(n):
     return "Active(>300)"
 
 
-def pair_lean(cal, ev):
-    """数 calendar+event 两套里显著(p<0.05)滞后的正负个数，定领先倾向。
-    Count significant lags with k>0 (Kalshi leads) vs k<0 (ETF leads) across both axes."""
-    def cnt(df):
-        pc = "p_fdr" if "p_fdr" in df.columns else "p_value"   # ④ 用 FDR 校正后显著性
-        s = df[df[pc] < 0.05]
-        return int((s["k_lag"] > 0).sum()), int((s["k_lag"] < 0).sum())
-    ck_p, ck_n = cnt(cal)
-    ek_p, ek_n = cnt(ev)
-    kpos, kneg = ck_p + ek_p, ck_n + ek_n
+THRESHOLDS = (0.05, 0.10, 0.15)   # 分档显著性阈值（原始 p；FDR 在小样本里会把 0.10/0.15 压没）
+
+
+def _lean_of(kpos, kneg):
+    """据某一档的 Kalshi领先(kpos)/ETF领先(kneg) 个数定该档结论。"""
     if kpos == 0 and kneg == 0:
-        lean = "No-sig-lead"
-    elif kpos > kneg:
-        lean = "Kalshi-leads"
-    elif kneg > kpos:
-        lean = "ETF-leads"
-    else:
-        lean = "Balanced/mixed"
-    return kpos, kneg, lean, (ck_p, ck_n, ek_p, ek_n)
+        return "No-sig-lead"
+    if kpos > kneg:
+        return "Kalshi-leads"
+    if kneg > kpos:
+        return "ETF-leads"
+    return "Balanced/mixed"
+
+
+def pair_lean(cal, ev):
+    """calendar 与 event **各自**都算 p<0.05 / 0.10 / 0.15 三档显著滞后的正(k>0,Kalshi领先)/
+    负(k<0,ETF领先)个数(原始 p)。三档是 **nested 包含关系**：p<0.05 ⊆ p<0.10 ⊆ p<0.15(每档已是
+    并集本身，不需也不该把三档算术相加)。
+    **三档各出一个结论 lean**(不只选一档)：每档据该档 calendar+event 合计的 Kalshi领先 vs ETF领先 定。
+    Both calendar and event get all three nested tiers; a lean conclusion is produced at EACH tier.
+    返回 cal_t / ev_t / comb = {thr:(kpos,kneg)}, leans = {thr: lean}。"""
+    def tiers_of(df):
+        return {thr: (int((df[df["p_value"] < thr]["k_lag"] > 0).sum()),
+                      int((df[df["p_value"] < thr]["k_lag"] < 0).sum())) for thr in THRESHOLDS}
+    cal_t = tiers_of(cal)
+    ev_t  = tiers_of(ev)
+    comb  = {thr: (cal_t[thr][0] + ev_t[thr][0], cal_t[thr][1] + ev_t[thr][1]) for thr in THRESHOLDS}
+    leans = {thr: _lean_of(*comb[thr]) for thr in THRESHOLDS}   # 三档各出一个结论
+    return cal_t, ev_t, comb, leans
 
 
 def build_table():
@@ -141,10 +151,9 @@ def build_table():
         ev  = EV[(EV.contract_ticker == tk) & (EV.etf == etf)]
         prb = PRB[(PRB.contract_ticker == tk) & (PRB.etf == etf)]
         n_tr = int(rk.loc[(tk, etf), "n_trades"]) if (tk, etf) in rk.index else 0
-        kpos, kneg, lean, detail = pair_lean(cal, ev)
-        ppc = "p_fdr" if "p_fdr" in prb.columns else "p_value"
-        prb_pos = int(((prb[ppc] < 0.05) & (prb["k_lag"] > 0)).sum())
-        prb_neg = int(((prb[ppc] < 0.05) & (prb["k_lag"] < 0)).sum())
+        cal_t, ev_t, comb, leans = pair_lean(cal, ev)
+        prb_pos = int(((prb["p_value"] < 0.05) & (prb["k_lag"] > 0)).sum())
+        prb_neg = int(((prb["p_value"] < 0.05) & (prb["k_lag"] < 0)).sum())
         ct = contract_type(tk)
         rows.append({
             "contract_ticker": tk, "etf": etf,
@@ -152,18 +161,37 @@ def build_table():
             "sector": sector_name(etf), "n_trades": n_tr,
             "activity": activity_bucket(n_tr),
             "reliability": REL.get_reliability(tk, etf)["tier"],   # 统计可靠性档（按自由度）
-            "cal_kpos": detail[0], "cal_kneg": detail[1],
-            "ev_kpos": detail[2], "ev_kneg": detail[3],
-            "sig_kalshi_leads": kpos, "sig_etf_leads": kneg,
+            # ① calendar 三档(nested) Kalshi领先(kpos)/ETF领先(kneg)
+            "cal_kpos_05": cal_t[0.05][0], "cal_kneg_05": cal_t[0.05][1],
+            "cal_kpos_10": cal_t[0.10][0], "cal_kneg_10": cal_t[0.10][1],
+            "cal_kpos_15": cal_t[0.15][0], "cal_kneg_15": cal_t[0.15][1],
+            # ② event 三档(nested)
+            "ev_kpos_05": ev_t[0.05][0], "ev_kneg_05": ev_t[0.05][1],
+            "ev_kpos_10": ev_t[0.10][0], "ev_kneg_10": ev_t[0.10][1],
+            "ev_kpos_15": ev_t[0.15][0], "ev_kneg_15": ev_t[0.15][1],
+            # ③ calendar+event 合计 三档(nested)
+            "kpos_05": comb[0.05][0], "kneg_05": comb[0.05][1],
+            "kpos_10": comb[0.10][0], "kneg_10": comb[0.10][1],
+            "kpos_15": comb[0.15][0], "kneg_15": comb[0.15][1],
+            # 兼容旧列名（= p<0.05 两套合计）
+            "sig_kalshi_leads": comb[0.05][0], "sig_etf_leads": comb[0.05][1],
+            # ④ 总数 = 最宽档 p<0.15 的并集(= kpos_15 + kneg_15，不是三档算术相加)；lean 据 kpos_15 vs kneg_15
+            "sig_total": comb[0.15][0] + comb[0.15][1],
+            # ⑤ 三档各出一个结论
+            "lean_05": leans[0.05], "lean_10": leans[0.10], "lean_15": leans[0.15],
+            "lean": leans[0.15],   # 默认/兼容(给图与旧引用) = 最宽档
             "probit_kalshi_leads": prb_pos, "probit_etf_leads": prb_neg,
-            "lean": lean,
         })
     return pd.DataFrame(rows)
 
 
-def group_counts(df, by):
-    """按某维度汇总各 lean 类别的对数。Cross-tab pair counts of lean within each group."""
-    tab = (df.groupby([by, "lean"]).size().unstack(fill_value=0)
+LEAN_ABBR = {"Kalshi-leads": "K", "ETF-leads": "E", "Balanced/mixed": "B", "No-sig-lead": "N"}
+
+
+def group_counts(df, by, lean_col="lean"):
+    """按某维度汇总各 lean 类别的对数（lean_col 指定用哪一档的结论）。
+    Cross-tab pair counts of <lean_col> within each group."""
+    tab = (df.groupby([by, lean_col]).size().unstack(fill_value=0)
              .reindex(columns=LEAN_ORDER, fill_value=0))
     tab["Total"] = tab.sum(axis=1)
     return tab.sort_values("Total", ascending=False)
@@ -221,37 +249,57 @@ def graded_direction_md():
     ])
 
 
+def pairs_by_category_md(df):
+    """四个分类维度下，每个类别具体包含哪些 pair（附其 lean），让计数表能落到具体的对。
+    For each of the four dimensions, list the actual pairs in every category with their lean."""
+    df = df.copy()
+    df["pair"] = df["contract_ticker"] + "×" + df["etf"]
+    dims = [("contract_type", "contract type"), ("event_kind", "event kind (sharp vs continuous)"),
+            ("sector", "ETF sector"), ("reliability", "reliability tier (df-based)")]
+    L = ["## Pairs in each category (which pairs fall under each classification)\n",
+         "For each of the four dimensions, every category lists its pairs with their lean at each tier "
+         "[05|10|15], abbreviated K=Kalshi-leads, E=ETF-leads, B=Balanced/mixed, N=No-sig-lead "
+         "(so each count above can be traced to the actual pairs).\n"]
+    for col, label in dims:
+        L.append(f"### By {label}\n")
+        for cat, g in df.groupby(col):
+            g = g.sort_values(["lean_15", "pair"])
+            items = ", ".join(
+                f"{r.pair} [{LEAN_ABBR[r.lean_05]}|{LEAN_ABBR[r.lean_10]}|{LEAN_ABBR[r.lean_15]}]"
+                for r in g.itertuples())
+            L.append(f"- **{cat}** ({len(g)}): {items}")
+        L.append("")
+    return "\n".join(L)
+
+
 def write_md(df):
     """写汇总 markdown：四维度表 + 文字结论。"""
     n = len(df)
-    by_type = group_counts(df, "contract_type")
-    by_sec  = group_counts(df, "sector")
-    by_rel  = group_counts(df, "reliability")
-    by_evk  = group_counts(df, "event_kind")
-
-    nk = int((df.lean == "Kalshi-leads").sum())
-    ne = int((df.lean == "ETF-leads").sum())
-    nb = int((df.lean == "Balanced/mixed").sum())
-    nn = int((df.lean == "No-sig-lead").sum())
+    TIER_COL = {0.05: "lean_05", 0.10: "lean_10", 0.15: "lean_15"}   # 三档各一个结论列
 
     # direction only within the "Adequate-df" reliable pairs
     rel_ok = df[df.reliability == REL.TIER_OK]
     L = []
     L.append("# Lead/Lag classification summary\n")
     L.append(f"Scope: all {n} pairs (Kalshi contract x ETF). Lean rule: across calendar+event, count")
-    L.append("significant (p<0.05) lags with k>0 (Kalshi leads) vs k<0 (ETF leads); the net majority sets the lean.")
+    L.append("significant lags at p<0.05 / 0.10 / 0.15 (raw p; nested, p<0.05 ⊆ p<0.10 ⊆ p<0.15) per")
+    L.append("direction (k>0 Kalshi-leads, k<0 ETF-leads). **A lean conclusion is produced at EACH tier**, not")
+    L.append("a single chosen threshold, so the Overall and every cross-tab below appear three times (one per tier).")
     L.append("Reliability rule: tiered by residual df (= effective obs - #parameters), NOT a trade-count cutoff.\n")
-    L.append("## Overall\n")
-    L.append(f"- Kalshi-leads: {nk}   |   ETF-leads: {ne}   |   Balanced/mixed: {nb}   |   No-sig-lead: {nn}\n")
 
-    L.append("## By contract type\n")
-    L.append("```\n" + _fmt_tab(by_type) + "\n```\n")
-    L.append("## By event kind (sharp one-shot vs continuous)\n")
-    L.append("```\n" + _fmt_tab(by_evk) + "\n```\n")
-    L.append("## By ETF sector\n")
-    L.append("```\n" + _fmt_tab(by_sec) + "\n```\n")
-    L.append("## By statistical reliability (df-based)\n")
-    L.append("```\n" + _fmt_tab(by_rel) + "\n```\n")
+    L.append("## Overall — lean counts at each threshold\n")
+    ov = pd.DataFrame({f"p<{thr}": df[col].value_counts() for thr, col in TIER_COL.items()}).T
+    ov = ov.reindex(columns=LEAN_ORDER, fill_value=0).fillna(0).astype(int)
+    L.append("```\n" + ov.to_string() + "\n```\n")
+
+    for col, label in [("contract_type", "By contract type"),
+                       ("event_kind", "By event kind (sharp one-shot vs continuous)"),
+                       ("sector", "By ETF sector"),
+                       ("reliability", "By statistical reliability (df-based)")]:
+        L.append(f"## {label}\n")
+        for thr, lc in TIER_COL.items():
+            L.append(f"**lean at p<{thr}:**\n")
+            L.append("```\n" + _fmt_tab(group_counts(df, col, lc)) + "\n```\n")
 
     L.append(graded_direction_md())
 
@@ -263,10 +311,15 @@ def write_md(df):
              f"{n_verylow} have **very low df** (huge SE, 'significant' is untrustworthy) -- high-frequency lead-lag "
              f"is only meaningful on the {n_ok} pairs with adequate df.")
     if len(rel_ok):
-        ak = int((rel_ok.lean == "Kalshi-leads").sum())
-        ae = int((rel_ok.lean == "ETF-leads").sum())
-        L.append(f"- **Even the reliable group is not one-sided**: of {len(rel_ok)} adequate-df pairs, "
-                 f"Kalshi-leads {ak} and ETF-leads {ae} -- no side dominates.")
+        parts = []
+        for thr, lc in TIER_COL.items():
+            ak = int((rel_ok[lc] == "Kalshi-leads").sum())
+            ae = int((rel_ok[lc] == "ETF-leads").sum())
+            ab = int((rel_ok[lc] == "Balanced/mixed").sum())
+            an = int((rel_ok[lc] == "No-sig-lead").sum())
+            parts.append(f"p<{thr} K{ak}/E{ae}/B{ab}/N{an}")
+        L.append(f"- **Even the reliable group is not one-sided**: of {len(rel_ok)} adequate-df pairs, lean by "
+                 f"tier — {'; '.join(parts)} — no side dominates at any threshold.")
     L.append("- **Direction is threshold-robust but method-split** (see graded table above): across "
              "p<0.05/0.10/0.15 the linear regressions (calendar, event) split ~1:1 with no net lead at any "
              "threshold, while the direction-only probit consistently favors ETF-leads (~5:1). Any lead lives "
@@ -280,6 +333,8 @@ def write_md(df):
     L.append("- **Conclusion**: directional lead is **NOT concentrated in any single clean category**; the strongest "
              "signal comes from adequate-df one-shot-event contracts (election, FOMC), but within them Kalshi-leads "
              "and ETF-leads coexist -- supporting the main finding of 'no clean single-direction lead'.\n")
+    L.append(pairs_by_category_md(df))
+
     L.append("> Note: auto-generated from the tables above; edit this file then merge into the report. "
              "Figure: plots/classification_summary.png.")
     OUT_MD.write_text("\n".join(L), encoding="utf-8")

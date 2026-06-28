@@ -10,3 +10,8 @@ prediction-market-analysis/get_kalshi_data.py
 ~$*
 __pycache__/
 leadlag/pipeline/aria代码/
+# PDF/plot report-generation scripts: kept local, not published
+leadlag/pipeline/build_pdf.py
+leadlag/pipeline/make_pair_text.py
+leadlag/pipeline/make_pair_plots.py
+leadlag/pipeline/make_enhanced_plots.py
