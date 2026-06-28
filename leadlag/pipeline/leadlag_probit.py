@@ -14,7 +14,8 @@ leadlag_probit.py
 
 思路 (Approach)
   - 与主回归口径一致、两套并行：calendar 用按活跃度选的 median 主 bar、y=同 bar log return；
-    event 用 30s median bar、y=事件后前向 log return
+    event 用同一统一构造(build_unified_xy)的活跃事件子序列、y=相邻两事件间 log return（后向差分，
+    不再用前向收益——避免前向窗口与下一事件重叠把同期误记成 ETF 领先）
   - y 取 sign（>0 涨 / <0 跌），去掉恰好不动 (y==0) 的 bar（只问"动的时候往哪动"）
   - 标准误按交易日聚类（失败则退化为普通 probit）
 
@@ -23,8 +24,8 @@ leadlag_probit.py
   存放位置：leadlag/pipeline/ 下
 
 函数 (Functions)
-  build_calendar_xy  造 calendar 口径的 (x=Δprob, y=同bar log return) 表
-  build_event_xy     造 event 口径的 (x=Δprob, y=前向 log return) 表
+  build_calendar_xy  造 calendar 口径的 (x=Δprob, y=同bar log return) 表m
+  build_event_xy     造 event 口径的 (x=Δprob, y=相邻两事件间 log return) 表
   run_probit_lags    对每个滞后阶 k 跑一个 probit，返回 β/z/p 系数表
   main               逐对 × 两 mode 跑 probit，汇总落盘并打印方向分布
 """
@@ -36,9 +37,6 @@ import leadlag_common as C
 from leadlag_calendar_time import bar_change   # calendar 的 median-bar 变化量
 
 OUT_CSV     = C.HERE / "leadlag_probit_kalshi_etf.csv"
-EVENT_BAR   = "30s"
-W_NS        = C.W_SEC * 1_000_000_000
-MAX_GAP_NS  = C.MAX_GAP_SEC * 1_000_000_000
 MIN_PROBIT  = 30          # probit 最小样本（小样本不稳，跟主回归一样稀疏对会被跳过）
 
 
@@ -50,45 +48,28 @@ def build_calendar_xy(con, ticker, etf, ds, de):
         return None, None
     med_gap = C.median_intertrade_sec(kalshi)
     freq = C.BAR_LABEL[C.choose_bar_sec(med_gap if np.isfinite(med_gap) else 60)]
-    kb = bar_change(kalshi, "prob", "x", freq, "kalshi")
-    eb = bar_change(etf_tk, "mid",  "y", freq, "etf")
+    kb = bar_change(kalshi, "prob", "x", freq, "kalshi")#把tick数据重采样成bar，然后算变化量，Kalshi出来的是概率差分（Δprob）
+    eb = bar_change(etf_tk, "mid",  "y", freq, "etf")#ETF出来的是log return
     if kb.empty or eb.empty:
         return None, None
-    m = pd.merge(kb[["ts_et", "x", "date"]], eb[["ts_et", "y"]], on="ts_et", how="inner")
+    m = pd.merge(kb[["ts_et", "x", "date"]], eb[["ts_et", "y"]], on="ts_et", how="inner") #按时间戳内连接对齐，只保留两边都有数据的bar。这张表m就是后续所有回归的原材料，每行是一根bar，有x和y两列
     return m, freq
 
 
 def build_event_xy(con, ticker, etf, ds, de):
-    """造 event 口径 (x=Δprob, y=前向 log return) 表。Build event-mode x/y table."""
+    """造 event 口径 (x=Δprob, y=同两事件点间 log return) 表，与 calendar 同一统一构造，
+    仅"相邻"取活跃事件而非钟表格。Build event-mode x/y from the unified causal construction."""
     kalshi = C.load_kalshi(con, ticker, ds, de)
     etf_tk = C.load_etf(con, etf, ds, de)
     if kalshi.empty or etf_tk.empty:
         return None, None
-    kb = C.bar_median_series(kalshi, "prob", EVENT_BAR).sort_values("ts_et").reset_index(drop=True)
-    eb = C.bar_median_series(etf_tk, "mid", EVENT_BAR).sort_values("ts_et").reset_index(drop=True)
-    if len(kb) < 2 or eb.empty:
+    med_gap = C.median_intertrade_sec(kalshi)
+    freq = C.BAR_LABEL[C.choose_bar_sec(med_gap if np.isfinite(med_gap) else 60)]
+    _, act = C.build_unified_xy(kalshi, etf_tk, freq)
+    if act is None or len(act) < 2:
         return None, None
-    kb["x"] = kb.groupby("date")["prob"].diff()
-    kb = kb.dropna(subset=["x"]).reset_index(drop=True)
-    if len(kb) < 2:
-        return None, None
-    e_ns  = eb["ts_et"].astype("datetime64[ns]").astype("int64").values
-    e_mid = eb["mid"].values
-    ev_ns = kb["ts_et"].astype("datetime64[ns]").astype("int64").values
-    at = C.lookup_etf_mid(e_ns, e_mid, ev_ns, MAX_GAP_NS)
-    dates = kb["date"].values
-    same = dates[:-1] == dates[1:]
-    raw = np.empty_like(ev_ns)
-    raw[:-1] = np.where(same, ev_ns[1:], ev_ns[:-1] + W_NS)
-    raw[-1]  = ev_ns[-1] + W_NS
-    fwd = np.minimum(raw, ev_ns + W_NS)
-    # ③ cap 到当日 16:00 收盘
-    close_ns = (pd.to_datetime(kb["date"].astype(str)) + pd.Timedelta(hours=16)).astype("int64").values
-    fwd = np.minimum(fwd, close_ns)
-    fmid = C.lookup_etf_mid(e_ns, e_mid, fwd, MAX_GAP_NS)
-    y = np.log(fmid / at)
-    m = pd.DataFrame({"x": kb["x"].values, "y": y, "date": kb["date"].values})
-    return m.dropna(subset=["x", "y"]).reset_index(drop=True), EVENT_BAR
+    m = act.rename(columns={"dprob_e": "x", "etfret_e": "y"})[["x", "y", "date"]]
+    return m.dropna(subset=["x", "y"]).reset_index(drop=True), freq
 
 
 def run_probit_lags(df, k):
@@ -98,10 +79,10 @@ def run_probit_lags(df, k):
     df = df[df["y"] != 0.0]                       # 只问"动的时候往哪动"
     if len(df) < MIN_PROBIT or df["x"].std() < 1e-12:
         return None
-    df["up"] = (df["y"] > 0).astype(int)
+    df["up"] = (df["y"] > 0).astype(int) #ETF涨=1，ETF跌=0 （二元）
     xstd = df["x"].std()
     rows = []
-    for j in range(-k, k + 1):
+    for j in range(-k, k + 1):  #核心循环，对每个滞后阶j（从-K到+K）单独跑一个probit。
         d = pd.DataFrame({"up": df["up"].values,
                           "xv": (df["x"].shift(j) / xstd).values,
                           "date": df["date"].values}).dropna()
@@ -111,7 +92,7 @@ def run_probit_lags(df, k):
         try:
             try:
                 mod = sm.Probit(d["up"], X).fit(disp=0, maxiter=200,
-                                                cov_type="cluster", cov_kwds={"groups": d["date"].values})
+                                                cov_type="cluster", cov_kwds={"groups": d["date"].values})#sm.Probit(因变量, 自变量).fit()就是statsmodels库做maxlikelihood estimation，找到让数据最可能出现的α和β。
             except Exception:
                 mod = sm.Probit(d["up"], X).fit(disp=0, maxiter=200)
         except Exception:
@@ -122,7 +103,7 @@ def run_probit_lags(df, k):
         rows.append({"k_lag": j, "direction": direction,
                      "beta": mod.params["xv"], "z_stat": mod.tvalues["xv"],
                      "p_value": mod.pvalues["xv"], "pseudo_r2": mod.prsquared,
-                     "n_obs": int(len(d)), "n_up": int(d["up"].sum())})
+                     "n_obs": int(len(d)), "n_up": int(d["up"].sum())}) #判断方向，记录结果
     return pd.DataFrame(rows) if rows else None
 
 

@@ -46,9 +46,6 @@ from leadlag_calendar_time import bar_change    # calendar 的 median-bar 变化
 
 HERE = Path(__file__).resolve().parent
 ADL_YLAGS  = 5
-EVENT_BAR  = "30s"
-W_NS       = C.W_SEC * 1_000_000_000
-MAX_GAP_NS = C.MAX_GAP_SEC * 1_000_000_000
 MIN_BARS   = 2 * 3 + 5      # K=3 时最小有效事件数
 MIN_PROBIT = 30
 
@@ -115,7 +112,7 @@ def run_pooled_lag_regression(df: pd.DataFrame, x_col: str, y_col: str, k: int,
         df[col] = g[y_col].shift(i)
         ylag_cols.append(col)
 
-    df = df.dropna(subset=[y_col] + all_lag_cols + ylag_cols)
+    df = df.dropna(subset=[y_col] + all_lag_cols + ylag_cols).copy()
     if len(df) < min_obs:
         return None
 
@@ -243,33 +240,16 @@ def run_calendar(kalshi_by_member, etf_tk, bar_sec):
 
 # ============================ EVENT 池化构造 ============================
 def build_event_member(kdf: pd.DataFrame, etf_tk: pd.DataFrame, sign: int, tk: str):
-    """单成员 event 构造(口径同 leadlag_event_time)。返回 [member, date, x, y]。"""
-    k_bars = C.bar_median_series(kdf, "prob", EVENT_BAR)
-    e_bars = C.bar_median_series(etf_tk, "mid", EVENT_BAR)
-    if len(k_bars) < 2 or e_bars.empty:
+    """单成员 event 构造：统一因果构造(build_unified_xy)的活跃事件子序列，x=Δprob、
+    y=相邻两事件间 ETF log return(后向差分，与 event_time/probit 同口径)。返回 [member, date, x, y]。"""
+    med_gap = C.median_intertrade_sec(kdf)
+    freq = C.BAR_LABEL[C.choose_bar_sec(med_gap if np.isfinite(med_gap) else 60)]
+    _, act = C.build_unified_xy(kdf, etf_tk, freq)
+    if act is None or act.empty:
         return None
-    k_bars = k_bars.sort_values("ts_et").reset_index(drop=True)
-    k_bars["prob_change"] = k_bars.groupby("date")["prob"].diff()
-    k_bars = k_bars.dropna(subset=["prob_change"]).reset_index(drop=True)
-    if len(k_bars) < 2:
-        return None
-    etf_ns  = e_bars["ts_et"].astype("datetime64[ns]").astype("int64").values
-    etf_mid = e_bars["mid"].values
-    ev_ns   = k_bars["ts_et"].astype("datetime64[ns]").astype("int64").values
-    etf_at  = C.lookup_etf_mid(etf_ns, etf_mid, ev_ns, MAX_GAP_NS)
-    dates   = k_bars["date"].values
-    same    = dates[:-1] == dates[1:]
-    raw     = np.empty_like(ev_ns)
-    raw[:-1] = np.where(same, ev_ns[1:], ev_ns[:-1] + W_NS)
-    raw[-1]  = ev_ns[-1] + W_NS
-    fwd = np.minimum(raw, ev_ns + W_NS)
-    close_ns = (pd.to_datetime(k_bars["date"].astype(str)) + pd.Timedelta(hours=16)).astype("int64").values
-    fwd = np.minimum(fwd, close_ns)
-    etf_fwd = C.lookup_etf_mid(etf_ns, etf_mid, fwd, MAX_GAP_NS)
-    y = np.log(etf_fwd / etf_at)
-    df = pd.DataFrame({"member": tk, "date": k_bars["date"].values,
-                       "x": k_bars["prob_change"].values * sign,  # 符号对齐
-                       "y": y})
+    df = pd.DataFrame({"member": tk, "date": act["date"].values,
+                       "x": act["dprob_e"].values * sign,   # 符号对齐
+                       "y": act["etfret_e"].values})
     return df.dropna(subset=["x", "y"])
 
 
@@ -328,7 +308,7 @@ def run_probit_both(kalshi_by_member, etf_tk, primary_freq):
             k = C.choose_k(len(ev_pool))
             res = run_probit_pooled(ev_pool, k)
             if res is not None and not res.empty:
-                res["mode"] = "event"; res["bar"] = EVENT_BAR
+                res["mode"] = "event"; res["bar"] = "event(active)"
                 res["K_chosen"] = k; res["n_total"] = len(ev_pool)
                 out.append(res)
     return out

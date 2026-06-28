@@ -76,7 +76,15 @@ def page_for_group(pdf, row):
 
 
 def overview_pages(pdf):
-    """报告首页：分类总览图（按合约类型/板块/统计可靠性看谁领先）+ 可靠性说明。"""
+    """报告首页：①分类总览文字页(含分级阈值方向结论) ②分类柱状图。"""
+    # ① 文字总览：把 classification_summary.md（含分级阈值方向表 + 结论）矢量直出
+    summ_md = C.HERE / "leadlag_classification_summary.md"
+    if summ_md.exists():
+        fig = MPT.build_text_fig(summ_md,
+                                 header="OVERVIEW — conclusions (graded thresholds p<0.05 / 0.10 / 0.15)")
+        pdf.savefig(fig, bbox_inches="tight")
+        plt.close(fig)
+    # ② 分类柱状图（按合约类型/板块/统计可靠性看谁领先）
     summ = PLOTDIR / "classification_summary.png"
     head = ("OVERVIEW — Lead/Lag classification across all 48 pairs   |   "
             "reliability = df-based (not a trade-count cutoff)")

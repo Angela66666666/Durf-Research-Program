@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 9 / 48
+PAIR ANALYSIS    —    Rank 7 / 48
 ================================================================================================
 KXECDJT306   x   VDC
 Contract : "Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?"
@@ -24,34 +24,32 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 11 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -5 |                     -- |          -4.03e-05    
-     -4 |          -6.26e-05 *** |          +4.30e-05    
-     -3 |          -3.25e-05     |          -3.56e-05    
-     -2 |          +2.33e-05 *   |          -1.48e-04    
-     -1 |          -1.78e-05     |          +6.48e-05    
-     +0 |          -7.33e-05 **  |          +2.66e-05    
-     +1 |          -2.25e-05     |          +3.99e-05    
-     +2 |          -2.74e-05 **  |          +6.88e-05    
-     +3 |          +4.28e-05     |          +1.55e-05    
-     +4 |          -1.13e-04 *   |          +2.89e-05    
-     +5 |                     -- |          -2.92e-05    
+     -4 |          -6.26e-05 *** |                     --
+     -3 |          -3.25e-05     |                     --
+     -2 |          +2.33e-05 *   |                     --
+     -1 |          -1.78e-05     |                     --
+     +0 |          -7.33e-05 **  |                     --
+     +1 |          -2.25e-05     |                     --
+     +2 |          -2.74e-05 **  |                     --
+     +3 |          +4.28e-05     |                     --
+     +4 |          -1.13e-04 *   |                     --
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: β₋₁=+5.70e-01***
-   event: β₋₄=+1.22e-01***, β₊₀=+1.92e-01***, β₊₁=-3.10e-01***, β₊₂=+3.37e-01***, β₊₃=-2.31e-01***
+   event: β₋₁=+5.10e-01***, β₊₀=-1.74e-01***
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=20  n_obs=205  n_days=11  K=4  params=25  df=180  median_SE=2.54e-05  sig(FDR)=3
-   event: n_active=20  n_obs=28  n_days=1  K=5  params=17  df=11  median_SE=1.32e-04  sig(FDR)=0
+   event: not estimable (insufficient data)
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=13 df=1 K=4  sig=2 (Kalshi-leads 0 / ETF-leads 2) -> ETF-leads

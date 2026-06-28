@@ -197,6 +197,30 @@ def _fmt_tab(tab):
     return tab.to_string()
 
 
+def graded_direction_md():
+    """分级阈值方向分布：显著系数(=pair×滞后阶)在 Kalshi领先(k>0)/ETF领先(k<0)/同期(k=0) 的计数，
+    在 p<0.05 / 0.10 / 0.15 三个阈值各报一次(原始 p)。不做单一 0.05 一刀切，便于看方向是否稳健。"""
+    def block(name, d, need_beta=False):
+        out = [f"**{name}**  (coefficient = pair × lag, raw p)\n", "```",
+               f"{'thresh':>7} | {'sig':>4} | {'Kalshi(k>0)':>11} | {'ETF(k<0)':>8} | {'contemp':>7}"]
+        for thr in (0.05, 0.10, 0.15):
+            s = d[d["p_value"] < thr]
+            kp = s[s["k_lag"] > 0]
+            if need_beta and "beta" in s.columns:
+                kp = kp[kp["beta"] > 0]
+            out.append(f" p<{thr:<4} | {len(s):>4} | {len(kp):>11} | "
+                       f"{len(s[s['k_lag'] < 0]):>8} | {len(s[s['k_lag'] == 0]):>7}")
+        out.append("```\n")
+        return "\n".join(out)
+    return "\n".join([
+        "## Direction by graded significance (no single cutoff)\n",
+        "Report direction at p<0.05 / 0.10 / 0.15 rather than one threshold, to show robustness.\n",
+        block("calendar (primary bar)", CAL),
+        block("event (backward-diff, comparable to calendar)", EV),
+        block("probit (direction-only; Kalshi-leads requires beta>0)", PRB, need_beta=True),
+    ])
+
+
 def write_md(df):
     """写汇总 markdown：四维度表 + 文字结论。"""
     n = len(df)
@@ -229,6 +253,8 @@ def write_md(df):
     L.append("## By statistical reliability (df-based)\n")
     L.append("```\n" + _fmt_tab(by_rel) + "\n```\n")
 
+    L.append(graded_direction_md())
+
     L.append("## Conclusion\n")
     n_cannot = int((df.reliability == REL.TIER_CANNOT).sum())
     n_verylow = int((df.reliability == REL.TIER_VERYLOW).sum())
@@ -241,6 +267,14 @@ def write_md(df):
         ae = int((rel_ok.lean == "ETF-leads").sum())
         L.append(f"- **Even the reliable group is not one-sided**: of {len(rel_ok)} adequate-df pairs, "
                  f"Kalshi-leads {ak} and ETF-leads {ae} -- no side dominates.")
+    L.append("- **Direction is threshold-robust but method-split** (see graded table above): across "
+             "p<0.05/0.10/0.15 the linear regressions (calendar, event) split ~1:1 with no net lead at any "
+             "threshold, while the direction-only probit consistently favors ETF-leads (~5:1). Any lead lives "
+             "in the *sign* of ETF moves, not their magnitude.")
+    L.append("- **Construction note**: event uses the same causal backward-diff as calendar (differing only in "
+             "active-event vs clock timepoints). An earlier forward-return event construction had spuriously "
+             "inflated ETF-leads by overlapping each event's forward window with the next event; that artifact "
+             "is removed, after which event splits ~1:1.")
     L.append("- **By type**: election / FOMC (one-shot event) contracts contribute almost all of the estimable, "
              "significant structure; gas-price / approval (continuous) contracts mostly fall in 'cannot estimate'.")
     L.append("- **Conclusion**: directional lead is **NOT concentrated in any single clean category**; the strongest "

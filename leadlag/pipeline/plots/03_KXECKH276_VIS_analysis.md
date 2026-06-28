@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 4 / 48
+PAIR ANALYSIS    —    Rank 11 / 48
 ================================================================================================
 KXECKH276   x   VIS
 Contract : "Will Harris win 276-262 - PA, NV, MI, WI?"
@@ -23,24 +23,18 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   Significant terms (BH-FDR) expanded:  yₜ = α + β₊₃·xₜ₋₃ + β₊₄·xₜ₋₄
-   where:
-      β₊₃ = +4.583e-04   (t/z=+2.57, p=1.0e-02, p_fdr=4.6e-02) **   [Kalshi leads]
-      β₊₄ = +6.310e-04   (t/z=+2.68, p=7.4e-03, p_fdr=4.6e-02) **   [Kalshi leads]
-   Lean by count of significant lags: Kalshi-leads  (k>0:2, k<0:0).
+   -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -4 |                     -- |          -5.76e-05    
-     -3 |          +1.26e-04 *** |          -6.40e-05    
-     -2 |          +7.43e-06     |          +9.81e-05    
-     -1 |          +2.39e-05     |          +3.40e-05    
-     +0 |          -9.17e-05     |          +1.53e-04    
-     +1 |          -8.77e-05     |          +1.85e-04    
-     +2 |          -6.91e-05     |          +1.19e-04    
-     +3 |          +1.48e-04 *** |          +4.58e-04 ** 
-     +4 |                     -- |          +6.31e-04 ** 
+     -3 |          +1.26e-04 *** |                     --
+     -2 |          +7.43e-06     |                     --
+     -1 |          +2.39e-05     |                     --
+     +0 |          -9.17e-05     |                     --
+     +1 |          -8.77e-05     |                     --
+     +2 |          -6.91e-05     |                     --
+     +3 |          +1.48e-04 *** |                     --
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
@@ -53,7 +47,7 @@ DEFINITIONS
    Tier: Very-low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=7  n_obs=53  n_days=3  K=3  params=15  df=38  median_SE=3.38e-05  sig(FDR)=2
-   event: n_active=7  n_obs=17  n_days=1  K=4  params=15  df=2  median_SE=1.20e-04  sig(FDR)=2
+   event: not estimable (insufficient data)
    => Very low info: even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
@@ -61,7 +55,7 @@ DEFINITIONS
     60min: not estimable (n_obs=6 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
-   Calendar leans balanced but Event leans Kalshi-leads -- NOT robust across time-axis; no clean lead.
+   Only one time-axis significant (balanced) -- weak / single-mode evidence.
    (Note: this pair lacks the data to support reliable inference; the verdict above is descriptive only -- do not put it in the conclusions.)
 
 8. FIGURE CAVEATS — figures are still drawn, but know their problems

@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 6 / 48
+PAIR ANALYSIS    —    Rank 4 / 48
 ================================================================================================
 KXECKH276   x   VDC
 Contract : "Will Harris win 276-262 - PA, NV, MI, WI?"
@@ -24,20 +24,18 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 9 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -4 |                     -- |          +3.73e-06    
-     -3 |          -3.71e-05     |          -1.37e-04    
-     -2 |          -9.22e-05 *** |          -8.38e-05    
-     -1 |          -5.37e-05 **  |          -1.67e-04    
-     +0 |          -6.08e-05     |          -9.99e-05    
-     +1 |          -6.72e-05     |          +1.74e-04    
-     +2 |          -2.82e-05     |          +1.81e-06    
-     +3 |          +8.41e-05 *** |          -5.93e-05    
-     +4 |                     -- |          +3.11e-04    
+     -3 |          -3.71e-05     |                     --
+     -2 |          -9.22e-05 *** |                     --
+     -1 |          -5.37e-05 **  |                     --
+     +0 |          -6.08e-05     |                     --
+     +1 |          -6.72e-05     |                     --
+     +2 |          -2.82e-05     |                     --
+     +3 |          +8.41e-05 *** |                     --
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
@@ -50,7 +48,7 @@ DEFINITIONS
    Tier: Very-low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=7  n_obs=53  n_days=3  K=3  params=15  df=38  median_SE=2.18e-05  sig(FDR)=3
-   event: n_active=7  n_obs=17  n_days=1  K=4  params=15  df=2  median_SE=2.44e-03  sig(FDR)=0
+   event: not estimable (insufficient data)
    => Very low info: even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)

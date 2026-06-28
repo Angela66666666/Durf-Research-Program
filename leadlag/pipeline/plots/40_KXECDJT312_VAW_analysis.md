@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 15 / 48
+PAIR ANALYSIS    —    Rank 19 / 48
 ================================================================================================
 KXECDJT312   x   VAW
 Contract : "Will Trump win 312-226 - swing state sweep?"
@@ -19,47 +19,42 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   Significant terms (BH-FDR) expanded:  yₜ = α + β₋₆·xₜ₊₆ + β₊₆·xₜ₋₆
-   where:
-      β₋₆ = +2.361e-04   (t/z=+3.11, p=1.9e-03, p_fdr=1.2e-02) **   [ETF leads]
-      β₊₆ = +8.944e-05   (t/z=+3.64, p=2.7e-04, p_fdr=3.5e-03) ***   [Kalshi leads]
-   Lean by count of significant lags: balanced/no clear side  (k>0:1, k<0:1).
+   -> 11 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -6 |                     -- |          +2.36e-04 ** 
-     -5 |          +9.52e-05     |          +2.47e-04    
-     -4 |          +6.64e-05     |          +1.11e-04    
-     -3 |          -4.02e-05     |          +1.59e-04    
-     -2 |          -5.69e-05     |          +1.93e-04    
-     -1 |          +5.29e-06     |          +1.30e-04    
-     +0 |          -7.77e-06     |          +1.35e-04    
-     +1 |          -3.08e-05     |          +3.42e-05    
-     +2 |          +3.85e-06     |          -6.37e-05    
-     +3 |          +1.85e-06     |          +3.07e-05    
-     +4 |          -3.73e-05     |          -3.79e-05    
-     +5 |          -6.94e-05     |          +5.55e-05    
-     +6 |                     -- |          +8.94e-05 ***
+     -5 |          +9.52e-05     |          -9.61e-05    
+     -4 |          +6.64e-05     |          -1.35e-04    
+     -3 |          -4.02e-05     |          +8.17e-05    
+     -2 |          -5.69e-05     |          -5.18e-04    
+     -1 |          +5.29e-06     |          -3.31e-04    
+     +0 |          -7.77e-06     |          -5.86e-04    
+     +1 |          -3.08e-05     |          -8.29e-04    
+     +2 |          +3.85e-06     |          -4.26e-04    
+     +3 |          +1.85e-06     |          -1.08e-03    
+     +4 |          -3.73e-05     |          -1.11e-03    
+     +5 |          -6.94e-05     |          +4.92e-06    
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: 11 lags tested, none significant after BH-FDR.
-   event: β₊₁=+1.39e-01***, β₊₂=-1.20e-01***, β₊₅=-1.92e-01***, β₊₆=+1.39e-01***
+   event: 11 lags tested, none significant after BH-FDR.
+   -> no significant directional predictability either mode (BH-FDR).
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=38  n_obs=169  n_days=10  K=5  params=26  df=143  median_SE=4.46e-05  sig(FDR)=0
-   event: n_active=34  n_obs=50  n_days=4  K=6  params=22  df=28  median_SE=7.58e-05  sig(FDR)=2
+   event: n_active=20  n_obs=26  n_days=3  K=5  params=19  df=7  median_SE=2.44e-03  sig(FDR)=0
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=34 df=17 K=5  sig=1 (Kalshi-leads 0 / ETF-leads 1) -> ETF-leads
     60min: n_obs=20 df=5 K=4  sig=5 (Kalshi-leads 1 / ETF-leads 4) -> ETF-leads
 
 7. VERDICT
-   Only one time-axis significant (balanced) -- weak / single-mode evidence.
+   No lead-lag detected -- too sparse / no significant structure.
 
 8. FIGURE CAVEATS — figures are still drawn, but know their problems
    - Low info (15<= active bars <40): direction is indicative but imprecise; do not over-interpret any single coefficient.

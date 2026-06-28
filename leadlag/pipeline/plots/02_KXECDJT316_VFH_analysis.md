@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 18 / 48
+PAIR ANALYSIS    —    Rank 15 / 48
 ================================================================================================
 KXECDJT316   x   VFH
 Contract : "Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"

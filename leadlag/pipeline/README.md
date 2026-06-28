@@ -23,14 +23,13 @@ Run order is at the bottom ("Dependencies & run order").
 | File | What it does | Output CSV |
 |---|---|---|
 | **`leadlag_calendar_time.py`** | **Calendar-time** axis: resample both series to fixed clock bars on a full regular-hours grid (quiet bars Δx=0); lag k = k×bar of real wall-clock time. Primary bar chosen by activity + full grid as robustness. | `leadlag_calendar_kalshi_etf.csv` |
-| **`leadlag_event_time.py`** | **Event-time** axis: nodes are Kalshi price-update events; lag k = k events earlier; y = forward log return (to next event / max W / capped at close). Runs in parallel with calendar. | `leadlag_event_kalshi_etf.csv` |
+| **`leadlag_event_time.py`** | **Event-time** axis: same unified construction as calendar (x=Δprob, y=ETF log return over the same pair of timepoints), but timepoints are only the bars where Kalshi traded (active events), so lag k = k events earlier. Runs in parallel with calendar; differs from it only in which timepoints count. | `leadlag_event_kalshi_etf.csv` |
 | **`leadlag_probit.py`** | **Direction test**: reduce "can Kalshi predict ETF" to up/down only. One probit per lag, `Pr(ETF↑)=Φ(α+β·Δprob_{t-k})`; β>0 significant at k>0 = Kalshi leads directionally. Calendar + event both. | `leadlag_probit_kalshi_etf.csv` |
 
 ## 3. Robustness / auxiliary
 
 | File | What it does | Output |
 |---|---|---|
-| **`leadlag_test2_unified.py`** | Robustness: re-run calendar/event under one unified causal construction, verifying conclusions do not depend on any look-ahead artifact. | `leadlag_test2_unified_kalshi_etf.csv` |
 | **`leadlag_coarse_freq.py`** | Coarse-frequency robustness: re-run calendar at 30min/60min bars for all 48 pairs, answering "did we just not try low frequency?". | `leadlag_coarse_freq.csv` |
 | **`leadlag_reliability.py`** | Judge each pair's reliability from statistics (effective N, residual df, median coefficient SE) into tiers (cannot-estimate / very-low / low / adequate), replacing the arbitrary trade-count cutoff. | `leadlag_reliability.csv` |
 
@@ -67,7 +66,6 @@ Run order is at the bottom ("Dependencies & run order").
 | `leadlag_classification.csv` | one row per pair (labels + lean) | 48 |
 | `leadlag_reliability.csv` | one row per pair (reliability tier) | 48 |
 | `leadlag_coarse_freq.csv` | pair × coarse frequency | — |
-| `leadlag_test2_unified_kalshi_etf.csv` | pair × mode × lag (robustness) | — |
 | `merge/leadlag_merged_*.csv` | super-signal group × ETF × … | (new) |
 
 ## 8. Dependencies & run order
@@ -81,7 +79,7 @@ leadlag_common.py  ← core imported by every script
         ├─ leadlag_calendar_time.py ─┐
         ├─ leadlag_event_time.py ────┤  three main analyses (can run in parallel)
         ├─ leadlag_probit.py ────────┘
-        ├─ leadlag_coarse_freq.py / leadlag_test2_unified.py  (robustness)
+        ├─ leadlag_coarse_freq.py  (robustness)
         │
         ▼
 leadlag_reliability.py        (reads calendar/event CSVs → assigns reliability tier)

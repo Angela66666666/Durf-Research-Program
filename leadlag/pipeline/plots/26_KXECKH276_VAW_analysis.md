@@ -23,20 +23,18 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 9 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -4 |                     -- |          +1.53e-04    
-     -3 |          +5.91e-05 **  |          -2.40e-04    
-     -2 |          +3.25e-05     |          -9.72e-05    
-     -1 |          +4.29e-05     |          -2.18e-04    
-     +0 |          -2.86e-05     |          -1.73e-04    
-     +1 |          -8.28e-05     |          +3.93e-04    
-     +2 |          +6.31e-06     |          +2.79e-04    
-     +3 |          +1.34e-04 *** |          +2.51e-04    
-     +4 |                     -- |          +1.19e-03    
+     -3 |          +5.91e-05 **  |                     --
+     -2 |          +3.25e-05     |                     --
+     -1 |          +4.29e-05     |                     --
+     +0 |          -2.86e-05     |                     --
+     +1 |          -8.28e-05     |                     --
+     +2 |          +6.31e-06     |                     --
+     +3 |          +1.34e-04 *** |                     --
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
@@ -49,7 +47,7 @@ DEFINITIONS
    Tier: Very-low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=7  n_obs=53  n_days=3  K=3  params=15  df=38  median_SE=6.11e-05  sig(FDR)=2
-   event: n_active=7  n_obs=17  n_days=1  K=4  params=15  df=2  median_SE=2.81e-03  sig(FDR)=0
+   event: not estimable (insufficient data)
    => Very low info: even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)

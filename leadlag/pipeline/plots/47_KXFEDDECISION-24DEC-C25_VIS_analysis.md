@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 21 / 48
+PAIR ANALYSIS    —    Rank 18 / 48
 ================================================================================================
 KXFEDDECISION-24DEC-C25   x   VIS
 Contract : "Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?"
@@ -19,32 +19,28 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 21 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> 17 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-    -10 |                     -- |          +1.17e-05    
-     -9 |                     -- |          +2.30e-05    
-     -8 |          -7.35e-06     |          +9.60e-06    
-     -7 |          +2.43e-05     |          +1.14e-05    
-     -6 |          +2.30e-06     |          -1.58e-06    
-     -5 |          +1.49e-05     |          -2.24e-05    
-     -4 |          +7.77e-06     |          -2.10e-05    
-     -3 |          +1.93e-05     |          -3.49e-05    
-     -2 |          -1.23e-06     |          +1.32e-06    
-     -1 |          -2.26e-05     |          +2.31e-06    
-     +0 |          +3.21e-06     |          +1.60e-05    
-     +1 |          +1.19e-05     |          +4.29e-06    
-     +2 |          +1.44e-05     |          +3.35e-05    
-     +3 |          -1.37e-06     |          +3.53e-05    
-     +4 |          +3.07e-06     |          +2.45e-05    
-     +5 |          -5.14e-06     |          -5.54e-06    
-     +6 |          +5.58e-07     |          -6.31e-06    
-     +7 |          -5.40e-06     |          -1.07e-05    
-     +8 |          +7.51e-06     |          -1.22e-05    
-     +9 |                     -- |          +3.04e-06    
-    +10 |                     -- |          -3.75e-06    
+     -8 |          -7.35e-06     |          -6.47e-05    
+     -7 |          +2.43e-05     |          +1.95e-05    
+     -6 |          +2.30e-06     |          +6.51e-05    
+     -5 |          +1.49e-05     |          -5.23e-05    
+     -4 |          +7.77e-06     |          -4.71e-05    
+     -3 |          +1.93e-05     |          -1.02e-04    
+     -2 |          -1.23e-06     |          -3.73e-05    
+     -1 |          -2.26e-05     |          -4.13e-05    
+     +0 |          +3.21e-06     |          +6.52e-05    
+     +1 |          +1.19e-05     |          +5.26e-05    
+     +2 |          +1.44e-05     |          -4.32e-06    
+     +3 |          -1.37e-06     |          -8.76e-06    
+     +4 |          +3.07e-06     |          -5.64e-05    
+     +5 |          -5.14e-06     |          -4.32e-05    
+     +6 |          +5.58e-07     |          -2.11e-05    
+     +7 |          -5.40e-06     |          +3.51e-05    
+     +8 |          +7.51e-06     |          -3.28e-05    
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
@@ -57,7 +53,7 @@ DEFINITIONS
    Tier: Adequate
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=362  n_obs=1879  n_days=33  K=8  params=55  df=1824  median_SE=9.30e-06  sig(FDR)=0
-   event: n_active=323  n_obs=597  n_days=23  K=10  params=49  df=548  median_SE=2.12e-05  sig(FDR)=0
+   event: n_active=195  n_obs=326  n_days=23  K=8  params=45  df=281  median_SE=6.40e-05  sig(FDR)=0
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=288 df=240 K=8  sig=0 (Kalshi-leads 0 / ETF-leads 0) -> No-sig

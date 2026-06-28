@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 23 / 48
+PAIR ANALYSIS    —    Rank 22 / 48
 ================================================================================================
 FEDDECISION-24NOV-H0   x   VNQ
 Contract : "Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?"
@@ -42,7 +42,7 @@ DEFINITIONS
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: 13 lags tested, none significant after BH-FDR.
-   event: 17 lags tested, none significant after BH-FDR.
+   event: 13 lags tested, none significant after BH-FDR.
    -> no significant directional predictability either mode (BH-FDR).
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)

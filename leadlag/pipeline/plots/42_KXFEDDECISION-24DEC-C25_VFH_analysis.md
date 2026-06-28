@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 22 / 48
+PAIR ANALYSIS    —    Rank 20 / 48
 ================================================================================================
 KXFEDDECISION-24DEC-C25   x   VFH
 Contract : "Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?"
@@ -19,45 +19,40 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 21 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> 17 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-    -10 |                     -- |          +2.07e-05    
-     -9 |                     -- |          +4.83e-05    
-     -8 |          +9.54e-06     |          +4.56e-05    
-     -7 |          +3.52e-05     |          +8.45e-06    
-     -6 |          +9.16e-06     |          +2.27e-05    
-     -5 |          +1.42e-05     |          -9.26e-06    
-     -4 |          -6.13e-06     |          -9.29e-06    
-     -3 |          +1.59e-05     |          -9.32e-06    
-     -2 |          -2.17e-05     |          +5.35e-06    
-     -1 |          -1.68e-05     |          +2.67e-05    
-     +0 |          +1.14e-05     |          +2.78e-05    
-     +1 |          +2.51e-05     |          +2.40e-05    
-     +2 |          -4.16e-06     |          +3.56e-05    
-     +3 |          -2.21e-07     |          +4.22e-05    
-     +4 |          +5.25e-06     |          +4.34e-05    
-     +5 |          +7.40e-06     |          -1.42e-05    
-     +6 |          -1.11e-05     |          -1.24e-05    
-     +7 |          -1.91e-05     |          -7.64e-06    
-     +8 |          -7.19e-07     |          -1.49e-06    
-     +9 |                     -- |          +1.58e-05    
-    +10 |                     -- |          +1.31e-05    
+     -8 |          +9.54e-06     |          -4.27e-05    
+     -7 |          +3.52e-05     |          +9.26e-05    
+     -6 |          +9.16e-06     |          +7.96e-05    
+     -5 |          +1.42e-05     |          +4.64e-05    
+     -4 |          -6.13e-06     |          +4.03e-05    
+     -3 |          +1.59e-05     |          -7.20e-05    
+     -2 |          -2.17e-05     |          -7.42e-05    
+     -1 |          -1.68e-05     |          -6.50e-05    
+     +0 |          +1.14e-05     |          +8.80e-05    
+     +1 |          +2.51e-05     |          +1.12e-04    
+     +2 |          -4.16e-06     |          -3.23e-05    
+     +3 |          -2.21e-07     |          +4.61e-05    
+     +4 |          +5.25e-06     |          -6.55e-07    
+     +5 |          +7.40e-06     |          -6.60e-05    
+     +6 |          -1.11e-05     |          -3.40e-05    
+     +7 |          -1.91e-05     |          +2.40e-05    
+     +8 |          -7.19e-07     |          -6.36e-05    
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: 21 lags tested, none significant after BH-FDR.
-   event: 21 lags tested, none significant after BH-FDR.
-   -> no significant directional predictability either mode (BH-FDR).
+   event: β₊₅=-1.21e-01***
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Adequate
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=362  n_obs=1879  n_days=33  K=8  params=55  df=1824  median_SE=1.14e-05  sig(FDR)=0
-   event: n_active=323  n_obs=597  n_days=23  K=10  params=49  df=548  median_SE=2.78e-05  sig(FDR)=0
+   event: n_active=195  n_obs=326  n_days=23  K=8  params=45  df=281  median_SE=6.64e-05  sig(FDR)=0
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=288 df=240 K=8  sig=0 (Kalshi-leads 0 / ETF-leads 0) -> No-sig

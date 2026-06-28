@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 20 / 48
+PAIR ANALYSIS    —    Rank 24 / 48
 ================================================================================================
 FEDDECISION-24SEP-C25   x   VDC
 Contract : "Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?"
@@ -19,44 +19,40 @@ DEFINITIONS
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   -> 21 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
+   -> 17 coefficients tested, NONE significant after BH-FDR (p_fdr<0.05).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-    -10 |                     -- |          +1.66e-05    
-     -9 |                     -- |          +1.57e-05    
-     -8 |          -7.68e-06     |          +3.06e-05    
-     -7 |          -7.61e-06     |          -2.17e-06    
-     -6 |          -1.52e-05     |          +3.35e-05    
-     -5 |          +1.18e-05     |          +1.40e-05    
-     -4 |          +1.76e-06     |          +2.23e-05    
-     -3 |          +1.38e-05     |          +5.22e-06    
-     -2 |          -3.60e-06     |          -3.13e-05    
-     -1 |          -6.39e-06     |          -4.46e-05    
-     +0 |          -5.49e-06     |          -4.08e-05    
-     +1 |          +8.06e-06     |          +1.08e-05    
-     +2 |          -1.19e-05     |          -2.71e-06    
-     +3 |          +2.11e-05     |          -5.82e-06    
-     +4 |          -1.15e-05     |          -1.17e-05    
-     +5 |          -1.44e-05     |          -2.94e-05    
-     +6 |          +7.25e-06     |          -1.07e-06    
-     +7 |          +1.32e-05     |          +7.57e-06    
-     +8 |          -8.72e-07     |          -1.35e-06    
-     +9 |                     -- |          +1.39e-05    
-    +10 |                     -- |          -2.02e-05    
+     -8 |          -7.68e-06     |          +4.12e-05    
+     -7 |          -7.61e-06     |          -1.84e-05    
+     -6 |          -1.52e-05     |          +3.70e-05    
+     -5 |          +1.18e-05     |          -1.87e-05    
+     -4 |          +1.76e-06     |          +4.05e-05    
+     -3 |          +1.38e-05     |          +8.70e-05    
+     -2 |          -3.60e-06     |          +1.06e-04    
+     -1 |          -6.39e-06     |          -6.18e-05    
+     +0 |          -5.49e-06     |          -1.03e-05    
+     +1 |          +8.06e-06     |          +2.10e-05    
+     +2 |          -1.19e-05     |          -1.19e-05    
+     +3 |          +2.11e-05     |          -2.41e-05    
+     +4 |          -1.15e-05     |          +1.25e-05    
+     +5 |          -1.44e-05     |          +3.51e-05    
+     +6 |          +7.25e-06     |          +9.02e-06    
+     +7 |          +1.32e-05     |          -2.71e-05    
+     +8 |          -8.72e-07     |          +1.15e-05    
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: β₊₅=+2.24e-01**
-   event: 21 lags tested, none significant after BH-FDR.
+   event: β₋₅=-9.29e-02***
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Adequate
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
    calendar(full RTH grid): n_active=270  n_obs=1829  n_days=11  K=8  params=33  df=1796  median_SE=9.63e-06  sig(FDR)=0
-   event: n_active=272  n_obs=497  n_days=7  K=10  params=33  df=464  median_SE=1.62e-05  sig(FDR)=0
+   event: n_active=205  n_obs=316  n_days=8  K=8  params=30  df=286  median_SE=2.94e-05  sig(FDR)=0
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=90 df=66 K=6  sig=0 (Kalshi-leads 0 / ETF-leads 0) -> No-sig

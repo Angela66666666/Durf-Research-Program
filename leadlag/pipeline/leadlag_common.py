@@ -265,13 +265,11 @@ def build_unified_xy(kalshi: pd.DataFrame, etf_tk: pd.DataFrame, freq: str):
     al = pd.concat(frames, ignore_index=True)
     al_cal = al.dropna(subset=["dprob", "etfret"]).copy()
 
-    def per_day(g):
-        g = g.sort_values("ts_et")
-        g["dprob_e"]  = g["prob"].diff()
-        g["etfret_e"] = np.log(g["mid"]).diff()
-        return g
-    act = (al[al["active"]].groupby("date", group_keys=False).apply(per_day)
-             .dropna(subset=["dprob_e", "etfret_e"]).copy())
+    # 活跃事件子序列：同日内相邻事件的 Δprob / ETF log return（向量化，不跨隔夜）
+    act = al[al["active"]].sort_values(["date", "ts_et"]).copy()
+    act["dprob_e"]  = act.groupby("date")["prob"].diff()
+    act["etfret_e"] = np.log(act["mid"]) - np.log(act.groupby("date")["mid"].shift(1))
+    act = act.dropna(subset=["dprob_e", "etfret_e"]).copy()
     return al_cal, act
 
 
