@@ -1,6 +1,6 @@
 # Lead-Lag Report — Kalshi prediction markets × Vanguard sector ETFs
 
-_This Markdown mirrors `leadlag_pairs_report.pdf` in the same order: overview, then 48 ranked pairs (each: text analysis + figures), then 4 merged super-signals. Figures are the very PNGs the PDF embeds; text blocks are the same `.md` sources._
+_This Markdown mirrors `leadlag_pairs_report.pdf` in the same order: overview, then 48 ranked single pairs (each: text analysis + figures). Merged super-signals live in their own report (`leadlag_merge_report.md`). Figures are the very PNGs the PDF embeds; text blocks are the same `.md` sources._
 
 **Ranking order:** has_result → n_trades → n_sig (raw p<0.15) → best_p.  **Per-pair significance:** raw p<0.15.  **ADL ETF self-lags:** chosen per pair by BIC.
 
@@ -361,6 +361,7 @@ Figures for this pair follow on the next page.
 ![42_KXFEDDECISION-24DEC-C25_VFH timeseries](plots/42_KXFEDDECISION-24DEC-C25_VFH_timeseries.png)
 ![42_KXFEDDECISION-24DEC-C25_VFH zoom2](plots/42_KXFEDDECISION-24DEC-C25_VFH_zoom2.png)
 ![42_KXFEDDECISION-24DEC-C25_VFH leadglance](plots/42_KXFEDDECISION-24DEC-C25_VFH_leadglance.png)
+![42_KXFEDDECISION-24DEC-C25_VFH leadzoom](plots/42_KXFEDDECISION-24DEC-C25_VFH_leadzoom.png)
 ![42_KXFEDDECISION-24DEC-C25_VFH event](plots/42_KXFEDDECISION-24DEC-C25_VFH_event.png)
 ![42_KXFEDDECISION-24DEC-C25_VFH lagcoef](plots/42_KXFEDDECISION-24DEC-C25_VFH_lagcoef.png)
 
@@ -459,6 +460,7 @@ Figures for this pair follow on the next page.
 ![47_KXFEDDECISION-24DEC-C25_VIS timeseries](plots/47_KXFEDDECISION-24DEC-C25_VIS_timeseries.png)
 ![47_KXFEDDECISION-24DEC-C25_VIS zoom2](plots/47_KXFEDDECISION-24DEC-C25_VIS_zoom2.png)
 ![47_KXFEDDECISION-24DEC-C25_VIS leadglance](plots/47_KXFEDDECISION-24DEC-C25_VIS_leadglance.png)
+![47_KXFEDDECISION-24DEC-C25_VIS leadzoom](plots/47_KXFEDDECISION-24DEC-C25_VIS_leadzoom.png)
 ![47_KXFEDDECISION-24DEC-C25_VIS event](plots/47_KXFEDDECISION-24DEC-C25_VIS_event.png)
 ![47_KXFEDDECISION-24DEC-C25_VIS lagcoef](plots/47_KXFEDDECISION-24DEC-C25_VIS_lagcoef.png)
 
@@ -559,6 +561,7 @@ Figures for this pair follow on the next page.
 ![48_KXFEDDECISION-24DEC-H0_VGT timeseries](plots/48_KXFEDDECISION-24DEC-H0_VGT_timeseries.png)
 ![48_KXFEDDECISION-24DEC-H0_VGT zoom2](plots/48_KXFEDDECISION-24DEC-H0_VGT_zoom2.png)
 ![48_KXFEDDECISION-24DEC-H0_VGT leadglance](plots/48_KXFEDDECISION-24DEC-H0_VGT_leadglance.png)
+![48_KXFEDDECISION-24DEC-H0_VGT leadzoom](plots/48_KXFEDDECISION-24DEC-H0_VGT_leadzoom.png)
 ![48_KXFEDDECISION-24DEC-H0_VGT event](plots/48_KXFEDDECISION-24DEC-H0_VGT_event.png)
 ![48_KXFEDDECISION-24DEC-H0_VGT lagcoef](plots/48_KXFEDDECISION-24DEC-H0_VGT_lagcoef.png)
 
@@ -664,6 +667,7 @@ Figures for this pair follow on the next page.
 ![31_FEDDECISION-24SEP-C25_VPU timeseries](plots/31_FEDDECISION-24SEP-C25_VPU_timeseries.png)
 ![31_FEDDECISION-24SEP-C25_VPU zoom2](plots/31_FEDDECISION-24SEP-C25_VPU_zoom2.png)
 ![31_FEDDECISION-24SEP-C25_VPU leadglance](plots/31_FEDDECISION-24SEP-C25_VPU_leadglance.png)
+![31_FEDDECISION-24SEP-C25_VPU leadzoom](plots/31_FEDDECISION-24SEP-C25_VPU_leadzoom.png)
 ![31_FEDDECISION-24SEP-C25_VPU event](plots/31_FEDDECISION-24SEP-C25_VPU_event.png)
 ![31_FEDDECISION-24SEP-C25_VPU lagcoef](plots/31_FEDDECISION-24SEP-C25_VPU_lagcoef.png)
 
@@ -768,6 +772,7 @@ Figures for this pair follow on the next page.
 ![30_FEDDECISION-24SEP-C25_VOX timeseries](plots/30_FEDDECISION-24SEP-C25_VOX_timeseries.png)
 ![30_FEDDECISION-24SEP-C25_VOX zoom2](plots/30_FEDDECISION-24SEP-C25_VOX_zoom2.png)
 ![30_FEDDECISION-24SEP-C25_VOX leadglance](plots/30_FEDDECISION-24SEP-C25_VOX_leadglance.png)
+![30_FEDDECISION-24SEP-C25_VOX leadzoom](plots/30_FEDDECISION-24SEP-C25_VOX_leadzoom.png)
 ![30_FEDDECISION-24SEP-C25_VOX event](plots/30_FEDDECISION-24SEP-C25_VOX_event.png)
 ![30_FEDDECISION-24SEP-C25_VOX lagcoef](plots/30_FEDDECISION-24SEP-C25_VOX_lagcoef.png)
 
@@ -870,6 +875,7 @@ Figures for this pair follow on the next page.
 ![09_FEDDECISION-24SEP-C25_VDC timeseries](plots/09_FEDDECISION-24SEP-C25_VDC_timeseries.png)
 ![09_FEDDECISION-24SEP-C25_VDC zoom2](plots/09_FEDDECISION-24SEP-C25_VDC_zoom2.png)
 ![09_FEDDECISION-24SEP-C25_VDC leadglance](plots/09_FEDDECISION-24SEP-C25_VDC_leadglance.png)
+![09_FEDDECISION-24SEP-C25_VDC leadzoom](plots/09_FEDDECISION-24SEP-C25_VDC_leadzoom.png)
 ![09_FEDDECISION-24SEP-C25_VDC event](plots/09_FEDDECISION-24SEP-C25_VDC_event.png)
 ![09_FEDDECISION-24SEP-C25_VDC lagcoef](plots/09_FEDDECISION-24SEP-C25_VDC_lagcoef.png)
 
@@ -956,6 +962,7 @@ Figures for this pair follow on the next page.
 ![46_FEDDECISION-24NOV-H0_VNQ timeseries](plots/46_FEDDECISION-24NOV-H0_VNQ_timeseries.png)
 ![46_FEDDECISION-24NOV-H0_VNQ zoom2](plots/46_FEDDECISION-24NOV-H0_VNQ_zoom2.png)
 ![46_FEDDECISION-24NOV-H0_VNQ leadglance](plots/46_FEDDECISION-24NOV-H0_VNQ_leadglance.png)
+![46_FEDDECISION-24NOV-H0_VNQ leadzoom](plots/46_FEDDECISION-24NOV-H0_VNQ_leadzoom.png)
 ![46_FEDDECISION-24NOV-H0_VNQ event](plots/46_FEDDECISION-24NOV-H0_VNQ_event.png)
 ![46_FEDDECISION-24NOV-H0_VNQ lagcoef](plots/46_FEDDECISION-24NOV-H0_VNQ_lagcoef.png)
 
@@ -1042,6 +1049,7 @@ Figures for this pair follow on the next page.
 ![45_FEDDECISION-24NOV-H0_VDE timeseries](plots/45_FEDDECISION-24NOV-H0_VDE_timeseries.png)
 ![45_FEDDECISION-24NOV-H0_VDE zoom2](plots/45_FEDDECISION-24NOV-H0_VDE_zoom2.png)
 ![45_FEDDECISION-24NOV-H0_VDE leadglance](plots/45_FEDDECISION-24NOV-H0_VDE_leadglance.png)
+![45_FEDDECISION-24NOV-H0_VDE leadzoom](plots/45_FEDDECISION-24NOV-H0_VDE_leadzoom.png)
 ![45_FEDDECISION-24NOV-H0_VDE event](plots/45_FEDDECISION-24NOV-H0_VDE_event.png)
 ![45_FEDDECISION-24NOV-H0_VDE lagcoef](plots/45_FEDDECISION-24NOV-H0_VDE_lagcoef.png)
 
@@ -1142,6 +1150,7 @@ Figures for this pair follow on the next page.
 ![29_KXECDJT281_VNQ timeseries](plots/29_KXECDJT281_VNQ_timeseries.png)
 ![29_KXECDJT281_VNQ zoom2](plots/29_KXECDJT281_VNQ_zoom2.png)
 ![29_KXECDJT281_VNQ leadglance](plots/29_KXECDJT281_VNQ_leadglance.png)
+![29_KXECDJT281_VNQ leadzoom](plots/29_KXECDJT281_VNQ_leadzoom.png)
 ![29_KXECDJT281_VNQ event](plots/29_KXECDJT281_VNQ_event.png)
 ![29_KXECDJT281_VNQ lagcoef](plots/29_KXECDJT281_VNQ_lagcoef.png)
 
@@ -1238,6 +1247,7 @@ Figures for this pair follow on the next page.
 ![36_KXECDJT281_VOX timeseries](plots/36_KXECDJT281_VOX_timeseries.png)
 ![36_KXECDJT281_VOX zoom2](plots/36_KXECDJT281_VOX_zoom2.png)
 ![36_KXECDJT281_VOX leadglance](plots/36_KXECDJT281_VOX_leadglance.png)
+![36_KXECDJT281_VOX leadzoom](plots/36_KXECDJT281_VOX_leadzoom.png)
 ![36_KXECDJT281_VOX event](plots/36_KXECDJT281_VOX_event.png)
 ![36_KXECDJT281_VOX lagcoef](plots/36_KXECDJT281_VOX_lagcoef.png)
 
@@ -1335,6 +1345,7 @@ Figures for this pair follow on the next page.
 ![39_KXECDJT281_VGT timeseries](plots/39_KXECDJT281_VGT_timeseries.png)
 ![39_KXECDJT281_VGT zoom2](plots/39_KXECDJT281_VGT_zoom2.png)
 ![39_KXECDJT281_VGT leadglance](plots/39_KXECDJT281_VGT_leadglance.png)
+![39_KXECDJT281_VGT leadzoom](plots/39_KXECDJT281_VGT_leadzoom.png)
 ![39_KXECDJT281_VGT event](plots/39_KXECDJT281_VGT_event.png)
 ![39_KXECDJT281_VGT lagcoef](plots/39_KXECDJT281_VGT_lagcoef.png)
 
@@ -1430,6 +1441,7 @@ Figures for this pair follow on the next page.
 ![41_KXECDJT281_VCR timeseries](plots/41_KXECDJT281_VCR_timeseries.png)
 ![41_KXECDJT281_VCR zoom2](plots/41_KXECDJT281_VCR_zoom2.png)
 ![41_KXECDJT281_VCR leadglance](plots/41_KXECDJT281_VCR_leadglance.png)
+![41_KXECDJT281_VCR leadzoom](plots/41_KXECDJT281_VCR_leadzoom.png)
 ![41_KXECDJT281_VCR event](plots/41_KXECDJT281_VCR_event.png)
 ![41_KXECDJT281_VCR lagcoef](plots/41_KXECDJT281_VCR_lagcoef.png)
 
@@ -1524,6 +1536,7 @@ Figures for this pair follow on the next page.
 ![40_KXECDJT312_VAW timeseries](plots/40_KXECDJT312_VAW_timeseries.png)
 ![40_KXECDJT312_VAW zoom2](plots/40_KXECDJT312_VAW_zoom2.png)
 ![40_KXECDJT312_VAW leadglance](plots/40_KXECDJT312_VAW_leadglance.png)
+![40_KXECDJT312_VAW leadzoom](plots/40_KXECDJT312_VAW_leadzoom.png)
 ![40_KXECDJT312_VAW event](plots/40_KXECDJT312_VAW_event.png)
 ![40_KXECDJT312_VAW lagcoef](plots/40_KXECDJT312_VAW_lagcoef.png)
 
@@ -1616,6 +1629,7 @@ Figures for this pair follow on the next page.
 ![37_KXECDJT306_VDC timeseries](plots/37_KXECDJT306_VDC_timeseries.png)
 ![37_KXECDJT306_VDC zoom2](plots/37_KXECDJT306_VDC_zoom2.png)
 ![37_KXECDJT306_VDC leadglance](plots/37_KXECDJT306_VDC_leadglance.png)
+![37_KXECDJT306_VDC leadzoom](plots/37_KXECDJT306_VDC_leadzoom.png)
 ![37_KXECDJT306_VDC event](plots/37_KXECDJT306_VDC_event.png)
 ![37_KXECDJT306_VDC lagcoef](plots/37_KXECDJT306_VDC_lagcoef.png)
 
@@ -1708,6 +1722,7 @@ Figures for this pair follow on the next page.
 ![20_KXECDJT316_VIS timeseries](plots/20_KXECDJT316_VIS_timeseries.png)
 ![20_KXECDJT316_VIS zoom2](plots/20_KXECDJT316_VIS_zoom2.png)
 ![20_KXECDJT316_VIS leadglance](plots/20_KXECDJT316_VIS_leadglance.png)
+![20_KXECDJT316_VIS leadzoom](plots/20_KXECDJT316_VIS_leadzoom.png)
 ![20_KXECDJT316_VIS event](plots/20_KXECDJT316_VIS_event.png)
 ![20_KXECDJT316_VIS lagcoef](plots/20_KXECDJT316_VIS_lagcoef.png)
 
@@ -1799,6 +1814,7 @@ Figures for this pair follow on the next page.
 ![02_KXECDJT316_VFH timeseries](plots/02_KXECDJT316_VFH_timeseries.png)
 ![02_KXECDJT316_VFH zoom2](plots/02_KXECDJT316_VFH_zoom2.png)
 ![02_KXECDJT316_VFH leadglance](plots/02_KXECDJT316_VFH_leadglance.png)
+![02_KXECDJT316_VFH leadzoom](plots/02_KXECDJT316_VFH_leadzoom.png)
 ![02_KXECDJT316_VFH event](plots/02_KXECDJT316_VFH_event.png)
 ![02_KXECDJT316_VFH lagcoef](plots/02_KXECDJT316_VFH_lagcoef.png)
 
@@ -1887,6 +1903,7 @@ Figures for this pair follow on the next page.
 ![21_KXECDJT316_VDE timeseries](plots/21_KXECDJT316_VDE_timeseries.png)
 ![21_KXECDJT316_VDE zoom2](plots/21_KXECDJT316_VDE_zoom2.png)
 ![21_KXECDJT316_VDE leadglance](plots/21_KXECDJT316_VDE_leadglance.png)
+![21_KXECDJT316_VDE leadzoom](plots/21_KXECDJT316_VDE_leadzoom.png)
 ![21_KXECDJT316_VDE event](plots/21_KXECDJT316_VDE_event.png)
 ![21_KXECDJT316_VDE lagcoef](plots/21_KXECDJT316_VDE_lagcoef.png)
 
@@ -1990,6 +2007,7 @@ Figures for this pair follow on the next page.
 ![14_KXECKH276_VOX timeseries](plots/14_KXECKH276_VOX_timeseries.png)
 ![14_KXECKH276_VOX zoom2](plots/14_KXECKH276_VOX_zoom2.png)
 ![14_KXECKH276_VOX leadglance](plots/14_KXECKH276_VOX_leadglance.png)
+![14_KXECKH276_VOX leadzoom](plots/14_KXECKH276_VOX_leadzoom.png)
 ![14_KXECKH276_VOX event](plots/14_KXECKH276_VOX_event.png)
 ![14_KXECKH276_VOX lagcoef](plots/14_KXECKH276_VOX_lagcoef.png)
 
@@ -2087,6 +2105,7 @@ Figures for this pair follow on the next page.
 ![01_KXECKH276_VFH timeseries](plots/01_KXECKH276_VFH_timeseries.png)
 ![01_KXECKH276_VFH zoom2](plots/01_KXECKH276_VFH_zoom2.png)
 ![01_KXECKH276_VFH leadglance](plots/01_KXECKH276_VFH_leadglance.png)
+![01_KXECKH276_VFH leadzoom](plots/01_KXECKH276_VFH_leadzoom.png)
 ![01_KXECKH276_VFH event](plots/01_KXECKH276_VFH_event.png)
 ![01_KXECKH276_VFH lagcoef](plots/01_KXECKH276_VFH_lagcoef.png)
 
@@ -2184,6 +2203,7 @@ Figures for this pair follow on the next page.
 ![15_KXECKH276_VGT timeseries](plots/15_KXECKH276_VGT_timeseries.png)
 ![15_KXECKH276_VGT zoom2](plots/15_KXECKH276_VGT_zoom2.png)
 ![15_KXECKH276_VGT leadglance](plots/15_KXECKH276_VGT_leadglance.png)
+![15_KXECKH276_VGT leadzoom](plots/15_KXECKH276_VGT_leadzoom.png)
 ![15_KXECKH276_VGT event](plots/15_KXECKH276_VGT_event.png)
 ![15_KXECKH276_VGT lagcoef](plots/15_KXECKH276_VGT_lagcoef.png)
 
@@ -2281,6 +2301,7 @@ Figures for this pair follow on the next page.
 ![18_KXECKH276_VDC timeseries](plots/18_KXECKH276_VDC_timeseries.png)
 ![18_KXECKH276_VDC zoom2](plots/18_KXECKH276_VDC_zoom2.png)
 ![18_KXECKH276_VDC leadglance](plots/18_KXECKH276_VDC_leadglance.png)
+![18_KXECKH276_VDC leadzoom](plots/18_KXECKH276_VDC_leadzoom.png)
 ![18_KXECKH276_VDC event](plots/18_KXECKH276_VDC_event.png)
 ![18_KXECKH276_VDC lagcoef](plots/18_KXECKH276_VDC_lagcoef.png)
 
@@ -2377,6 +2398,7 @@ Figures for this pair follow on the next page.
 ![03_KXECKH276_VIS timeseries](plots/03_KXECKH276_VIS_timeseries.png)
 ![03_KXECKH276_VIS zoom2](plots/03_KXECKH276_VIS_zoom2.png)
 ![03_KXECKH276_VIS leadglance](plots/03_KXECKH276_VIS_leadglance.png)
+![03_KXECKH276_VIS leadzoom](plots/03_KXECKH276_VIS_leadzoom.png)
 ![03_KXECKH276_VIS event](plots/03_KXECKH276_VIS_event.png)
 ![03_KXECKH276_VIS lagcoef](plots/03_KXECKH276_VIS_lagcoef.png)
 
@@ -2473,6 +2495,7 @@ Figures for this pair follow on the next page.
 ![08_KXECKH276_VCR timeseries](plots/08_KXECKH276_VCR_timeseries.png)
 ![08_KXECKH276_VCR zoom2](plots/08_KXECKH276_VCR_zoom2.png)
 ![08_KXECKH276_VCR leadglance](plots/08_KXECKH276_VCR_leadglance.png)
+![08_KXECKH276_VCR leadzoom](plots/08_KXECKH276_VCR_leadzoom.png)
 ![08_KXECKH276_VCR event](plots/08_KXECKH276_VCR_event.png)
 ![08_KXECKH276_VCR lagcoef](plots/08_KXECKH276_VCR_lagcoef.png)
 
@@ -2565,6 +2588,7 @@ Figures for this pair follow on the next page.
 ![26_KXECKH276_VAW timeseries](plots/26_KXECKH276_VAW_timeseries.png)
 ![26_KXECKH276_VAW zoom2](plots/26_KXECKH276_VAW_zoom2.png)
 ![26_KXECKH276_VAW leadglance](plots/26_KXECKH276_VAW_leadglance.png)
+![26_KXECKH276_VAW leadzoom](plots/26_KXECKH276_VAW_leadzoom.png)
 ![26_KXECKH276_VAW event](plots/26_KXECKH276_VAW_event.png)
 ![26_KXECKH276_VAW lagcoef](plots/26_KXECKH276_VAW_lagcoef.png)
 
@@ -2655,6 +2679,7 @@ Figures for this pair follow on the next page.
 ![10_KXECKH276_VDE timeseries](plots/10_KXECKH276_VDE_timeseries.png)
 ![10_KXECKH276_VDE zoom2](plots/10_KXECKH276_VDE_zoom2.png)
 ![10_KXECKH276_VDE leadglance](plots/10_KXECKH276_VDE_leadglance.png)
+![10_KXECKH276_VDE leadzoom](plots/10_KXECKH276_VDE_leadzoom.png)
 ![10_KXECKH276_VDE event](plots/10_KXECKH276_VDE_event.png)
 ![10_KXECKH276_VDE lagcoef](plots/10_KXECKH276_VDE_lagcoef.png)
 
@@ -2724,6 +2749,7 @@ Figures for this pair follow on the next page.
 ![33_KX538APPROVEMIN-24NOV30-T37_VFH timeseries](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_timeseries.png)
 ![33_KX538APPROVEMIN-24NOV30-T37_VFH zoom2](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_zoom2.png)
 ![33_KX538APPROVEMIN-24NOV30-T37_VFH leadglance](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_leadglance.png)
+![33_KX538APPROVEMIN-24NOV30-T37_VFH leadzoom](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_leadzoom.png)
 ![33_KX538APPROVEMIN-24NOV30-T37_VFH event](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_event.png)
 ![33_KX538APPROVEMIN-24NOV30-T37_VFH lagcoef](plots/33_KX538APPROVEMIN-24NOV30-T37_VFH_lagcoef.png)
 
@@ -2793,6 +2819,7 @@ Figures for this pair follow on the next page.
 ![38_KX538APPROVEMIN-24NOV30-T37_VNQ timeseries](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_timeseries.png)
 ![38_KX538APPROVEMIN-24NOV30-T37_VNQ zoom2](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_zoom2.png)
 ![38_KX538APPROVEMIN-24NOV30-T37_VNQ leadglance](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_leadglance.png)
+![38_KX538APPROVEMIN-24NOV30-T37_VNQ leadzoom](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_leadzoom.png)
 ![38_KX538APPROVEMIN-24NOV30-T37_VNQ event](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_event.png)
 ![38_KX538APPROVEMIN-24NOV30-T37_VNQ lagcoef](plots/38_KX538APPROVEMIN-24NOV30-T37_VNQ_lagcoef.png)
 
@@ -2862,6 +2889,7 @@ Figures for this pair follow on the next page.
 ![06_RATECUT-24SEP18_VCR timeseries](plots/06_RATECUT-24SEP18_VCR_timeseries.png)
 ![06_RATECUT-24SEP18_VCR zoom2](plots/06_RATECUT-24SEP18_VCR_zoom2.png)
 ![06_RATECUT-24SEP18_VCR leadglance](plots/06_RATECUT-24SEP18_VCR_leadglance.png)
+![06_RATECUT-24SEP18_VCR leadzoom](plots/06_RATECUT-24SEP18_VCR_leadzoom.png)
 ![06_RATECUT-24SEP18_VCR event](plots/06_RATECUT-24SEP18_VCR_event.png)
 ![06_RATECUT-24SEP18_VCR lagcoef](plots/06_RATECUT-24SEP18_VCR_lagcoef.png)
 
@@ -2931,6 +2959,7 @@ Figures for this pair follow on the next page.
 ![24_RATECUT-24SEP18_VOX timeseries](plots/24_RATECUT-24SEP18_VOX_timeseries.png)
 ![24_RATECUT-24SEP18_VOX zoom2](plots/24_RATECUT-24SEP18_VOX_zoom2.png)
 ![24_RATECUT-24SEP18_VOX leadglance](plots/24_RATECUT-24SEP18_VOX_leadglance.png)
+![24_RATECUT-24SEP18_VOX leadzoom](plots/24_RATECUT-24SEP18_VOX_leadzoom.png)
 ![24_RATECUT-24SEP18_VOX event](plots/24_RATECUT-24SEP18_VOX_event.png)
 ![24_RATECUT-24SEP18_VOX lagcoef](plots/24_RATECUT-24SEP18_VOX_lagcoef.png)
 
@@ -3000,6 +3029,7 @@ Figures for this pair follow on the next page.
 ![32_RATECUT-24SEP18_VGT timeseries](plots/32_RATECUT-24SEP18_VGT_timeseries.png)
 ![32_RATECUT-24SEP18_VGT zoom2](plots/32_RATECUT-24SEP18_VGT_zoom2.png)
 ![32_RATECUT-24SEP18_VGT leadglance](plots/32_RATECUT-24SEP18_VGT_leadglance.png)
+![32_RATECUT-24SEP18_VGT leadzoom](plots/32_RATECUT-24SEP18_VGT_leadzoom.png)
 ![32_RATECUT-24SEP18_VGT event](plots/32_RATECUT-24SEP18_VGT_event.png)
 ![32_RATECUT-24SEP18_VGT lagcoef](plots/32_RATECUT-24SEP18_VGT_lagcoef.png)
 
@@ -3069,6 +3099,7 @@ Figures for this pair follow on the next page.
 ![44_AAAGASM-24OCT31-US-3.15_VPU timeseries](plots/44_AAAGASM-24OCT31-US-3.15_VPU_timeseries.png)
 ![44_AAAGASM-24OCT31-US-3.15_VPU zoom2](plots/44_AAAGASM-24OCT31-US-3.15_VPU_zoom2.png)
 ![44_AAAGASM-24OCT31-US-3.15_VPU leadglance](plots/44_AAAGASM-24OCT31-US-3.15_VPU_leadglance.png)
+![44_AAAGASM-24OCT31-US-3.15_VPU leadzoom](plots/44_AAAGASM-24OCT31-US-3.15_VPU_leadzoom.png)
 ![44_AAAGASM-24OCT31-US-3.15_VPU event](plots/44_AAAGASM-24OCT31-US-3.15_VPU_event.png)
 ![44_AAAGASM-24OCT31-US-3.15_VPU lagcoef](plots/44_AAAGASM-24OCT31-US-3.15_VPU_lagcoef.png)
 
@@ -3144,6 +3175,7 @@ Figures for this pair follow on the next page.
 ![07_KXECKH287_VNQ timeseries](plots/07_KXECKH287_VNQ_timeseries.png)
 ![07_KXECKH287_VNQ zoom2](plots/07_KXECKH287_VNQ_zoom2.png)
 ![07_KXECKH287_VNQ leadglance](plots/07_KXECKH287_VNQ_leadglance.png)
+![07_KXECKH287_VNQ leadzoom](plots/07_KXECKH287_VNQ_leadzoom.png)
 ![07_KXECKH287_VNQ event](plots/07_KXECKH287_VNQ_event.png)
 ![07_KXECKH287_VNQ lagcoef](plots/07_KXECKH287_VNQ_lagcoef.png)
 
@@ -3213,6 +3245,7 @@ Figures for this pair follow on the next page.
 ![19_AAAGASM-24OCT31-US-3.20_VHT timeseries](plots/19_AAAGASM-24OCT31-US-3.20_VHT_timeseries.png)
 ![19_AAAGASM-24OCT31-US-3.20_VHT zoom2](plots/19_AAAGASM-24OCT31-US-3.20_VHT_zoom2.png)
 ![19_AAAGASM-24OCT31-US-3.20_VHT leadglance](plots/19_AAAGASM-24OCT31-US-3.20_VHT_leadglance.png)
+![19_AAAGASM-24OCT31-US-3.20_VHT leadzoom](plots/19_AAAGASM-24OCT31-US-3.20_VHT_leadzoom.png)
 ![19_AAAGASM-24OCT31-US-3.20_VHT event](plots/19_AAAGASM-24OCT31-US-3.20_VHT_event.png)
 ![19_AAAGASM-24OCT31-US-3.20_VHT lagcoef](plots/19_AAAGASM-24OCT31-US-3.20_VHT_lagcoef.png)
 
@@ -3282,6 +3315,7 @@ Figures for this pair follow on the next page.
 ![11_AAAGASM-24SEP30-US-3.15_VIS timeseries](plots/11_AAAGASM-24SEP30-US-3.15_VIS_timeseries.png)
 ![11_AAAGASM-24SEP30-US-3.15_VIS zoom2](plots/11_AAAGASM-24SEP30-US-3.15_VIS_zoom2.png)
 ![11_AAAGASM-24SEP30-US-3.15_VIS leadglance](plots/11_AAAGASM-24SEP30-US-3.15_VIS_leadglance.png)
+![11_AAAGASM-24SEP30-US-3.15_VIS leadzoom](plots/11_AAAGASM-24SEP30-US-3.15_VIS_leadzoom.png)
 ![11_AAAGASM-24SEP30-US-3.15_VIS event](plots/11_AAAGASM-24SEP30-US-3.15_VIS_event.png)
 ![11_AAAGASM-24SEP30-US-3.15_VIS lagcoef](plots/11_AAAGASM-24SEP30-US-3.15_VIS_lagcoef.png)
 
@@ -3351,6 +3385,7 @@ Figures for this pair follow on the next page.
 ![12_AAAGASM-24SEP30-US-3.15_VGT timeseries](plots/12_AAAGASM-24SEP30-US-3.15_VGT_timeseries.png)
 ![12_AAAGASM-24SEP30-US-3.15_VGT zoom2](plots/12_AAAGASM-24SEP30-US-3.15_VGT_zoom2.png)
 ![12_AAAGASM-24SEP30-US-3.15_VGT leadglance](plots/12_AAAGASM-24SEP30-US-3.15_VGT_leadglance.png)
+![12_AAAGASM-24SEP30-US-3.15_VGT leadzoom](plots/12_AAAGASM-24SEP30-US-3.15_VGT_leadzoom.png)
 ![12_AAAGASM-24SEP30-US-3.15_VGT event](plots/12_AAAGASM-24SEP30-US-3.15_VGT_event.png)
 ![12_AAAGASM-24SEP30-US-3.15_VGT lagcoef](plots/12_AAAGASM-24SEP30-US-3.15_VGT_lagcoef.png)
 
@@ -3420,6 +3455,7 @@ Figures for this pair follow on the next page.
 ![17_AAAGASM-24SEP30-US-3.15_VAW timeseries](plots/17_AAAGASM-24SEP30-US-3.15_VAW_timeseries.png)
 ![17_AAAGASM-24SEP30-US-3.15_VAW zoom2](plots/17_AAAGASM-24SEP30-US-3.15_VAW_zoom2.png)
 ![17_AAAGASM-24SEP30-US-3.15_VAW leadglance](plots/17_AAAGASM-24SEP30-US-3.15_VAW_leadglance.png)
+![17_AAAGASM-24SEP30-US-3.15_VAW leadzoom](plots/17_AAAGASM-24SEP30-US-3.15_VAW_leadzoom.png)
 ![17_AAAGASM-24SEP30-US-3.15_VAW event](plots/17_AAAGASM-24SEP30-US-3.15_VAW_event.png)
 ![17_AAAGASM-24SEP30-US-3.15_VAW lagcoef](plots/17_AAAGASM-24SEP30-US-3.15_VAW_lagcoef.png)
 
@@ -3489,6 +3525,7 @@ Figures for this pair follow on the next page.
 ![25_AAAGASM-24SEP30-US-3.15_VCR timeseries](plots/25_AAAGASM-24SEP30-US-3.15_VCR_timeseries.png)
 ![25_AAAGASM-24SEP30-US-3.15_VCR zoom2](plots/25_AAAGASM-24SEP30-US-3.15_VCR_zoom2.png)
 ![25_AAAGASM-24SEP30-US-3.15_VCR leadglance](plots/25_AAAGASM-24SEP30-US-3.15_VCR_leadglance.png)
+![25_AAAGASM-24SEP30-US-3.15_VCR leadzoom](plots/25_AAAGASM-24SEP30-US-3.15_VCR_leadzoom.png)
 ![25_AAAGASM-24SEP30-US-3.15_VCR event](plots/25_AAAGASM-24SEP30-US-3.15_VCR_event.png)
 ![25_AAAGASM-24SEP30-US-3.15_VCR lagcoef](plots/25_AAAGASM-24SEP30-US-3.15_VCR_lagcoef.png)
 
@@ -3558,6 +3595,7 @@ Figures for this pair follow on the next page.
 ![27_AAAGASM-24SEP30-US-3.15_VOX timeseries](plots/27_AAAGASM-24SEP30-US-3.15_VOX_timeseries.png)
 ![27_AAAGASM-24SEP30-US-3.15_VOX zoom2](plots/27_AAAGASM-24SEP30-US-3.15_VOX_zoom2.png)
 ![27_AAAGASM-24SEP30-US-3.15_VOX leadglance](plots/27_AAAGASM-24SEP30-US-3.15_VOX_leadglance.png)
+![27_AAAGASM-24SEP30-US-3.15_VOX leadzoom](plots/27_AAAGASM-24SEP30-US-3.15_VOX_leadzoom.png)
 ![27_AAAGASM-24SEP30-US-3.15_VOX event](plots/27_AAAGASM-24SEP30-US-3.15_VOX_event.png)
 ![27_AAAGASM-24SEP30-US-3.15_VOX lagcoef](plots/27_AAAGASM-24SEP30-US-3.15_VOX_lagcoef.png)
 
@@ -3627,6 +3665,7 @@ Figures for this pair follow on the next page.
 ![28_538APPROVEMAX-24SEP30-T43_VAW timeseries](plots/28_538APPROVEMAX-24SEP30-T43_VAW_timeseries.png)
 ![28_538APPROVEMAX-24SEP30-T43_VAW zoom2](plots/28_538APPROVEMAX-24SEP30-T43_VAW_zoom2.png)
 ![28_538APPROVEMAX-24SEP30-T43_VAW leadglance](plots/28_538APPROVEMAX-24SEP30-T43_VAW_leadglance.png)
+![28_538APPROVEMAX-24SEP30-T43_VAW leadzoom](plots/28_538APPROVEMAX-24SEP30-T43_VAW_leadzoom.png)
 ![28_538APPROVEMAX-24SEP30-T43_VAW event](plots/28_538APPROVEMAX-24SEP30-T43_VAW_event.png)
 ![28_538APPROVEMAX-24SEP30-T43_VAW lagcoef](plots/28_538APPROVEMAX-24SEP30-T43_VAW_lagcoef.png)
 
@@ -3696,6 +3735,7 @@ Figures for this pair follow on the next page.
 ![35_538APPROVEMAX-24SEP30-T43_VIS timeseries](plots/35_538APPROVEMAX-24SEP30-T43_VIS_timeseries.png)
 ![35_538APPROVEMAX-24SEP30-T43_VIS zoom2](plots/35_538APPROVEMAX-24SEP30-T43_VIS_zoom2.png)
 ![35_538APPROVEMAX-24SEP30-T43_VIS leadglance](plots/35_538APPROVEMAX-24SEP30-T43_VIS_leadglance.png)
+![35_538APPROVEMAX-24SEP30-T43_VIS leadzoom](plots/35_538APPROVEMAX-24SEP30-T43_VIS_leadzoom.png)
 ![35_538APPROVEMAX-24SEP30-T43_VIS event](plots/35_538APPROVEMAX-24SEP30-T43_VIS_event.png)
 ![35_538APPROVEMAX-24SEP30-T43_VIS lagcoef](plots/35_538APPROVEMAX-24SEP30-T43_VIS_lagcoef.png)
 
@@ -3765,6 +3805,7 @@ Figures for this pair follow on the next page.
 ![43_538APPROVEMAX-24SEP30-T43_VCR timeseries](plots/43_538APPROVEMAX-24SEP30-T43_VCR_timeseries.png)
 ![43_538APPROVEMAX-24SEP30-T43_VCR zoom2](plots/43_538APPROVEMAX-24SEP30-T43_VCR_zoom2.png)
 ![43_538APPROVEMAX-24SEP30-T43_VCR leadglance](plots/43_538APPROVEMAX-24SEP30-T43_VCR_leadglance.png)
+![43_538APPROVEMAX-24SEP30-T43_VCR leadzoom](plots/43_538APPROVEMAX-24SEP30-T43_VCR_leadzoom.png)
 ![43_538APPROVEMAX-24SEP30-T43_VCR event](plots/43_538APPROVEMAX-24SEP30-T43_VCR_event.png)
 ![43_538APPROVEMAX-24SEP30-T43_VCR lagcoef](plots/43_538APPROVEMAX-24SEP30-T43_VCR_lagcoef.png)
 
@@ -3834,6 +3875,7 @@ Figures for this pair follow on the next page.
 ![23_KX538APPROVEMAX-24NOV30-T41_VGT timeseries](plots/23_KX538APPROVEMAX-24NOV30-T41_VGT_timeseries.png)
 ![23_KX538APPROVEMAX-24NOV30-T41_VGT zoom2](plots/23_KX538APPROVEMAX-24NOV30-T41_VGT_zoom2.png)
 ![23_KX538APPROVEMAX-24NOV30-T41_VGT leadglance](plots/23_KX538APPROVEMAX-24NOV30-T41_VGT_leadglance.png)
+![23_KX538APPROVEMAX-24NOV30-T41_VGT leadzoom](plots/23_KX538APPROVEMAX-24NOV30-T41_VGT_leadzoom.png)
 ![23_KX538APPROVEMAX-24NOV30-T41_VGT lagcoef](plots/23_KX538APPROVEMAX-24NOV30-T41_VGT_lagcoef.png)
 
 ---
@@ -3902,6 +3944,7 @@ Figures for this pair follow on the next page.
 ![34_KX538APPROVEMAX-24NOV30-T41_VHT timeseries](plots/34_KX538APPROVEMAX-24NOV30-T41_VHT_timeseries.png)
 ![34_KX538APPROVEMAX-24NOV30-T41_VHT zoom2](plots/34_KX538APPROVEMAX-24NOV30-T41_VHT_zoom2.png)
 ![34_KX538APPROVEMAX-24NOV30-T41_VHT leadglance](plots/34_KX538APPROVEMAX-24NOV30-T41_VHT_leadglance.png)
+![34_KX538APPROVEMAX-24NOV30-T41_VHT leadzoom](plots/34_KX538APPROVEMAX-24NOV30-T41_VHT_leadzoom.png)
 ![34_KX538APPROVEMAX-24NOV30-T41_VHT lagcoef](plots/34_KX538APPROVEMAX-24NOV30-T41_VHT_lagcoef.png)
 
 ---
@@ -3970,6 +4013,7 @@ Figures for this pair follow on the next page.
 ![05_KXAAAGASM-24NOV30-US-3.30_VFH timeseries](plots/05_KXAAAGASM-24NOV30-US-3.30_VFH_timeseries.png)
 ![05_KXAAAGASM-24NOV30-US-3.30_VFH zoom2](plots/05_KXAAAGASM-24NOV30-US-3.30_VFH_zoom2.png)
 ![05_KXAAAGASM-24NOV30-US-3.30_VFH leadglance](plots/05_KXAAAGASM-24NOV30-US-3.30_VFH_leadglance.png)
+![05_KXAAAGASM-24NOV30-US-3.30_VFH leadzoom](plots/05_KXAAAGASM-24NOV30-US-3.30_VFH_leadzoom.png)
 ![05_KXAAAGASM-24NOV30-US-3.30_VFH lagcoef](plots/05_KXAAAGASM-24NOV30-US-3.30_VFH_lagcoef.png)
 
 ---
@@ -4038,6 +4082,7 @@ Figures for this pair follow on the next page.
 ![13_KXAAAGASM-24NOV30-US-3.30_VDE timeseries](plots/13_KXAAAGASM-24NOV30-US-3.30_VDE_timeseries.png)
 ![13_KXAAAGASM-24NOV30-US-3.30_VDE zoom2](plots/13_KXAAAGASM-24NOV30-US-3.30_VDE_zoom2.png)
 ![13_KXAAAGASM-24NOV30-US-3.30_VDE leadglance](plots/13_KXAAAGASM-24NOV30-US-3.30_VDE_leadglance.png)
+![13_KXAAAGASM-24NOV30-US-3.30_VDE leadzoom](plots/13_KXAAAGASM-24NOV30-US-3.30_VDE_leadzoom.png)
 ![13_KXAAAGASM-24NOV30-US-3.30_VDE lagcoef](plots/13_KXAAAGASM-24NOV30-US-3.30_VDE_lagcoef.png)
 
 ---
@@ -4106,6 +4151,7 @@ Figures for this pair follow on the next page.
 ![16_KXAAAGASM-24NOV30-US-3.30_VDC timeseries](plots/16_KXAAAGASM-24NOV30-US-3.30_VDC_timeseries.png)
 ![16_KXAAAGASM-24NOV30-US-3.30_VDC zoom2](plots/16_KXAAAGASM-24NOV30-US-3.30_VDC_zoom2.png)
 ![16_KXAAAGASM-24NOV30-US-3.30_VDC leadglance](plots/16_KXAAAGASM-24NOV30-US-3.30_VDC_leadglance.png)
+![16_KXAAAGASM-24NOV30-US-3.30_VDC leadzoom](plots/16_KXAAAGASM-24NOV30-US-3.30_VDC_leadzoom.png)
 ![16_KXAAAGASM-24NOV30-US-3.30_VDC lagcoef](plots/16_KXAAAGASM-24NOV30-US-3.30_VDC_lagcoef.png)
 
 ---
@@ -4174,6 +4220,7 @@ Figures for this pair follow on the next page.
 ![22_KXAAAGASM-24NOV30-US-3.30_VNQ timeseries](plots/22_KXAAAGASM-24NOV30-US-3.30_VNQ_timeseries.png)
 ![22_KXAAAGASM-24NOV30-US-3.30_VNQ zoom2](plots/22_KXAAAGASM-24NOV30-US-3.30_VNQ_zoom2.png)
 ![22_KXAAAGASM-24NOV30-US-3.30_VNQ leadglance](plots/22_KXAAAGASM-24NOV30-US-3.30_VNQ_leadglance.png)
+![22_KXAAAGASM-24NOV30-US-3.30_VNQ leadzoom](plots/22_KXAAAGASM-24NOV30-US-3.30_VNQ_leadzoom.png)
 ![22_KXAAAGASM-24NOV30-US-3.30_VNQ lagcoef](plots/22_KXAAAGASM-24NOV30-US-3.30_VNQ_lagcoef.png)
 
 ---
@@ -4242,239 +4289,5 @@ Figures for this pair follow on the next page.
 ![04_538APPROVEMAX-24OCT31-T43_VOX timeseries](plots/04_538APPROVEMAX-24OCT31-T43_VOX_timeseries.png)
 ![04_538APPROVEMAX-24OCT31-T43_VOX zoom2](plots/04_538APPROVEMAX-24OCT31-T43_VOX_zoom2.png)
 ![04_538APPROVEMAX-24OCT31-T43_VOX leadglance](plots/04_538APPROVEMAX-24OCT31-T43_VOX_leadglance.png)
+![04_538APPROVEMAX-24OCT31-T43_VOX leadzoom](plots/04_538APPROVEMAX-24OCT31-T43_VOX_leadzoom.png)
 ![04_538APPROVEMAX-24OCT31-T43_VOX lagcoef](plots/04_538APPROVEMAX-24OCT31-T43_VOX_lagcoef.png)
-
----
-
-## MERGE — super-signals (pooled, sign-aligned Δprob; ADL self-lags by BIC)
-
-### MERGE — ELECTION_trump_fav
-
-```text
-MERGE super-signal:  ELECTION_trump_fav
-
-Members pooled (sign-aligned Δprob, never concatenated price levels):
-  +  KXECDJT281, KXECDJT306, KXECDJT312, KXECDJT316
-  -  KXECKH276, KXECKH287   (reverse contracts: Δprob flipped so +Δ = same direction)
-Relevant-ETF union (9): VAW, VCR, VDC, VDE, VFH, VGT, VIS, VNQ, VOX
-
-Pooling engine: per-member lag/ADL shift, member fixed effects, day-clustered SE;
-ADL self-lag order chosen per pooled regression by BIC (column n_ylags).
-Direction counts below use RAW p (same graded-threshold convention as the single-pair report).
-
-== CALENDAR (primary bar) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      6    1     631   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K2/E1
-VCR      6    3     631   p<0.05: K0/E2  p<0.10: K0/E3  p<0.15: K0/E4
-VDC      6    1     631   p<0.05: K2/E4  p<0.10: K2/E4  p<0.15: K3/E4
-VDE      6    1     631   p<0.05: K4/E3  p<0.10: K4/E3  p<0.15: K4/E3
-VFH      6    1     631   p<0.05: K0/E0  p<0.10: K1/E1  p<0.15: K1/E2
-VGT      6    4     631   p<0.05: K2/E1  p<0.10: K2/E1  p<0.15: K2/E1
-VIS      6    6     631   p<0.05: K3/E2  p<0.10: K3/E2  p<0.15: K4/E2
-VNQ      6    3     631   p<0.05: K4/E3  p<0.10: K4/E3  p<0.15: K4/E3
-VOX      6    1     631   p<0.05: K1/E3  p<0.10: K1/E4  p<0.15: K1/E5
-
-== EVENT (active-event subsequence) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      8    0      62   p<0.05: K1/E1  p<0.10: K3/E3  p<0.15: K3/E4
-VCR      8    0      62   p<0.05: K3/E5  p<0.10: K4/E5  p<0.15: K6/E5
-VDC      8    1      62   p<0.05: K3/E2  p<0.10: K4/E2  p<0.15: K4/E3
-VDE      8    0      62   p<0.05: K5/E6  p<0.10: K6/E6  p<0.15: K6/E6
-VFH      8    1      62   p<0.05: K4/E4  p<0.10: K5/E5  p<0.15: K6/E5
-VGT      8    0      62   p<0.05: K3/E3  p<0.10: K4/E4  p<0.15: K4/E4
-VIS      8    2      62   p<0.05: K7/E1  p<0.10: K7/E1  p<0.15: K7/E1
-VNQ      8    0      62   p<0.05: K3/E3  p<0.10: K3/E3  p<0.15: K3/E3
-VOX      8    0      62   p<0.05: K1/E1  p<0.10: K3/E2  p<0.15: K3/E2
-
-== PROBIT (direction test Pr(ETF up)) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      8    -      97   p<0.05: K7/E7  p<0.10: K7/E8  p<0.15: K7/E8
-VCR      8    -      97   p<0.05: K7/E8  p<0.10: K7/E8  p<0.15: K8/E8
-VDC      8    -      95   p<0.05: K7/E7  p<0.10: K10/E8  p<0.15: K12/E8
-VDE      8    -      96   p<0.05: K5/E6  p<0.10: K6/E8  p<0.15: K6/E9
-VFH      8    -      91   p<0.05: K4/E3  p<0.10: K8/E5  p<0.15: K9/E6
-VGT      8    -      98   p<0.05: K7/E6  p<0.10: K9/E9  p<0.15: K9/E10
-VIS      8    -      97   p<0.05: K7/E4  p<0.10: K7/E7  p<0.15: K8/E7
-VNQ      8    -      95   p<0.05: K3/E7  p<0.10: K7/E9  p<0.15: K8/E9
-VOX      8    -      94   p<0.05: K8/E9  p<0.10: K8/E9  p<0.15: K10/E10
-
-== Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: Kalshi-leads (K189/E187) | p<0.10: Kalshi-leads (K214/E210) | p<0.15: Kalshi-leads (K234/E229)
-  Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.
-```
-
-![merge ELECTION_trump_fav lagcoef](merge/plots/merge_ELECTION_trump_fav_lagcoef.png)
-
-### MERGE — FOMC_easing
-
-```text
-MERGE super-signal:  FOMC_easing
-
-Members pooled (sign-aligned Δprob, never concatenated price levels):
-  +  FEDDECISION-24SEP-C25, RATECUT-24SEP18, KXFEDDECISION-24DEC-C25
-  -  FEDDECISION-24NOV-H0, KXFEDDECISION-24DEC-H0   (reverse contracts: Δprob flipped so +Δ = same direction)
-Relevant-ETF union (9): VCR, VDC, VDE, VFH, VGT, VIS, VNQ, VOX, VPU
-
-Pooling engine: per-member lag/ADL shift, member fixed effects, day-clustered SE;
-ADL self-lag order chosen per pooled regression by BIC (column n_ylags).
-Direction counts below use RAW p (same graded-threshold convention as the single-pair report).
-
-== CALENDAR (primary bar) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    1    1513   p<0.05: K0/E0  p<0.10: K1/E1  p<0.15: K1/E2
-VDC     10    1    1513   p<0.05: K2/E2  p<0.10: K3/E3  p<0.15: K4/E4
-VDE     10    0    1513   p<0.05: K2/E2  p<0.10: K3/E2  p<0.15: K4/E3
-VFH     10    1    1513   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VGT     10    2    1517   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K2/E2
-VIS     10    0    1513   p<0.05: K1/E2  p<0.10: K1/E2  p<0.15: K2/E2
-VNQ     10    1    1517   p<0.05: K3/E1  p<0.10: K3/E1  p<0.15: K3/E2
-VOX     10    1    1513   p<0.05: K2/E0  p<0.10: K2/E1  p<0.15: K3/E1
-VPU     10    1    1513   p<0.05: K1/E3  p<0.10: K2/E3  p<0.15: K2/E4
-
-== EVENT (active-event subsequence) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    1     547   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K0/E1
-VDC     10    1     547   p<0.05: K1/E0  p<0.10: K2/E1  p<0.15: K3/E1
-VDE     10    0     547   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K2/E4
-VFH     10    1     547   p<0.05: K0/E0  p<0.10: K1/E0  p<0.15: K1/E0
-VGT     10    1     547   p<0.05: K0/E1  p<0.10: K1/E1  p<0.15: K2/E1
-VIS     10    1     547   p<0.05: K0/E0  p<0.10: K0/E1  p<0.15: K1/E1
-VNQ     10    1     547   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K2/E1
-VOX     10    1     547   p<0.05: K1/E1  p<0.10: K3/E1  p<0.15: K3/E3
-VPU     10    0     547   p<0.05: K0/E1  p<0.10: K1/E2  p<0.15: K3/E3
-
-== PROBIT (direction test Pr(ETF up)) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    -     528   p<0.05: K3/E0  p<0.10: K4/E2  p<0.15: K5/E3
-VDC     10    -     524   p<0.05: K1/E2  p<0.10: K3/E2  p<0.15: K3/E3
-VDE     10    -     518   p<0.05: K0/E2  p<0.10: K3/E4  p<0.15: K4/E5
-VFH     10    -     504   p<0.05: K4/E2  p<0.10: K6/E2  p<0.15: K8/E4
-VGT     10    -     530   p<0.05: K2/E2  p<0.10: K4/E3  p<0.15: K4/E3
-VIS     10    -     522   p<0.05: K1/E3  p<0.10: K3/E5  p<0.15: K5/E6
-VNQ     10    -     507   p<0.05: K5/E3  p<0.10: K6/E4  p<0.15: K7/E5
-VOX     10    -     511   p<0.05: K0/E0  p<0.10: K3/E1  p<0.15: K3/E3
-VPU     10    -     519   p<0.05: K4/E2  p<0.10: K5/E3  p<0.15: K5/E5
-
-== Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: ETF-leads (K54/E55) | p<0.10: Kalshi-leads (K85/E80) | p<0.15: ETF-leads (K105/E114)
-  Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.
-```
-
-![merge FOMC_easing lagcoef](merge/plots/merge_FOMC_easing_lagcoef.png)
-
-### MERGE — GAS_above
-
-```text
-MERGE super-signal:  GAS_above
-
-Members pooled (sign-aligned Δprob, never concatenated price levels):
-  +  AAAGASM-24OCT31-US-3.15, AAAGASM-24OCT31-US-3.20, AAAGASM-24SEP30-US-3.15, KXAAAGASM-24NOV30-US-3.30
-  -  (none)
-Relevant-ETF union (11): VAW, VCR, VDC, VDE, VFH, VGT, VHT, VIS, VNQ, VOX, VPU
-
-Pooling engine: per-member lag/ADL shift, member fixed effects, day-clustered SE;
-ADL self-lag order chosen per pooled regression by BIC (column n_ylags).
-Direction counts below use RAW p (same graded-threshold convention as the single-pair report).
-
-== CALENDAR (primary bar) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      4    1     334   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K2/E1
-VCR      4    3     334   p<0.05: K2/E1  p<0.10: K4/E1  p<0.15: K4/E1
-VDC      4    2     334   p<0.05: K3/E2  p<0.10: K4/E2  p<0.15: K4/E2
-VDE      4    1     334   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K1/E0
-VFH      4    1     334   p<0.05: K0/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VGT      4    1     334   p<0.05: K3/E3  p<0.10: K4/E3  p<0.15: K4/E3
-VHT      4    1     334   p<0.05: K4/E1  p<0.10: K4/E1  p<0.15: K4/E1
-VIS      4    1     334   p<0.05: K2/E2  p<0.10: K2/E3  p<0.15: K2/E3
-VNQ      4    0     334   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VOX      4    1     334   p<0.05: K2/E2  p<0.10: K3/E3  p<0.15: K4/E3
-VPU      4    1     334   p<0.05: K2/E2  p<0.10: K3/E2  p<0.15: K3/E2
-
-== EVENT (active-event subsequence) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      -    -        -   (no result)
-VCR      -    -        -   (no result)
-VDC      -    -        -   (no result)
-VDE      -    -        -   (no result)
-VFH      -    -        -   (no result)
-VGT      -    -        -   (no result)
-VHT      -    -        -   (no result)
-VIS      -    -        -   (no result)
-VNQ      -    -        -   (no result)
-VOX      -    -        -   (no result)
-VPU      -    -        -   (no result)
-
-== PROBIT (direction test Pr(ETF up)) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      -    -        -   (no result)
-VCR      -    -        -   (no result)
-VDC      -    -        -   (no result)
-VDE      -    -        -   (no result)
-VFH      -    -        -   (no result)
-VGT      -    -        -   (no result)
-VHT      -    -        -   (no result)
-VIS      -    -        -   (no result)
-VNQ      -    -        -   (no result)
-VOX      -    -        -   (no result)
-VPU      -    -        -   (no result)
-
-== Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: Kalshi-leads (K75/E69) | p<0.10: Kalshi-leads (K92/E78) | p<0.15: Kalshi-leads (K102/E89)
-  Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.
-```
-
-![merge GAS_above lagcoef](merge/plots/merge_GAS_above_lagcoef.png)
-
-### MERGE — APPROVAL_strength
-
-```text
-MERGE super-signal:  APPROVAL_strength
-
-Members pooled (sign-aligned Δprob, never concatenated price levels):
-  +  538APPROVEMAX-24OCT31-T43, 538APPROVEMAX-24SEP30-T43, KX538APPROVEMAX-24NOV30-T41
-  -  KX538APPROVEMIN-24NOV30-T37   (reverse contracts: Δprob flipped so +Δ = same direction)
-Relevant-ETF union (8): VAW, VCR, VFH, VGT, VHT, VIS, VNQ, VOX
-
-Pooling engine: per-member lag/ADL shift, member fixed effects, day-clustered SE;
-ADL self-lag order chosen per pooled regression by BIC (column n_ylags).
-Direction counts below use RAW p (same graded-threshold convention as the single-pair report).
-
-== CALENDAR (primary bar) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      3    1    7058   p<0.05: K8/E0  p<0.10: K8/E1  p<0.15: K8/E2
-VCR      3    1    7058   p<0.05: K0/E0  p<0.10: K2/E0  p<0.15: K2/E0
-VFH      3    1    7059   p<0.05: K0/E2  p<0.10: K0/E2  p<0.15: K0/E2
-VGT      3    1    7345   p<0.05: K5/E2  p<0.10: K5/E2  p<0.15: K7/E2
-VHT      3    1    7188   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VIS      3    1    7058   p<0.05: K2/E1  p<0.10: K2/E1  p<0.15: K4/E1
-VNQ      3    1    7342   p<0.05: K1/E4  p<0.10: K2/E6  p<0.15: K2/E6
-VOX      3    1    7091   p<0.05: K2/E1  p<0.10: K3/E1  p<0.15: K4/E2
-
-== EVENT (active-event subsequence) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      -    -        -   (no result)
-VCR      -    -        -   (no result)
-VFH      -    -        -   (no result)
-VGT      -    -        -   (no result)
-VHT      -    -        -   (no result)
-VIS      -    -        -   (no result)
-VNQ      -    -        -   (no result)
-VOX      -    -        -   (no result)
-
-== PROBIT (direction test Pr(ETF up)) ==
-ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      -    -        -   (no result)
-VCR      -    -        -   (no result)
-VFH      -    -        -   (no result)
-VGT      -    -        -   (no result)
-VHT      -    -        -   (no result)
-VIS      -    -        -   (no result)
-VNQ      -    -        -   (no result)
-VOX      -    -        -   (no result)
-
-== Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: Kalshi-leads (K19/E11) | p<0.10: Kalshi-leads (K23/E14) | p<0.15: Kalshi-leads (K28/E16)
-  Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.
-```
-
-![merge APPROVAL_strength lagcoef](merge/plots/merge_APPROVAL_strength_lagcoef.png)
