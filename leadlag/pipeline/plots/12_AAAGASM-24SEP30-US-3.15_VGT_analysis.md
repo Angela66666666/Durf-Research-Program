@@ -14,11 +14,11 @@ DEFINITIONS
    k>0 => Kalshi leads ETF ;  k<0 => ETF leads Kalshi ;  k=0 => contemporaneous
 
 1. CALENDAR-TIME REGRESSION (clock-time lags, full RTH grid)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
+   Full model:  yₜ = α + Σ(k) βₖ·xₜ₋ₖ + (ADL self-lags) + (day fixed effects)
    -> no regression result (insufficient data).
 
 2. EVENT-TIME REGRESSION (event-count lags)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
+   Full model:  yₜ = α + Σ(k) βₖ·xₜ₋ₖ + (ADL self-lags) + (day fixed effects)
    -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
@@ -28,7 +28,7 @@ DEFINITIONS
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: n/a
    event: n/a
-   -> no significant directional predictability either mode (BH-FDR).
+   -> no significant directional predictability either mode (raw p<0.15).
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Cannot-estimate

@@ -305,10 +305,37 @@ def add_fdr(df: pd.DataFrame, group_cols, pcol: str = "p_value", outcol: str = "
     return df
 
 
+# ====================== ADL 自滞后阶选择（BIC） ======================
+ADL_PMAX = 6   # ETF 自滞后阶 BIC 自选的上限（再受 K 与自由度约束）
+
+
+def choose_adl_order(y, lagX, ylagX_full, fe_dummies, pmax):
+    """在固定公共样本上，用 BIC 选 ETF 自滞后阶 p∈[0, pmax]。
+      - y: 因变量(Series)；lagX: x 滞后设计阵；ylagX_full: ylag_1..pmax；fe_dummies: 日/成员固定效应。
+      - 每个候选 p 用普通 OLS 的 BIC（BIC 由 loglik 决定，与是否稳健 cov 无关），取最小 BIC。
+      - BIC 惩罚重、是真实阶数的一致估计，且小样本下倾向精简 —— 既省自由度又有依据。
+    返回选中的阶数 p*。"""
+    best_p, best_bic = 0, np.inf
+    for p in range(0, pmax + 1):
+        parts = [lagX]
+        if p > 0:
+            parts.append(ylagX_full.iloc[:, :p])
+        if fe_dummies is not None and fe_dummies.shape[1] > 0:
+            parts.append(fe_dummies)
+        X = sm.add_constant(pd.concat(parts, axis=1).astype(float))
+        try:
+            m = sm.OLS(y.astype(float), X).fit()
+        except Exception:
+            continue
+        if np.isfinite(m.bic) and m.bic < best_bic:
+            best_bic, best_p = m.bic, p
+    return best_p
+
+
 # ====================== 联合滞后回归引擎（两套模式共用） ======================
 def run_joint_lag_regression(df_reg: pd.DataFrame, x_col: str, y_col: str,
                              k: int, min_obs: Optional[int] = None,
-                             group_by_day: bool = False, y_lags: int = 0
+                             group_by_day: bool = False, y_lags=0
                              ) -> Optional[pd.DataFrame]:
     """
     联合滞后回归：y_t = a + Σ_{j=-k..k} b_j·x_{t-j} [+ Σ_{i=1..p} φ_i·y_{t-i}] + 日固定效应 + ε
@@ -337,6 +364,23 @@ def run_joint_lag_regression(df_reg: pd.DataFrame, x_col: str, y_col: str,
         df_reg[col] = xshift(j)
         lag_cols[j] = col
     all_lag_cols = list(lag_cols.values())
+
+    # --- ADL 自滞后阶：y_lags 为 int 则直接用；为 "auto" 则在公共样本上用 BIC 选阶 ---
+    if isinstance(y_lags, str) and y_lags.lower() == "auto":
+        pmax = max(0, min(k, ADL_PMAX))
+        yl_full = {f"ylag_{i}": yshift(i) for i in range(1, pmax + 1)}
+        ytmp = pd.DataFrame(yl_full, index=df_reg.index)
+        common = df_reg.assign(**{c: ytmp[c] for c in ytmp.columns})
+        common = common.dropna(subset=[y_col] + all_lag_cols + list(ytmp.columns))
+        if pmax > 0 and len(common) >= min_obs:
+            lagX = common[all_lag_cols].astype(float)
+            xs0 = common[x_col].std()
+            if xs0 > 1e-12:
+                lagX = lagX / xs0
+            fe = pd.get_dummies(common["date"], prefix="d", drop_first=True, dtype=float) if group_by_day else None
+            y_lags = choose_adl_order(common[y_col], lagX, common[list(ytmp.columns)].astype(float), fe, pmax)
+        else:
+            y_lags = 0
 
     ylag_cols = []
     for i in range(1, y_lags + 1):
@@ -387,5 +431,6 @@ def run_joint_lag_regression(df_reg: pd.DataFrame, x_col: str, y_col: str,
             "n_days": n_days,
             "n_params": n_params,
             "n_active": n_active,
+            "n_ylags": int(y_lags),
         })
     return pd.DataFrame(rows)

@@ -8,3 +8,16 @@ data_explore_example*.py
 prediction-market-analysis/data/
 prediction-market-analysis/get_kalshi_data.py
 ~$*
+__pycache__/
+leadlag/pipeline/aria代码/
+# PDF/plot report-generation scripts: kept local, not published
+leadlag/pipeline/build_pdf.py
+leadlag/pipeline/make_pair_text.py
+leadlag/pipeline/make_pair_plots.py
+leadlag/pipeline/make_enhanced_plots.py
+leadlag/pipeline/merge/make_merge_pages.py
+leadlag/pipeline/build_md.py
+leadlag/pipeline/build_merge_report.py
+leadlag/pipeline/merge/make_merge_pair_plots.py
+leadlag/pipeline/leadlag_pairs_report.pdf
+leadlag/pipeline/leadlag_merge_report.pdf

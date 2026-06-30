@@ -45,7 +45,7 @@ import leadlag_common as C                      # noqa: E402
 from leadlag_calendar_time import bar_change    # calendar 的 median-bar 变化量  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
-ADL_YLAGS  = 5
+ADL_YLAGS  = "auto"   # ETF 自滞后阶：池化样本上用 BIC 自选（与单合约 pipeline 同口径）
 MIN_BARS   = 2 * 3 + 5      # K=3 时最小有效事件数
 MIN_PROBIT = 30
 
@@ -106,6 +106,23 @@ def run_pooled_lag_regression(df: pd.DataFrame, x_col: str, y_col: str, k: int,
         lag_cols[j] = col
     all_lag_cols = list(lag_cols.values())
 
+    # --- ADL 自滞后阶：int 直接用；"auto" 在公共样本上用 BIC 选阶（成员 FE）---
+    if isinstance(y_lags, str) and y_lags.lower() == "auto":
+        pmax = max(0, min(k, C.ADL_PMAX))
+        yl_full = {f"ylag_{i}": g[y_col].shift(i) for i in range(1, pmax + 1)}
+        ytmp = pd.DataFrame(yl_full, index=df.index)
+        common = df.assign(**{c: ytmp[c] for c in ytmp.columns})
+        common = common.dropna(subset=[y_col] + all_lag_cols + list(ytmp.columns))
+        if pmax > 0 and len(common) >= min_obs:
+            lagX = common[all_lag_cols].astype(float)
+            xs0 = common[x_col].std()
+            if xs0 > 1e-12:
+                lagX = lagX / xs0
+            fe = pd.get_dummies(common["member"], prefix="m", drop_first=True, dtype=float)
+            y_lags = C.choose_adl_order(common[y_col], lagX, common[list(ytmp.columns)].astype(float), fe, pmax)
+        else:
+            y_lags = 0
+
     ylag_cols = []
     for i in range(1, y_lags + 1):
         col = f"ylag_{i}"
@@ -151,6 +168,7 @@ def run_pooled_lag_regression(df: pd.DataFrame, x_col: str, y_col: str, k: int,
             "coef": model.params[col], "t_stat": model.tvalues[col], "p_value": model.pvalues[col],
             "r_squared": model.rsquared, "n_obs": n_obs_final, "n_days": n_days,
             "n_members_used": n_members, "n_params": n_params, "n_active": n_active,
+            "n_ylags": int(y_lags),
         })
     return pd.DataFrame(rows)
 
