@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 12 / 48
+PAIR ANALYSIS    —    Rank 15 / 48
 ================================================================================================
 KXECDJT316   x   VIS
 Contract : "Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
@@ -14,39 +14,43 @@ DEFINITIONS
    k>0 => Kalshi leads ETF ;  k<0 => ETF leads Kalshi ;  k=0 => contemporaneous
 
 1. CALENDAR-TIME REGRESSION (clock-time lags, full RTH grid)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   Significant terms (BH-FDR) expanded:  yₜ = α + β₋₁·xₜ₊₁ + β₊₂·xₜ₋₂
+   Full model:  yₜ = α + Σ(k=-3..3) βₖ·xₜ₋ₖ + φ₁·yₜ₋₁ + Σ(d=1..5) γ_d·Day_d
+      where  ADL ETF self-lags p=1 (BIC-chosen): φ₁·yₜ₋₁;  day-FE: 5 day dummies over 6 trading days (first day = baseline).
+      controls counted (so you can see the total at a glance):  7 lead/lag x-terms + 1 ETF self-lag(s) + 5 day-FE dummies + 1 intercept = 14 RHS regressors  (model n_params=14).
+   Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₃·xₜ₊₃ + β₋₁·xₜ₊₁ + β₊₁·xₜ₋₁ + β₊₂·xₜ₋₂
    where:
-      β₋₁ = +1.270e-04   (t/z=+3.78, p=1.6e-04, p_fdr=5.5e-04) ***   [ETF leads]
-      β₊₂ = +8.770e-05   (t/z=+4.76, p=2.0e-06, p_fdr=1.4e-05) ***   [Kalshi leads]
-   Lean by count of significant lags: balanced/no clear side  (k>0:1, k<0:1).
+      β₋₃ = +1.521e-05   (t/z=+1.81, p=7.1e-02, p_fdr=1.2e-01)    [ETF leads]
+      β₋₁ = +1.181e-04   (t/z=+2.08, p=3.8e-02, p_fdr=8.8e-02) *   [ETF leads]
+      β₊₁ = -2.131e-05   (t/z=-3.15, p=1.6e-03, p_fdr=5.7e-03) ***   [Kalshi leads]
+      β₊₂ = +8.540e-05   (t/z=+4.31, p=1.6e-05, p_fdr=1.1e-04) ***   [Kalshi leads]
+   Lean by count of significant lags: balanced/no clear side  (k>0:2, k<0:2).
 
 2. EVENT-TIME REGRESSION (event-count lags)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
+   Full model:  yₜ = α + Σ(k) βₖ·xₜ₋ₖ + (ADL self-lags) + (day fixed effects)
    -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -3 |          +1.69e-06     |                     --
-     -2 |          +5.80e-05     |                     --
-     -1 |          +1.27e-04 *** |                     --
-     +0 |          -7.13e-07     |                     --
-     +1 |          -2.10e-05     |                     --
-     +2 |          +8.77e-05 *** |                     --
-     +3 |          +5.92e-05     |                     --
+     -3 |          +1.52e-05     |                     --
+     -2 |          +5.65e-05     |                     --
+     -1 |          +1.18e-04 *   |                     --
+     +0 |          -2.81e-05     |                     --
+     +1 |          -2.13e-05 *** |                     --
+     +2 |          +8.54e-05 *** |                     --
+     +3 |          +1.07e-05     |                     --
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
    calendar: n/a
    event: n/a
-   -> no significant directional predictability either mode (BH-FDR).
+   -> no significant directional predictability either mode (raw p<0.15).
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Very-low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
-   calendar(full RTH grid): n_active=12  n_obs=114  n_days=6  K=3  params=18  df=96  median_SE=3.36e-05  sig(FDR)=2
+   calendar(full RTH grid): n_active=12  n_obs=126  n_days=6  K=3  params=14  df=112  median_SE=4.03e-05  sig(FDR)=2
    event: not estimable (insufficient data)
    => Very low info: even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
 
@@ -61,6 +65,7 @@ DEFINITIONS
 8. FIGURE CAVEATS — figures are still drawn, but know their problems
    - Very low info (only 12 bars with an actual Kalshi move, < 15): even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
    - Most of the chart is flat no-trade lines; only a handful of bars carry real variation, so the lead calls in leadglance/segments are not robust.
+   - Mixed coefficient signs across lags -- relationship not monotone.
    - Kalshi updates only on trades (flat line = no trade, NOT 'no change'); ETF mid refreshes continuously.
 
 9. REAL-WORLD CONTEXT (WebSearch-verified; see URLs)

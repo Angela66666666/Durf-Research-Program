@@ -15,3 +15,6 @@ leadlag/pipeline/build_pdf.py
 leadlag/pipeline/make_pair_text.py
 leadlag/pipeline/make_pair_plots.py
 leadlag/pipeline/make_enhanced_plots.py
+leadlag/pipeline/merge/make_merge_pages.py
+leadlag/pipeline/build_md.py
+leadlag/pipeline/leadlag_pairs_report.pdf

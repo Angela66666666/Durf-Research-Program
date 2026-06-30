@@ -16,7 +16,7 @@ leadlag_calendar_time.py
   - **完整盘内网格**(build_unified_xy)：Kalshi prob 在网格上 ffill，平静 bar 的 Δx=0、不丢弃，
     这样"滞后 j"才是真正的钟表间隔(不是"第 j 个有交易的 bar")。
   - outlier：bar 内取 median（causal 右沿），瞬时尖峰自然吸收，不做逐点删除
-  - **按日 shift**(不跨隔夜) + **ETF 自滞后控制 ADL**(净掉 ETF 自身动量，第8点)
+  - **按日 shift**(不跨隔夜) + **ETF 自滞后控制 ADL**(净掉 ETF 自身动量)
   - bar 大小不固定：按合约交易节奏选「主 bar」，全网格 robustness，is_primary_bar 标注
   - K 与可靠性按**有效事件数 n_active**(x≠0 的 bar)而非网格行数；显著性用 **BH-FDR** 校正(p_fdr)
   - 回归引擎 common.run_joint_lag_regression（日固定效应 + 按日聚类 SE）
@@ -32,7 +32,7 @@ import leadlag_common as C
 
 OUT_CSV = C.HERE / "leadlag_calendar_kalshi_etf.csv"
 MIN_BARS = 2 * 3 + 5   # 最小有效事件数下限（K=3 时）
-ADL_YLAGS = 5          # ETF 自滞后控制阶数（ADL/第8点：净掉 ETF 自身动量）
+ADL_YLAGS = "auto"     # ETF 自滞后控制阶数：每对在自己 bar 上用 BIC 自选（第8点：净掉 ETF 自身动量）
 
 
 def bar_change(df, value_col, out_col, freq, kind):
@@ -123,7 +123,7 @@ def main():
         cols = ["contract_ticker", "etf", "mode", "bar_freq", "bar_sec", "is_primary_bar",
                 "median_intertrade_sec", "K_chosen", "k_lag", "direction", "coef", "t_stat",
                 "p_value", "p_fdr", "r_squared", "n_obs", "n_days", "n_params", "n_active",
-                "n_active_bars", "r2_daily_screen", "contract_title"]
+                "n_ylags", "n_active_bars", "r2_daily_screen", "contract_title"]
         df_out = df_out[cols]
         df_out.to_csv(OUT_CSV, index=False)
         prim = df_out[df_out["is_primary_bar"]]

@@ -71,7 +71,7 @@ def main():
 
         # 按日 shift(不跨隔夜) + ETF 自滞后控制(ADL)，与 calendar 口径完全一致
         res = C.run_joint_lag_regression(act, x_col="dprob_e", y_col="etfret_e", k=k,
-                                         group_by_day=True, y_lags=5)
+                                         group_by_day=True, y_lags="auto")
         if res is None or res.empty:
             print("  跳过：回归样本不足")
             continue
@@ -92,7 +92,7 @@ def main():
         df_out = C.add_fdr(df_out, ["contract_ticker", "etf"])
         cols = ["contract_ticker", "etf", "mode", "bar_freq", "K_chosen", "k_lag",
                 "direction", "coef", "t_stat", "p_value", "p_fdr", "r_squared", "n_obs", "n_days",
-                "n_params", "n_active", "n_active_events", "r2_daily_screen", "contract_title"]
+                "n_params", "n_active", "n_ylags", "n_active_events", "r2_daily_screen", "contract_title"]
         df_out = df_out[cols]
         df_out.to_csv(OUT_CSV, index=False)
         sig = df_out[df_out["p_value"] < 0.05]

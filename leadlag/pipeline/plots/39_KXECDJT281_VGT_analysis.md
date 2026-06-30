@@ -1,4 +1,4 @@
-PAIR ANALYSIS    —    Rank 3 / 48
+PAIR ANALYSIS    —    Rank 11 / 48
 ================================================================================================
 KXECDJT281   x   VGT
 Contract : "Will Trump win 281-257 - AZ, GA, NC, PA?"
@@ -14,56 +14,59 @@ DEFINITIONS
    k>0 => Kalshi leads ETF ;  k<0 => ETF leads Kalshi ;  k=0 => contemporaneous
 
 1. CALENDAR-TIME REGRESSION (clock-time lags, full RTH grid)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   Significant terms (BH-FDR) expanded:  yₜ = α + β₋₁·xₜ₊₁
+   Full model:  yₜ = α + Σ(k=-5..5) βₖ·xₜ₋ₖ + φ₁·yₜ₋₁ + Σ(d=1..7) γ_d·Day_d
+      where  ADL ETF self-lags p=1 (BIC-chosen): φ₁·yₜ₋₁;  day-FE: 7 day dummies over 8 trading days (first day = baseline).
+      controls counted (so you can see the total at a glance):  11 lead/lag x-terms + 1 ETF self-lag(s) + 7 day-FE dummies + 1 intercept = 20 RHS regressors  (model n_params=20).
+   Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₁·xₜ₊₁ + β₊₃·xₜ₋₃
    where:
-      β₋₁ = -3.611e-05   (t/z=-3.45, p=5.5e-04, p_fdr=6.1e-03) ***   [ETF leads]
-   Lean by count of significant lags: ETF-leads  (k>0:0, k<0:1).
+      β₋₁ = -3.137e-05   (t/z=-3.09, p=2.0e-03, p_fdr=2.2e-02) **   [ETF leads]
+      β₊₃ = -1.916e-05   (t/z=-2.55, p=1.1e-02, p_fdr=5.8e-02) *   [Kalshi leads]
+   Lean by count of significant lags: balanced/no clear side  (k>0:1, k<0:1).
 
 2. EVENT-TIME REGRESSION (event-count lags)
-   Full model: yₜ = α + Σₖ βₖ·xₜ₋ₖ + Σᵢ φᵢ·yₜ₋ᵢ (ADL self-control) + day-FE
-   Significant terms (BH-FDR) expanded:  yₜ = α + β₋₅·xₜ₊₅ + β₊₀·xₜ + β₊₁·xₜ₋₁ + β₊₂·xₜ₋₂
+   Full model:  yₜ = α + Σ(k=-5..5) βₖ·xₜ₋ₖ + Σ(d=1..1) γ_d·Day_d
+      where  ADL ETF self-lags p=0 (BIC chose none -> no ETF self-lag term);  day-FE: 1 day dummies over 2 trading days (first day = baseline).
+      controls counted (so you can see the total at a glance):  11 lead/lag x-terms + 0 ETF self-lag(s) + 1 day-FE dummies + 1 intercept = 13 RHS regressors  (model n_params=13).
+   Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₁·xₜ₊₁ + β₊₀·xₜ + β₊₅·xₜ₋₅
    where:
-      β₋₅ = -1.191e-04   (t/z=-10.66, p=1.6e-26, p_fdr=1.8e-25) ***   [ETF leads]
-      β₊₀ = -2.469e-04   (t/z=-5.65, p=1.7e-08, p_fdr=9.1e-08) ***   [contemporaneous]
-      β₊₁ = -1.278e-04   (t/z=-5.26, p=1.4e-07, p_fdr=5.2e-07) ***   [Kalshi leads]
-      β₊₂ = +4.278e-05   (t/z=+3.11, p=1.9e-03, p_fdr=5.2e-03) ***   [Kalshi leads]
-   Lean by count of significant lags: Kalshi-leads  (k>0:2, k<0:1).
+      β₋₁ = -7.252e-05   (t/z=-2.38, p=1.8e-02, p_fdr=6.4e-02) *   [ETF leads]
+      β₊₀ = -2.397e-04   (t/z=-4.20, p=2.7e-05, p_fdr=2.9e-04) ***   [contemporaneous]
+      β₊₅ = +1.775e-04   (t/z=+3.51, p=4.5e-04, p_fdr=2.5e-03) ***   [Kalshi leads]
+   Lean by count of significant lags: balanced/no clear side  (k>0:1, k<0:1).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -5 |          -2.05e-05     |          -1.19e-04 ***
-     -4 |          +2.37e-05     |          +1.50e-05    
-     -3 |          -2.27e-06     |          -8.70e-06    
-     -2 |          +2.83e-05     |          -3.68e-05    
-     -1 |          -3.61e-05 *** |          -1.00e-04    
-     +0 |          -2.22e-05     |          -2.47e-04 ***
-     +1 |          -2.18e-05     |          -1.28e-04 ***
-     +2 |          +5.85e-06     |          +4.28e-05 ***
-     +3 |          -2.47e-05     |          +5.23e-05    
-     +4 |          -7.65e-06     |          +5.71e-05    
-     +5 |          -5.06e-05     |          +1.52e-04    
+     -5 |          -1.77e-05     |          -6.46e-05    
+     -4 |          +1.84e-05     |          +3.11e-05    
+     -3 |          -3.68e-06     |          -3.83e-06    
+     -2 |          +2.40e-05     |          -3.19e-05    
+     -1 |          -3.14e-05 **  |          -7.25e-05 *  
+     +0 |          -2.38e-05     |          -2.40e-04 ***
+     +1 |          -1.24e-05     |          -1.11e-04    
+     +2 |          +1.38e-05     |          +4.91e-05    
+     +3 |          -1.92e-05 *   |          +1.26e-05    
+     +4 |          -1.02e-05     |          +5.54e-05    
+     +5 |          -5.11e-05     |          +1.78e-04 ***
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
-   calendar: 13 lags tested, none significant after BH-FDR.
-   event: 13 lags tested, none significant after BH-FDR.
-   -> no significant directional predictability either mode (BH-FDR).
+   calendar: β₋₆=-1.62e-01, β₊₁=-1.20e-01
+   event: β₋₆=-1.11e-01
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Adequate
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
-   calendar(full RTH grid): n_active=51  n_obs=385  n_days=8  K=5  params=24  df=361  median_SE=2.50e-05  sig(FDR)=1
-   event: n_active=35  n_obs=58  n_days=2  K=5  params=18  df=40  median_SE=4.37e-05  sig(FDR)=4
+   calendar(full RTH grid): n_active=51  n_obs=385  n_days=8  K=5  params=20  df=365  median_SE=2.48e-05  sig(FDR)=1
+   event: n_active=35  n_obs=58  n_days=2  K=5  params=13  df=45  median_SE=6.81e-05  sig(FDR)=2
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
     30min: n_obs=31 df=15 K=5  sig=6 (Kalshi-leads 3 / ETF-leads 2) -> Kalshi-leads
     60min: n_obs=18 df=4 K=4  sig=1 (Kalshi-leads 0 / ETF-leads 1) -> ETF-leads
 
 7. VERDICT
-   Calendar leans ETF-leads but Event leans Kalshi-leads -- NOT robust across time-axis; no clean lead.
+   Both time-axes balanced -- no clean directional lead.
 
 8. FIGURE CAVEATS — figures are still drawn, but know their problems
    - Adequate info: figures and regression are mutually readable; note that flat Kalshi segments still mean 'no trade', not 'no change'.
