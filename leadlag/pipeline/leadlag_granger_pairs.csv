@@ -1,0 +1,123 @@
+contract_ticker,etf,mode,spec,direction,bar_freq,K,n_ylags,wald_chi2,wald_df,p_value,n_obs,n_days,n_active,cov_type,contract_title
+KXECKH276,VFH,calendar,linear,kalshi->etf,10min,3,0,20.560963051319955,3,0.00012985723402776834,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VFH,calendar,linear,etf->kalshi,10min,3,1,3.5170807204641354,3,0.3185535562872573,128,6,124,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VFH,event,linear,kalshi->etf,10min,3,0,1.619992286223645,3,0.6548652468277738,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VFH,event,linear,etf->kalshi,10min,3,3,7.194637092020678,3,0.0659460954742873,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECDJT316,VFH,calendar,linear,kalshi->etf,10min,4,1,4.240960590819809,4,0.37437647710424715,177,7,15,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECDJT316,VFH,calendar,linear,etf->kalshi,10min,4,1,5.668354551121277,4,0.22532253952991865,177,7,170,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECKH276,VIS,calendar,linear,kalshi->etf,10min,3,0,22.169481741554524,3,6.01430119979009e-05,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VIS,calendar,linear,etf->kalshi,10min,3,1,3.593095519779485,3,0.30888714670275913,128,6,126,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VIS,event,linear,kalshi->etf,10min,3,1,6.1588388128293525,3,0.1041329717565552,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VIS,event,linear,etf->kalshi,10min,3,3,12.18880357222628,3,0.006763605352291638,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH287,VNQ,calendar,linear,kalshi->etf,10min,3,0,1.6576862695308527,3,0.6463817081499292,106,5,10,hac-panel,"Will Harris win 287-251 - PA, NV, MI, WI, AZ?"
+KXECKH287,VNQ,calendar,linear,etf->kalshi,10min,3,1,3.4459409021742045,3,0.32784138243856503,106,5,102,hac-panel,"Will Harris win 287-251 - PA, NV, MI, WI, AZ?"
+KXECKH287,VNQ,event,linear,kalshi->etf,10min,3,3,12.710704924934387,3,0.005305882819176337,12,2,7,hac-panel,"Will Harris win 287-251 - PA, NV, MI, WI, AZ?"
+KXECKH287,VNQ,event,linear,etf->kalshi,10min,3,3,41.763041452416154,3,4.504595440697137e-09,12,2,12,hac-panel,"Will Harris win 287-251 - PA, NV, MI, WI, AZ?"
+KXECKH276,VCR,calendar,linear,kalshi->etf,10min,3,0,7.200095326235342,3,0.0657862645121253,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VCR,calendar,linear,etf->kalshi,10min,3,1,2.8330395055547175,3,0.4180898665241589,128,6,126,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VCR,event,linear,kalshi->etf,10min,3,0,1.9110322233254133,3,0.5910760198028779,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VCR,event,linear,etf->kalshi,10min,3,3,39.90854718397082,3,1.1141457682634232e-08,15,1,14,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+FEDDECISION-24SEP-C25,VDC,calendar,linear,kalshi->etf,2min,8,1,7.498998517872028,8,0.483870889381973,1994,11,289,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VDC,calendar,linear,etf->kalshi,2min,8,4,5.074168667478652,8,0.7496202740198383,1994,11,1932,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VDC,event,linear,kalshi->etf,2min,8,0,8.726843864109329,8,0.3658605539817596,393,10,250,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VDC,event,linear,etf->kalshi,2min,8,2,5.140669878575317,8,0.742440806111718,393,10,386,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VDC,calendar,probit,kalshi->etf,2min,8,0,21.142527544453397,8,0.0067783015757823875,379,10,239,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VDC,event,probit,kalshi->etf,2min,8,1,22.281995651432297,8,0.0044194024010329935,385,10,245,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+KXECKH276,VDE,calendar,linear,kalshi->etf,10min,3,1,33.541097632311796,3,2.476196540507268e-07,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDE,calendar,linear,etf->kalshi,10min,3,1,2.8579969818803197,3,0.41404135411851994,128,6,126,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDE,event,linear,kalshi->etf,10min,3,0,13.362709620518656,3,0.0039144085105230104,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDE,event,linear,etf->kalshi,10min,3,3,9.46908917731624,3,0.02366248358076923,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VOX,calendar,linear,kalshi->etf,10min,3,1,11.976245162005194,3,0.0074649791145465225,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VOX,calendar,linear,etf->kalshi,10min,3,1,4.2581189475479455,3,0.23490711076163293,128,6,127,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VOX,event,linear,kalshi->etf,10min,3,0,3.1026276679750406,3,0.3760710764587333,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VOX,event,linear,etf->kalshi,10min,3,3,0.7419220610899636,3,0.8633019134772342,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VGT,calendar,linear,kalshi->etf,10min,3,0,2.195631808594211,3,0.5328092811302048,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VGT,calendar,linear,etf->kalshi,10min,3,1,3.268395031987151,3,0.35206574692669074,128,6,128,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VGT,event,linear,kalshi->etf,10min,3,0,36.213938254727395,3,6.747645612058876e-08,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VGT,event,linear,etf->kalshi,10min,3,3,8.502720515357309,3,0.03668800615061465,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDC,calendar,linear,kalshi->etf,10min,3,0,3.5496535747492577,3,0.314379089243335,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDC,calendar,linear,etf->kalshi,10min,3,1,1.7191836162846068,3,0.6326772944334467,128,6,126,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDC,event,linear,kalshi->etf,10min,3,0,0.8243817798483257,3,0.8436267824645186,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VDC,event,linear,etf->kalshi,10min,3,3,39.32722073658687,3,1.4795817204057544e-08,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECDJT316,VIS,calendar,linear,kalshi->etf,10min,4,0,6.452580003257301,4,0.1678028565435076,177,7,15,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECDJT316,VIS,calendar,linear,etf->kalshi,10min,4,1,6.09397172497596,4,0.19223946127164832,177,7,176,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECDJT316,VDE,calendar,linear,kalshi->etf,10min,4,1,14.186558573342186,4,0.006722835344998712,177,7,15,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECDJT316,VDE,calendar,linear,etf->kalshi,10min,4,1,3.4279302129619,4,0.4889209778711836,177,7,173,hac-panel,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?"
+KXECKH276,VAW,calendar,linear,kalshi->etf,10min,3,1,11.60002864938335,3,0.008886770951632665,128,6,8,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VAW,calendar,linear,etf->kalshi,10min,3,1,3.3683383921962387,3,0.3382439065561665,128,6,126,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VAW,event,linear,kalshi->etf,10min,3,3,7.998476311782478,3,0.04604320622938951,15,1,7,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECKH276,VAW,event,linear,etf->kalshi,10min,3,3,8.753508836901116,3,0.032754147443252,15,1,15,hac-panel,"Will Harris win 276-262 - PA, NV, MI, WI?"
+KXECDJT281,VNQ,calendar,linear,kalshi->etf,5min,5,1,7.8498608767967495,5,0.16470651155943017,547,11,55,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VNQ,calendar,linear,etf->kalshi,5min,5,2,7.396789157350269,5,0.19276303790126384,547,11,513,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VNQ,event,linear,kalshi->etf,5min,5,0,34.3571575835491,5,2.021277676725833e-06,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VNQ,event,linear,etf->kalshi,5min,5,2,3.9004915735520864,5,0.5638299753522007,77,4,72,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VNQ,calendar,probit,kalshi->etf,5min,5,0,6.3586339522733155,5,0.2728692293083843,69,4,41,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VNQ,event,probit,kalshi->etf,5min,5,0,2.590699943048947,5,0.7627777887622827,71,4,40,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+FEDDECISION-24SEP-C25,VOX,calendar,linear,kalshi->etf,2min,8,1,10.947913003524048,8,0.20466802444529367,1994,11,289,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VOX,calendar,linear,etf->kalshi,2min,8,4,5.439839875439902,8,0.7096957286264571,1994,11,1924,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VOX,event,linear,kalshi->etf,2min,8,0,3.6291434335660777,8,0.8889390280504194,393,10,250,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VOX,event,linear,etf->kalshi,2min,8,2,6.081129477900938,8,0.6381445165133124,393,10,382,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VOX,calendar,probit,kalshi->etf,2min,8,0,18.508637198221514,8,0.017720227649216012,378,10,241,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VOX,event,probit,kalshi->etf,2min,8,1,12.732149461085708,8,0.12140384319173067,381,10,243,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,calendar,linear,kalshi->etf,2min,8,6,3.7507098796557266,8,0.8788857989592685,1994,11,289,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,calendar,linear,etf->kalshi,2min,8,4,6.5276420871920235,8,0.5883432270644815,1994,11,1930,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,event,linear,kalshi->etf,2min,8,2,4.2282241866563,8,0.8359674789027913,393,10,250,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,event,linear,etf->kalshi,2min,8,2,6.966808196934206,8,0.5402180304058628,393,10,384,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,calendar,probit,kalshi->etf,2min,8,0,9.009836843869069,8,0.3414668104506758,371,10,236,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+FEDDECISION-24SEP-C25,VPU,event,probit,kalshi->etf,2min,8,0,6.111823966271693,8,0.6347074221893261,383,10,245,hac-panel,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?
+KXECDJT281,VOX,calendar,linear,kalshi->etf,5min,5,1,7.936905113106514,5,0.1597473629048395,547,11,55,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VOX,calendar,linear,etf->kalshi,5min,5,2,2.5635998607032535,5,0.766887819212315,547,11,527,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VOX,event,linear,kalshi->etf,5min,5,2,3.673075767768923,5,0.5973757437914518,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VOX,event,linear,etf->kalshi,5min,5,2,3.0453852925977447,5,0.6929887138556018,77,4,76,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VOX,calendar,probit,kalshi->etf,5min,5,0,8.26956501436237,5,0.14199179616684848,74,4,43,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VOX,event,probit,kalshi->etf,5min,5,0,4.881776586596236,5,0.43047820222510214,75,4,43,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT306,VDC,calendar,linear,kalshi->etf,10min,4,1,10.630304052564645,4,0.031048642327145295,317,13,23,hac-panel,"Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?"
+KXECDJT306,VDC,calendar,linear,etf->kalshi,10min,4,3,4.507989230134091,4,0.3416012147080061,317,13,311,hac-panel,"Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?"
+KXECDJT306,VDC,event,linear,kalshi->etf,10min,4,0,51.175593122434364,4,2.0513676218929613e-10,21,2,17,hac-panel,"Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?"
+KXECDJT306,VDC,event,linear,etf->kalshi,10min,4,0,7.349915533384462,4,0.11851240529469015,21,2,21,hac-panel,"Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?"
+KXECDJT281,VGT,calendar,linear,kalshi->etf,5min,5,2,3.35527564786669,5,0.6453902172898942,547,11,55,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VGT,calendar,linear,etf->kalshi,5min,5,2,3.4229213026427456,5,0.6350813470349593,547,11,545,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VGT,event,linear,kalshi->etf,5min,5,0,2.4668469757732794,5,0.7814794948858912,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VGT,event,linear,etf->kalshi,5min,5,2,3.693924659106694,5,0.5942683226531054,77,4,77,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VGT,calendar,probit,kalshi->etf,5min,5,0,3.740070981757123,5,0.5874122608712509,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VGT,event,probit,kalshi->etf,5min,5,0,1.4822652644529661,5,0.9151072798398521,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT312,VAW,calendar,linear,kalshi->etf,10min,5,1,0.9117609118892603,5,0.9693643529267817,388,18,47,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT312,VAW,calendar,linear,etf->kalshi,10min,5,1,7.418994897348761,5,0.19129683775652082,388,18,382,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT312,VAW,event,linear,kalshi->etf,10min,5,0,48.20022562449764,5,3.2328570988872632e-09,48,4,37,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT312,VAW,event,linear,etf->kalshi,10min,5,2,3.252877953149794,5,0.66106340589318,48,4,47,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT312,VAW,calendar,probit,kalshi->etf,10min,5,1,11.294574707678711,5,0.045842326171945995,47,4,35,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT312,VAW,event,probit,kalshi->etf,10min,5,1,23.797903814379946,5,0.00023741140319212003,47,4,35,hac-panel,Will Trump win 312-226 - swing state sweep?
+KXECDJT281,VCR,calendar,linear,kalshi->etf,5min,5,1,1.5807243764269658,5,0.9035704553521668,547,11,55,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VCR,calendar,linear,etf->kalshi,5min,5,2,1.8469051470044247,5,0.8698970598303881,547,11,544,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VCR,event,linear,kalshi->etf,5min,5,0,6.084466685569061,5,0.29808651185851764,77,4,44,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VCR,event,linear,etf->kalshi,5min,5,2,9.366662929904914,5,0.09530304696986443,77,4,76,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VCR,calendar,probit,kalshi->etf,5min,5,0,6.491379766626301,5,0.2612958924827861,76,4,43,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXECDJT281,VCR,event,probit,kalshi->etf,5min,5,0,4.086930019187407,5,0.5369693270690685,76,4,43,hac-panel,"Will Trump win 281-257 - AZ, GA, NC, PA?"
+KXFEDDECISION-24DEC-C25,VFH,calendar,linear,kalshi->etf,5min,10,1,16.672181728746573,10,0.08193985392775294,2137,33,414,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VFH,calendar,linear,etf->kalshi,5min,10,1,9.406171610771738,10,0.4940382741440287,2137,33,2043,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VFH,event,linear,kalshi->etf,5min,10,0,23.438497503212787,10,0.009238754678660725,501,28,301,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VFH,event,linear,etf->kalshi,5min,10,6,14.469281691266577,10,0.1526419158454128,501,28,486,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VFH,calendar,probit,kalshi->etf,5min,10,0,11.41294581110255,10,0.3262631256250394,474,28,294,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VFH,event,probit,kalshi->etf,5min,10,0,17.362455824739207,10,0.0667187262895681,478,28,296,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+AAAGASM-24OCT31-US-3.15,VPU,calendar,linear,kalshi->etf,10min,3,1,15.125426543280069,3,0.0017125405360152726,312,14,12,hac-panel,Will average **gas prices** be above $3.15?
+AAAGASM-24OCT31-US-3.15,VPU,calendar,linear,etf->kalshi,10min,3,2,1.9726113388543975,3,0.5781107401116836,312,14,307,hac-panel,Will average **gas prices** be above $3.15?
+FEDDECISION-24NOV-H0,VDE,calendar,linear,kalshi->etf,10min,6,0,6.24837380655683,6,0.3959501237962231,901,36,97,hac-panel,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VDE,calendar,linear,etf->kalshi,10min,6,0,6.366040755061287,6,0.38345870291977235,901,36,886,hac-panel,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VDE,calendar,probit,kalshi->etf,10min,6,0,5.7999095609004385,6,0.4459736611972218,42,12,25,default,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VDE,event,probit,kalshi->etf,10min,6,0,4.561629879391231,6,0.6011326614600481,42,12,25,default,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VNQ,calendar,linear,kalshi->etf,10min,6,0,9.749236493959073,6,0.13561721053195103,901,36,97,hac-panel,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VNQ,calendar,linear,etf->kalshi,10min,6,0,13.44838682089562,6,0.03644307105415044,901,36,872,hac-panel,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VNQ,calendar,probit,kalshi->etf,10min,6,0,5.592696994836655,6,0.47032456573824943,43,12,26,default,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+FEDDECISION-24NOV-H0,VNQ,event,probit,kalshi->etf,10min,6,0,1.5119710770357724,6,0.9586954002656544,42,12,25,default,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,calendar,linear,kalshi->etf,5min,10,1,9.81535408352587,10,0.4568396690531983,2137,33,414,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,calendar,linear,etf->kalshi,5min,10,1,12.545147923730198,10,0.2502259601550331,2137,33,2060,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,event,linear,kalshi->etf,5min,10,0,23.24265377966099,10,0.009885484578459197,501,28,301,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,event,linear,etf->kalshi,5min,10,6,10.138545913812075,10,0.42842348490926724,501,28,495,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,calendar,probit,kalshi->etf,5min,10,0,8.845513935761346,10,0.5468250655793696,486,28,298,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-C25,VIS,event,probit,kalshi->etf,5min,10,0,25.249476242884196,10,0.004892159012375,492,28,303,hac-panel,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,calendar,linear,kalshi->etf,10min,8,0,6.468158528228622,8,0.5949416365686053,891,34,185,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,calendar,linear,etf->kalshi,10min,8,4,3.765328560992957,8,0.8776513589912174,891,34,874,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,event,linear,kalshi->etf,10min,8,1,2.7577173594693485,8,0.9486301625616689,167,26,106,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,event,linear,etf->kalshi,10min,8,2,9.064401335225687,8,0.3368923175289486,167,26,167,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,calendar,probit,kalshi->etf,10min,8,0,3.554668285107304,8,0.8949056768355135,167,26,108,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
+KXFEDDECISION-24DEC-H0,VGT,event,probit,kalshi->etf,10min,8,0,6.645421649097032,8,0.5753264037551422,167,26,108,hac-panel,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?
