@@ -3,7 +3,7 @@ PAIR ANALYSIS    —    Rank 48 / 48
 538APPROVEMAX-24OCT31-T43   x   VOX
 Contract : "Will the President's approval rating ever get above 43% by Oct 31, 2024?"
 Sector relevance : Election outcome (all sectors)
-Window : 2024-10-07 to 2024-10-31     Kalshi trades : 4     primary bar : n/a     daily-screen R^2 : 0.70
+Window : 2024-10-07 to 2024-10-31     Kalshi trades : 11     primary bar : n/a     daily-screen R^2 : 0.70
 
 >>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
@@ -38,8 +38,8 @@ DEFINITIONS
    => Neither axis is estimable: this pair has descriptive figures only, no reliable regression result.
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
-    60min: not estimable (n_obs=0 < minimum) -- coarser bars have even fewer observations
+    30min: not estimable (n_obs=2 < minimum) -- coarser bars have even fewer observations
+    60min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
    No lead-lag detected -- too sparse / no significant structure.

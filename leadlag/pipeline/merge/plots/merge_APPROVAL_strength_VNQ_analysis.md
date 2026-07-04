@@ -8,8 +8,8 @@ Pooled regression vs this ETF (per-member FE, day-clustered SE, ADL self-lags by
 Direction counts use RAW p (graded thresholds), k>0 Kalshi-leads / k<0 ETF-leads.
 
 == CALENDAR (primary bar) ==
-  K=3  ADL self-lags=1  n_obs=7342
-  p<0.05: Kalshi-leads 1 / ETF-leads 4   p<0.10: Kalshi-leads 2 / ETF-leads 6   p<0.15: Kalshi-leads 2 / ETF-leads 6
+  K=4  ADL self-lags=0  n_obs=464
+  p<0.05: Kalshi-leads 0 / ETF-leads 0   p<0.10: Kalshi-leads 0 / ETF-leads 1   p<0.15: Kalshi-leads 0 / ETF-leads 1
 
 == EVENT (active-event) ==
   (no result)
@@ -18,4 +18,4 @@ Direction counts use RAW p (graded thresholds), k>0 Kalshi-leads / k<0 ETF-leads
   (no result)
 
 == Conclusion (calendar+event) ==
-  p<0.05: ETF-leads (K1/E4) | p<0.10: ETF-leads (K2/E6) | p<0.15: ETF-leads (K2/E6)
+  p<0.05: balanced/none (K0/E0) | p<0.10: ETF-leads (K0/E1) | p<0.15: ETF-leads (K0/E1)

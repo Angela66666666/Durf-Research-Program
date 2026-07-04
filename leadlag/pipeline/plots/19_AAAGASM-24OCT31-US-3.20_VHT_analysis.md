@@ -3,7 +3,7 @@ PAIR ANALYSIS    —    Rank 33 / 48
 AAAGASM-24OCT31-US-3.20   x   VHT
 Contract : "Will average **gas prices** be above $3.20?"
 Sector relevance : VDE (Energy)
-Window : 2024-10-02 to 2024-10-30     Kalshi trades : 30     primary bar : n/a     daily-screen R^2 : 0.52
+Window : 2024-10-02 to 2024-10-30     Kalshi trades : 44     primary bar : n/a     daily-screen R^2 : 0.52
 
 >>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
@@ -38,8 +38,8 @@ DEFINITIONS
    => Neither axis is estimable: this pair has descriptive figures only, no reliable regression result.
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
-    60min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
+    30min: not estimable (n_obs=4 < minimum) -- coarser bars have even fewer observations
+    60min: not estimable (n_obs=4 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
    No lead-lag detected -- too sparse / no significant structure.

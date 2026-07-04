@@ -1,28 +1,43 @@
-PAIR ANALYSIS    —    Rank 32 / 48
+PAIR ANALYSIS    —    Rank 27 / 48
 ================================================================================================
 KXECKH287   x   VNQ
 Contract : "Will Harris win 287-251 - PA, NV, MI, WI, AZ?"
 Sector relevance : Election outcome (all sectors)
-Window : 2024-11-04 to 2024-11-21     Kalshi trades : 33     primary bar : n/a     daily-screen R^2 : 0.68
+Window : 2024-11-04 to 2024-11-21     Kalshi trades : 39     primary bar : 10min     daily-screen R^2 : 0.68
 
->>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
+>>> RELIABILITY:  Very-low-info   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
 DEFINITIONS
-   xₜ₋ₖ = Kalshi yes-probability change, k bars before t   (1 bar = n/a)
+   xₜ₋ₖ = Kalshi yes-probability change, k bars before t   (1 bar = 10min)
    yₜ   = ETF log return over bar t
    calendar = full market-hours grid: x=0 in bars with no Kalshi trade (not dropped).
    k>0 => Kalshi leads ETF ;  k<0 => ETF leads Kalshi ;  k=0 => contemporaneous
 
 1. CALENDAR-TIME REGRESSION (clock-time lags, full RTH grid)
-   Full model:  yₜ = α + Σ(k) βₖ·xₜ₋ₖ + (ADL self-lags) + (day fixed effects)
-   -> no regression result (insufficient data).
+   Full model:  yₜ = α + Σ(k=-3..3) βₖ·xₜ₋ₖ + Σ(d=1..4) γ_d·Day_d
+      where  ADL ETF self-lags p=0 (BIC chose none -> no ETF self-lag term);  day-FE: 4 day dummies over 5 trading days (first day = baseline).
+      controls counted (so you can see the total at a glance):  7 lead/lag x-terms + 0 ETF self-lag(s) + 4 day-FE dummies + 1 intercept = 12 RHS regressors  (model n_params=12).
+   Significant terms (raw p<0.15) expanded:  yₜ = α + β₊₀·xₜ + β₊₃·xₜ₋₃
+   where:
+      β₊₀ = -5.683e-05   (t/z=-2.69, p=7.2e-03, p_fdr=2.5e-02) **   [contemporaneous]
+      β₊₃ = -1.306e-04   (t/z=-33.62, p=1.0e-247, p_fdr=7.0e-247) ***   [Kalshi leads]
+   Lean by count of significant lags: Kalshi-leads  (k>0:1, k<0:0).
 
 2. EVENT-TIME REGRESSION (event-count lags)
    Full model:  yₜ = α + Σ(k) βₖ·xₜ₋ₖ + (ADL self-lags) + (day fixed effects)
    -> no regression result (insufficient data).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
-   (no coefficients in either mode)
+      k |       calendar b (FDR) |          event b (FDR)
+   ------------------------------------------------------
+     -3 |          +5.67e-06     |                     --
+     -2 |          +8.33e-06     |                     --
+     -1 |          -8.19e-05     |                     --
+     +0 |          -5.68e-05 **  |                     --
+     +1 |          -6.57e-05     |                     --
+     +2 |          -6.09e-05     |                     --
+     +3 |          -1.31e-04 *** |                     --
+   (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
@@ -31,24 +46,23 @@ DEFINITIONS
    -> no significant directional predictability either mode (raw p<0.15).
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
-   Tier: Cannot-estimate
+   Tier: Very-low-info
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
-   calendar(full RTH grid): not estimable (insufficient data)
+   calendar(full RTH grid): n_active=10  n_obs=91  n_days=5  K=3  params=12  df=79  median_SE=6.17e-05  sig(FDR)=2
    event: not estimable (insufficient data)
-   => Neither axis is estimable: this pair has descriptive figures only, no reliable regression result.
+   => Very low info: even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: not estimable (n_obs=11 < minimum) -- coarser bars have even fewer observations
-    60min: not estimable (n_obs=6 < minimum) -- coarser bars have even fewer observations
+    30min: not estimable (n_obs=14 < minimum) -- coarser bars have even fewer observations
+    60min: not estimable (n_obs=9 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
-   No lead-lag detected -- too sparse / no significant structure.
+   Only one time-axis significant (Kalshi-leads) -- weak / single-mode evidence.
    (Note: this pair lacks the data to support reliable inference; the verdict above is descriptive only -- do not put it in the conclusions.)
 
 8. FIGURE CAVEATS — figures are still drawn, but know their problems
-   - Regression cannot be estimated: the lag-coefficient plot (B) shows 'no regression result'; only the time-series / zoom plots are descriptive.
-   - Long flat Kalshi segments = NO TRADE in that span (not 'probability unchanged'); do not read lead direction from them.
-   - Too few active bars: the red/blue lead shading in zoom2/segments and the K#/E# pairing in leadglance are illustrative only, with no statistical meaning.
+   - Very low info (only 10 bars with an actual Kalshi move, < 15): even 'significant' coefficients are untrustworthy (huge SE, possibly spurious significance).
+   - Most of the chart is flat no-trade lines; only a handful of bars carry real variation, so the lead calls in leadglance/segments are not robust.
    - Kalshi updates only on trades (flat line = no trade, NOT 'no change'); ETF mid refreshes continuously.
 
 9. REAL-WORLD CONTEXT (WebSearch-verified; see URLs)

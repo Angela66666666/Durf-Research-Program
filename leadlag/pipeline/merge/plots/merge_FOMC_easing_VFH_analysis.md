@@ -8,16 +8,16 @@ Pooled regression vs this ETF (per-member FE, day-clustered SE, ADL self-lags by
 Direction counts use RAW p (graded thresholds), k>0 Kalshi-leads / k<0 ETF-leads.
 
 == CALENDAR (primary bar) ==
-  K=10  ADL self-lags=1  n_obs=1513
-  p<0.05: Kalshi-leads 1 / ETF-leads 1   p<0.10: Kalshi-leads 1 / ETF-leads 1   p<0.15: Kalshi-leads 1 / ETF-leads 1
+  K=10  ADL self-lags=1  n_obs=1790
+  p<0.05: Kalshi-leads 1 / ETF-leads 1   p<0.10: Kalshi-leads 2 / ETF-leads 1   p<0.15: Kalshi-leads 2 / ETF-leads 1
 
 == EVENT (active-event) ==
-  K=10  ADL self-lags=1  n_obs=547
-  p<0.05: Kalshi-leads 0 / ETF-leads 0   p<0.10: Kalshi-leads 1 / ETF-leads 0   p<0.15: Kalshi-leads 1 / ETF-leads 0
+  K=10  ADL self-lags=1  n_obs=566
+  p<0.05: Kalshi-leads 1 / ETF-leads 0   p<0.10: Kalshi-leads 1 / ETF-leads 0   p<0.15: Kalshi-leads 1 / ETF-leads 1
 
 == PROBIT (Pr(ETF up)) ==
-  K=10  ADL self-lags=-  n_obs=504
-  p<0.05: Kalshi-leads 4 / ETF-leads 2   p<0.10: Kalshi-leads 6 / ETF-leads 2   p<0.15: Kalshi-leads 8 / ETF-leads 4
+  K=10  ADL self-lags=-  n_obs=527
+  p<0.05: Kalshi-leads 5 / ETF-leads 2   p<0.10: Kalshi-leads 6 / ETF-leads 4   p<0.15: Kalshi-leads 7 / ETF-leads 5
 
 == Conclusion (calendar+event) ==
-  p<0.05: balanced/none (K1/E1) | p<0.10: Kalshi-leads (K2/E1) | p<0.15: Kalshi-leads (K2/E1)
+  p<0.05: Kalshi-leads (K2/E1) | p<0.10: Kalshi-leads (K3/E1) | p<0.15: Kalshi-leads (K3/E2)

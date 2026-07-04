@@ -11,14 +11,14 @@ Direction counts below use RAW p (same graded-threshold convention as the single
 
 == CALENDAR (primary bar) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      3    1    7058   p<0.05: K8/E0  p<0.10: K8/E1  p<0.15: K8/E2
-VCR      3    1    7058   p<0.05: K0/E0  p<0.10: K2/E0  p<0.15: K2/E0
-VFH      3    1    7059   p<0.05: K0/E2  p<0.10: K0/E2  p<0.15: K0/E2
-VGT      3    1    7345   p<0.05: K5/E2  p<0.10: K5/E2  p<0.15: K7/E2
-VHT      3    1    7188   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VIS      3    1    7058   p<0.05: K2/E1  p<0.10: K2/E1  p<0.15: K4/E1
-VNQ      3    1    7342   p<0.05: K1/E4  p<0.10: K2/E6  p<0.15: K2/E6
-VOX      3    1    7091   p<0.05: K2/E1  p<0.10: K3/E1  p<0.15: K4/E2
+VAW      4    1     450   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
+VCR      4    1     450   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
+VFH      4    1     450   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K0/E1
+VGT      4    1     464   p<0.05: K1/E1  p<0.10: K1/E2  p<0.15: K1/E2
+VHT      4    1     456   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K2/E1
+VIS      4    0     450   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
+VNQ      4    0     464   p<0.05: K0/E0  p<0.10: K0/E1  p<0.15: K0/E1
+VOX      4    1     452   p<0.05: K2/E0  p<0.10: K2/E0  p<0.15: K2/E1
 
 == EVENT (active-event subsequence) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
@@ -43,5 +43,5 @@ VNQ      -    -        -   (no result)
 VOX      -    -        -   (no result)
 
 == Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: Kalshi-leads (K19/E11) | p<0.10: Kalshi-leads (K23/E14) | p<0.15: Kalshi-leads (K28/E16)
+  p<0.05: Kalshi-leads (K29/E25) | p<0.10: Kalshi-leads (K36/E31) | p<0.15: Kalshi-leads (K48/E35)
   Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.

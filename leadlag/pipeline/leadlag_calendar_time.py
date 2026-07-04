@@ -38,7 +38,7 @@ ADL_YLAGS = "auto"     # ETF 自滞后控制阶数：每对在自己 bar 上用 
 def bar_change(df, value_col, out_col, freq, kind):
     """median-resample 到 bar，再算同日内变化量：etf->log return，kalshi->prob 差分。
     Resample to median bars, then per-day change: ETF log return / Kalshi prob diff."""
-    bars = C.bar_median_series(df, value_col, freq)
+    bars = C.causal_bars(df, value_col, freq)
     if bars.empty:
         return pd.DataFrame(columns=["ts_et", out_col, "date"])
     pieces = []

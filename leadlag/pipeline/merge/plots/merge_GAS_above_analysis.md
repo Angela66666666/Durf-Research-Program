@@ -11,17 +11,17 @@ Direction counts below use RAW p (same graded-threshold convention as the single
 
 == CALENDAR (primary bar) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      4    1     334   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K2/E1
-VCR      4    3     334   p<0.05: K2/E1  p<0.10: K4/E1  p<0.15: K4/E1
-VDC      4    2     334   p<0.05: K3/E2  p<0.10: K4/E2  p<0.15: K4/E2
-VDE      4    1     334   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K1/E0
-VFH      4    1     334   p<0.05: K0/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VGT      4    1     334   p<0.05: K3/E3  p<0.10: K4/E3  p<0.15: K4/E3
-VHT      4    1     334   p<0.05: K4/E1  p<0.10: K4/E1  p<0.15: K4/E1
-VIS      4    1     334   p<0.05: K2/E2  p<0.10: K2/E3  p<0.15: K2/E3
-VNQ      4    0     334   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VOX      4    1     334   p<0.05: K2/E2  p<0.10: K3/E3  p<0.15: K4/E3
-VPU      4    1     334   p<0.05: K2/E2  p<0.10: K3/E2  p<0.15: K3/E2
+VAW      4    1     579   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K1/E0
+VCR      4    1     579   p<0.05: K3/E2  p<0.10: K3/E2  p<0.15: K3/E2
+VDC      4    3     579   p<0.05: K4/E2  p<0.10: K4/E2  p<0.15: K4/E2
+VDE      4    1     579   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K1/E0
+VFH      4    1     579   p<0.05: K1/E0  p<0.10: K1/E1  p<0.15: K1/E2
+VGT      4    3     579   p<0.05: K2/E2  p<0.10: K2/E2  p<0.15: K4/E3
+VHT      4    1     579   p<0.05: K3/E1  p<0.10: K3/E1  p<0.15: K3/E1
+VIS      4    2     579   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K2/E1
+VNQ      4    0     579   p<0.05: K0/E1  p<0.10: K1/E1  p<0.15: K1/E1
+VOX      4    3     579   p<0.05: K2/E2  p<0.10: K2/E3  p<0.15: K2/E3
+VPU      4    1     579   p<0.05: K1/E2  p<0.10: K1/E2  p<0.15: K2/E2
 
 == EVENT (active-event subsequence) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
@@ -39,18 +39,18 @@ VPU      -    -        -   (no result)
 
 == PROBIT (direction test Pr(ETF up)) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VAW      -    -        -   (no result)
-VCR      -    -        -   (no result)
-VDC      -    -        -   (no result)
-VDE      -    -        -   (no result)
-VFH      -    -        -   (no result)
-VGT      -    -        -   (no result)
-VHT      -    -        -   (no result)
-VIS      -    -        -   (no result)
-VNQ      -    -        -   (no result)
-VOX      -    -        -   (no result)
-VPU      -    -        -   (no result)
+VAW      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VCR      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VDC      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VDE      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VFH      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VGT      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VHT      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VIS      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VNQ      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VOX      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
+VPU      4    -      30   p<0.05: K0/E0  p<0.10: K0/E0  p<0.15: K0/E0
 
 == Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: Kalshi-leads (K75/E69) | p<0.10: Kalshi-leads (K92/E78) | p<0.15: Kalshi-leads (K102/E89)
+  p<0.05: Kalshi-leads (K72/E47) | p<0.10: Kalshi-leads (K81/E60) | p<0.15: Kalshi-leads (K88/E74)
   Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.

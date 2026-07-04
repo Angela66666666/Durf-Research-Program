@@ -1,9 +1,9 @@
-PAIR ANALYSIS    —    Rank 4 / 48
+PAIR ANALYSIS    —    Rank 5 / 48
 ================================================================================================
 FEDDECISION-24SEP-C25   x   VPU
 Contract : "Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?"
 Sector relevance : VFH_VNQ_VPU (Rate-sensitive: Financials / Real Estate / Utilities)
-Window : 2024-09-04 to 2024-09-18     Kalshi trades : 1110     primary bar : 2min     daily-screen R^2 : 0.42
+Window : 2024-09-04 to 2024-09-18     Kalshi trades : 1125     primary bar : 2min     daily-screen R^2 : 0.42
 
 >>> RELIABILITY:  Adequate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
@@ -17,61 +17,60 @@ DEFINITIONS
    Full model:  yₜ = α + Σ(k=-8..8) βₖ·xₜ₋ₖ + φ₁·yₜ₋₁ + φ₂·yₜ₋₂ + φ₃·yₜ₋₃ + φ₄·yₜ₋₄ + φ₅·yₜ₋₅ + φ₆·yₜ₋₆ + Σ(d=1..10) γ_d·Day_d
       where  ADL ETF self-lags p=6 (BIC-chosen): φ₁·yₜ₋₁ + φ₂·yₜ₋₂ + φ₃·yₜ₋₃ + φ₄·yₜ₋₄ + φ₅·yₜ₋₅ + φ₆·yₜ₋₆;  day-FE: 10 day dummies over 11 trading days (first day = baseline).
       controls counted (so you can see the total at a glance):  17 lead/lag x-terms + 6 ETF self-lag(s) + 10 day-FE dummies + 1 intercept = 34 RHS regressors  (model n_params=34).
-   Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₄·xₜ₊₄ + β₊₃·xₜ₋₃ + β₊₄·xₜ₋₄ + β₊₆·xₜ₋₆ + β₊₇·xₜ₋₇
+   Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₄·xₜ₊₄ + β₊₃·xₜ₋₃ + β₊₄·xₜ₋₄ + β₊₆·xₜ₋₆
    where:
-      β₋₄ = +1.819e-05   (t/z=+1.46, p=1.5e-01, p_fdr=4.9e-01)    [ETF leads]
-      β₊₃ = +3.805e-05   (t/z=+1.88, p=6.1e-02, p_fdr=4.9e-01)    [Kalshi leads]
-      β₊₄ = -2.455e-05   (t/z=-1.52, p=1.3e-01, p_fdr=4.9e-01)    [Kalshi leads]
-      β₊₆ = +1.633e-05   (t/z=+2.33, p=2.0e-02, p_fdr=3.4e-01)    [Kalshi leads]
-      β₊₇ = +8.991e-06   (t/z=+1.71, p=8.7e-02, p_fdr=4.9e-01)    [Kalshi leads]
-   Lean by count of significant lags: Kalshi-leads  (k>0:4, k<0:1).
+      β₋₄ = +2.026e-05   (t/z=+1.65, p=9.9e-02, p_fdr=4.3e-01)    [ETF leads]
+      β₊₃ = +3.630e-05   (t/z=+1.77, p=7.7e-02, p_fdr=4.3e-01)    [Kalshi leads]
+      β₊₄ = -2.709e-05   (t/z=-1.81, p=7.0e-02, p_fdr=4.3e-01)    [Kalshi leads]
+      β₊₆ = +1.291e-05   (t/z=+1.64, p=1.0e-01, p_fdr=4.3e-01)    [Kalshi leads]
+   Lean by count of significant lags: Kalshi-leads  (k>0:3, k<0:1).
 
 2. EVENT-TIME REGRESSION (event-count lags)
-   Full model:  yₜ = α + Σ(k=-8..8) βₖ·xₜ₋ₖ + φ₁·yₜ₋₁ + φ₂·yₜ₋₂ + Σ(d=1..7) γ_d·Day_d
-      where  ADL ETF self-lags p=2 (BIC-chosen): φ₁·yₜ₋₁ + φ₂·yₜ₋₂;  day-FE: 7 day dummies over 8 trading days (first day = baseline).
-      controls counted (so you can see the total at a glance):  17 lead/lag x-terms + 2 ETF self-lag(s) + 7 day-FE dummies + 1 intercept = 27 RHS regressors  (model n_params=27).
+   Full model:  yₜ = α + Σ(k=-8..8) βₖ·xₜ₋ₖ + Σ(d=1..7) γ_d·Day_d
+      where  ADL ETF self-lags p=0 (BIC chose none -> no ETF self-lag term);  day-FE: 7 day dummies over 8 trading days (first day = baseline).
+      controls counted (so you can see the total at a glance):  17 lead/lag x-terms + 0 ETF self-lag(s) + 7 day-FE dummies + 1 intercept = 25 RHS regressors  (model n_params=25).
    Significant terms (raw p<0.15) expanded:  yₜ = α + β₋₃·xₜ₊₃ + β₋₂·xₜ₊₂
    where:
-      β₋₃ = +1.400e-04   (t/z=+1.99, p=4.7e-02, p_fdr=5.7e-01)    [ETF leads]
-      β₋₂ = +1.145e-04   (t/z=+1.83, p=6.7e-02, p_fdr=5.7e-01)    [ETF leads]
+      β₋₃ = +1.271e-04   (t/z=+2.10, p=3.5e-02, p_fdr=6.0e-01)    [ETF leads]
+      β₋₂ = +9.975e-05   (t/z=+1.78, p=7.6e-02, p_fdr=6.4e-01)    [ETF leads]
    Lean by count of significant lags: ETF-leads  (k>0:0, k<0:2).
 
 3. FULL COEFFICIENT TABLE  (calendar primary bar  vs  event)
       k |       calendar b (FDR) |          event b (FDR)
    ------------------------------------------------------
-     -8 |          +6.28e-06     |          +3.31e-05    
-     -7 |          -2.03e-05     |          -2.62e-05    
-     -6 |          -4.73e-06     |          +5.58e-05    
-     -5 |          +1.20e-05     |          -1.04e-05    
-     -4 |          +1.82e-05     |          +5.15e-05    
-     -3 |          +1.52e-05     |          +1.40e-04    
-     -2 |          -7.65e-07     |          +1.15e-04    
-     -1 |          -1.72e-05     |          -7.57e-06    
-     +0 |          +8.43e-07     |          -5.86e-06    
-     +1 |          -2.66e-06     |          -4.28e-05    
-     +2 |          -4.72e-06     |          -1.44e-06    
-     +3 |          +3.80e-05     |          -3.64e-06    
-     +4 |          -2.45e-05     |          -6.97e-06    
-     +5 |          -1.83e-05     |          -6.65e-06    
-     +6 |          +1.63e-05     |          +2.81e-05    
-     +7 |          +8.99e-06     |          -2.35e-05    
-     +8 |          +2.67e-06     |          +2.22e-06    
+     -8 |          +8.15e-06     |          +3.50e-05    
+     -7 |          -1.31e-05     |          -3.62e-05    
+     -6 |          -5.56e-06     |          +4.73e-05    
+     -5 |          +1.78e-05     |          -2.10e-05    
+     -4 |          +2.03e-05     |          +3.48e-05    
+     -3 |          +1.60e-05     |          +1.27e-04    
+     -2 |          -3.74e-07     |          +9.98e-05    
+     -1 |          -1.80e-05     |          -4.63e-05    
+     +0 |          -1.59e-06     |          -3.17e-05    
+     +1 |          -3.87e-06     |          -3.99e-05    
+     +2 |          -7.87e-06     |          -6.94e-06    
+     +3 |          +3.63e-05     |          +3.06e-06    
+     +4 |          -2.71e-05     |          -7.22e-06    
+     +5 |          -1.90e-05     |          -7.04e-06    
+     +6 |          +1.29e-05     |          +2.40e-05    
+     +7 |          +7.90e-06     |          -2.11e-05    
+     +8 |          +1.33e-06     |          -3.67e-06    
    (stars = BH-FDR corrected:  *** p_fdr<.01  ** <.05  * <.10)
 
 4. DIRECTIONAL TEST (probit, ETF up/down)
    Model: P(ETFₜ up) = Φ(α + βₖ·xₜ₋ₖ),  one probit per lag k
-   calendar: β₋₈=-1.03e-01, β₋₅=+8.93e-02, β₋₃=+7.38e-02***, β₋₁=-1.31e-01, β₊₁=-6.94e-02, β₊₃=+8.75e-02, β₊₆=+1.31e-01
-   event: β₋₈=-6.96e-02**, β₋₅=+7.51e-02, β₋₁=-1.63e-01, β₊₁=-8.32e-02, β₊₅=-1.07e-01
+   calendar: β₋₈=-6.84e-02, β₋₅=+8.77e-02, β₋₃=+1.13e-01**, β₋₁=-1.10e-01, β₊₁=-6.61e-02, β₊₃=+1.29e-01, β₊₆=+1.22e-01, β₊₈=-8.50e-02
+   event: β₋₈=-4.73e-02, β₋₆=+4.22e-02, β₋₅=+8.17e-02, β₋₁=-1.84e-01*, β₊₁=-9.01e-02, β₊₄=+4.63e-02, β₊₅=-1.20e-01*
 
 5. DATA RELIABILITY (statistical, not a trade-count cutoff)
    Tier: Adequate
    (criterion = n_active: bars with an actual Kalshi move (x!=0) = the real sample that identifies the lead-lag. Full RTH grid makes n_obs large, so n_active is the honest size.)
-   calendar(full RTH grid): n_active=270  n_obs=1829  n_days=11  K=8  params=34  df=1795  median_SE=1.25e-05  sig(FDR)=0
-   event: n_active=205  n_obs=316  n_days=8  K=8  params=27  df=289  median_SE=3.66e-05  sig(FDR)=0
+   calendar(full RTH grid): n_active=282  n_obs=1906  n_days=11  K=8  params=34  df=1872  median_SE=1.34e-05  sig(FDR)=0
+   event: n_active=207  n_obs=322  n_days=8  K=8  params=25  df=297  median_SE=3.71e-05  sig(FDR)=0
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: n_obs=90 df=66 K=6  sig=1 (Kalshi-leads 1 / ETF-leads 0) -> Kalshi-leads
-    60min: n_obs=47 df=26 K=5  sig=0 (Kalshi-leads 0 / ETF-leads 0) -> No-sig
+    30min: n_obs=93 df=69 K=6  sig=1 (Kalshi-leads 1 / ETF-leads 0) -> Kalshi-leads
+    60min: n_obs=50 df=29 K=5  sig=0 (Kalshi-leads 0 / ETF-leads 0) -> No-sig
 
 7. VERDICT
    Calendar leans Kalshi-leads but Event leans ETF-leads -- NOT robust across time-axis; no clean lead.

@@ -1,9 +1,9 @@
-PAIR ANALYSIS    —    Rank 35 / 48
+PAIR ANALYSIS    —    Rank 38 / 48
 ================================================================================================
 AAAGASM-24SEP30-US-3.15   x   VGT
 Contract : "Will average **gas prices** be above $3.15?"
 Sector relevance : VDE (Energy)
-Window : 2024-09-06 to 2024-09-26     Kalshi trades : 18     primary bar : n/a     daily-screen R^2 : 0.63
+Window : 2024-09-06 to 2024-09-26     Kalshi trades : 24     primary bar : n/a     daily-screen R^2 : 0.63
 
 >>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 

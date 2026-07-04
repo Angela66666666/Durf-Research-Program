@@ -3,7 +3,7 @@ PAIR ANALYSIS    —    Rank 46 / 48
 KXAAAGASM-24NOV30-US-3.30   x   VDC
 Contract : "Will average **gas prices** be above $3.30?"
 Sector relevance : VDE (Energy)
-Window : 2024-10-31 to 2024-11-20     Kalshi trades : 7     primary bar : n/a     daily-screen R^2 : 0.59
+Window : 2024-10-31 to 2024-11-20     Kalshi trades : 14     primary bar : n/a     daily-screen R^2 : 0.59
 
 >>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
@@ -38,8 +38,8 @@ DEFINITIONS
    => Neither axis is estimable: this pair has descriptive figures only, no reliable regression result.
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
-    60min: not estimable (n_obs=1 < minimum) -- coarser bars have even fewer observations
+    30min: not estimable (n_obs=3 < minimum) -- coarser bars have even fewer observations
+    60min: not estimable (n_obs=2 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
    No lead-lag detected -- too sparse / no significant structure.

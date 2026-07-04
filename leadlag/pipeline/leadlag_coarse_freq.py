@@ -18,7 +18,7 @@ leadlag_coarse_freq.py
   Daily is skipped: most windows are 2-4 weeks, too few days for the lags + day-FE.
 
 思路 (Approach)
-  复用 calendar 口径：median 右沿 bar（common.bar_median_series）-> 同日变化量
+  复用 calendar 口径：median 右沿 bar（common.causal_bars）-> 同日变化量
   -> 内连对齐 -> choose_k -> 联合滞后回归。每对每频率出一行汇总（不逐滞后展开）。
 
 输出 (Output)

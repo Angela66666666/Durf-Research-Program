@@ -19,5 +19,8 @@ leadlag/pipeline/merge/make_merge_pages.py
 leadlag/pipeline/build_md.py
 leadlag/pipeline/build_merge_report.py
 leadlag/pipeline/merge/make_merge_pair_plots.py
+leadlag/pipeline/build_granger_report.py
+leadlag/pipeline/make_granger_plots.py
 leadlag/pipeline/leadlag_pairs_report.pdf
 leadlag/pipeline/leadlag_merge_report.pdf
+leadlag/pipeline/leadlag_granger_report.pdf

@@ -11,40 +11,40 @@ Direction counts below use RAW p (same graded-threshold convention as the single
 
 == CALENDAR (primary bar) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    1    1513   p<0.05: K0/E0  p<0.10: K1/E1  p<0.15: K1/E2
-VDC     10    1    1513   p<0.05: K2/E2  p<0.10: K3/E3  p<0.15: K4/E4
-VDE     10    0    1513   p<0.05: K2/E2  p<0.10: K3/E2  p<0.15: K4/E3
-VFH     10    1    1513   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K1/E1
-VGT     10    2    1517   p<0.05: K1/E1  p<0.10: K1/E1  p<0.15: K2/E2
-VIS     10    0    1513   p<0.05: K1/E2  p<0.10: K1/E2  p<0.15: K2/E2
-VNQ     10    1    1517   p<0.05: K3/E1  p<0.10: K3/E1  p<0.15: K3/E2
-VOX     10    1    1513   p<0.05: K2/E0  p<0.10: K2/E1  p<0.15: K3/E1
-VPU     10    1    1513   p<0.05: K1/E3  p<0.10: K2/E3  p<0.15: K2/E4
+VCR     10    1    1790   p<0.05: K1/E0  p<0.10: K3/E2  p<0.15: K3/E2
+VDC     10    1    1790   p<0.05: K2/E2  p<0.10: K3/E2  p<0.15: K3/E2
+VDE     10    0    1790   p<0.05: K3/E1  p<0.10: K3/E2  p<0.15: K5/E3
+VFH     10    1    1790   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K2/E1
+VGT     10    1    1794   p<0.05: K1/E1  p<0.10: K4/E1  p<0.15: K4/E2
+VIS     10    0    1790   p<0.05: K2/E2  p<0.10: K2/E2  p<0.15: K4/E2
+VNQ     10    0    1794   p<0.05: K3/E1  p<0.10: K4/E2  p<0.15: K7/E2
+VOX     10    1    1790   p<0.05: K2/E0  p<0.10: K3/E0  p<0.15: K4/E1
+VPU     10    1    1790   p<0.05: K2/E5  p<0.10: K4/E6  p<0.15: K4/E6
 
 == EVENT (active-event subsequence) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    1     547   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K0/E1
-VDC     10    1     547   p<0.05: K1/E0  p<0.10: K2/E1  p<0.15: K3/E1
-VDE     10    0     547   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K2/E4
-VFH     10    1     547   p<0.05: K0/E0  p<0.10: K1/E0  p<0.15: K1/E0
-VGT     10    1     547   p<0.05: K0/E1  p<0.10: K1/E1  p<0.15: K2/E1
-VIS     10    1     547   p<0.05: K0/E0  p<0.10: K0/E1  p<0.15: K1/E1
-VNQ     10    1     547   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K2/E1
-VOX     10    1     547   p<0.05: K1/E1  p<0.10: K3/E1  p<0.15: K3/E3
-VPU     10    0     547   p<0.05: K0/E1  p<0.10: K1/E2  p<0.15: K3/E3
+VCR     10    1     566   p<0.05: K0/E1  p<0.10: K0/E1  p<0.15: K0/E2
+VDC     10    1     566   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K4/E1
+VDE     10    0     566   p<0.05: K0/E2  p<0.10: K0/E3  p<0.15: K0/E3
+VFH     10    1     566   p<0.05: K1/E0  p<0.10: K1/E0  p<0.15: K1/E1
+VGT     10    1     566   p<0.05: K1/E1  p<0.10: K2/E1  p<0.15: K2/E1
+VIS     10    1     566   p<0.05: K0/E0  p<0.10: K1/E1  p<0.15: K2/E2
+VNQ     10    1     566   p<0.05: K1/E0  p<0.10: K2/E1  p<0.15: K2/E1
+VOX     10    1     566   p<0.05: K2/E1  p<0.10: K4/E2  p<0.15: K4/E2
+VPU     10    0     566   p<0.05: K0/E1  p<0.10: K3/E2  p<0.15: K3/E3
 
 == PROBIT (direction test Pr(ETF up)) ==
 ETF      K  ADL   n_obs   Kalshi-leads(k>0) / ETF-leads(k<0)
-VCR     10    -     528   p<0.05: K3/E0  p<0.10: K4/E2  p<0.15: K5/E3
-VDC     10    -     524   p<0.05: K1/E2  p<0.10: K3/E2  p<0.15: K3/E3
-VDE     10    -     518   p<0.05: K0/E2  p<0.10: K3/E4  p<0.15: K4/E5
-VFH     10    -     504   p<0.05: K4/E2  p<0.10: K6/E2  p<0.15: K8/E4
-VGT     10    -     530   p<0.05: K2/E2  p<0.10: K4/E3  p<0.15: K4/E3
-VIS     10    -     522   p<0.05: K1/E3  p<0.10: K3/E5  p<0.15: K5/E6
-VNQ     10    -     507   p<0.05: K5/E3  p<0.10: K6/E4  p<0.15: K7/E5
-VOX     10    -     511   p<0.05: K0/E0  p<0.10: K3/E1  p<0.15: K3/E3
-VPU     10    -     519   p<0.05: K4/E2  p<0.10: K5/E3  p<0.15: K5/E5
+VCR     10    -     550   p<0.05: K3/E0  p<0.10: K3/E1  p<0.15: K6/E2
+VDC     10    -     546   p<0.05: K1/E2  p<0.10: K2/E2  p<0.15: K3/E2
+VDE     10    -     539   p<0.05: K0/E3  p<0.10: K1/E5  p<0.15: K3/E8
+VFH     10    -     527   p<0.05: K5/E2  p<0.10: K6/E4  p<0.15: K7/E5
+VGT     10    -     553   p<0.05: K1/E2  p<0.10: K3/E3  p<0.15: K5/E4
+VIS     10    -     544   p<0.05: K1/E1  p<0.10: K4/E4  p<0.15: K5/E5
+VNQ     10    -     529   p<0.05: K4/E2  p<0.10: K6/E3  p<0.15: K6/E4
+VOX     10    -     532   p<0.05: K1/E0  p<0.10: K2/E1  p<0.15: K3/E1
+VPU     10    -     541   p<0.05: K5/E2  p<0.10: K6/E2  p<0.15: K6/E3
 
 == Conclusion (calendar+event pooled across the group's ETFs) ==
-  p<0.05: ETF-leads (K54/E55) | p<0.10: Kalshi-leads (K85/E80) | p<0.15: ETF-leads (K105/E114)
+  p<0.05: ETF-leads (K54/E55) | p<0.10: Kalshi-leads (K95/E88) | p<0.15: Kalshi-leads (K123/E112)
   Read alongside the single-pair tally; pooling buys df but the lead is in the sign, not magnitude.

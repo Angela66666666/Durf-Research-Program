@@ -1,9 +1,9 @@
-PAIR ANALYSIS    —    Rank 30 / 48
+PAIR ANALYSIS    —    Rank 32 / 48
 ================================================================================================
 RATECUT-24SEP18   x   VGT
 Contract : "Will the Federal Reserve cut rates before September 19, 2024?"
 Sector relevance : VFH_VNQ_VPU (Rate-sensitive: Financials / Real Estate / Utilities)
-Window : 2024-09-04 to 2024-09-18     Kalshi trades : 40     primary bar : n/a     daily-screen R^2 : 0.42
+Window : 2024-09-04 to 2024-09-18     Kalshi trades : 53     primary bar : n/a     daily-screen R^2 : 0.42
 
 >>> RELIABILITY:  Cannot-estimate   <<<   (see section 5; unreliable pairs still get figures, but read their problems in section 8)
 
@@ -38,8 +38,8 @@ DEFINITIONS
    => Neither axis is estimable: this pair has descriptive figures only, no reliable regression result.
 
 6. COARSE-FREQUENCY ROBUSTNESS (re-run calendar at 30min / 60min)
-    30min: not estimable (n_obs=12 < minimum) -- coarser bars have even fewer observations
-    60min: not estimable (n_obs=10 < minimum) -- coarser bars have even fewer observations
+    30min: not estimable (n_obs=18 < minimum) -- coarser bars have even fewer observations
+    60min: not estimable (n_obs=16 < minimum) -- coarser bars have even fewer observations
 
 7. VERDICT
    No lead-lag detected -- too sparse / no significant structure.
