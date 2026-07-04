@@ -3,11 +3,12 @@ leadlag_common.py
 ================================================================================
 这个文件做什么 (What this file does)
   Lead-Lag 流水线的「共享底座」：时区转换、盘内过滤、outlier 清洗、bar/K 选择、
-  数据加载、因果取点构造、联合滞后回归引擎，全部集中在这一个模块里。
-  calendar / event / probit / classification 等脚本都 import 它。
+  数据加载、因果取点构造、联合滞后回归引擎、以及标准 Granger 联合因果检验引擎，
+  全部集中在这一个模块里。calendar / event / probit / classification / granger 等脚本都 import 它。
   The shared core of the lead-lag pipeline: timezone conversion, market-hours
   filtering, outlier cleaning, bar/K selection, data loading, causal bar
-  construction, and the joint-lag regression engine — imported by every script.
+  construction, the joint-lag regression engine, and the standard Granger joint
+  causality engine — imported by every script.
 
 为什么这么做 (Why)
   口径只在一处定义，全项目唯一。这样 calendar 与 event 两套结果**唯一的差别**
@@ -34,11 +35,14 @@ leadlag_common.py
   make_con               建 duckdb 连接（会话时区固定 UTC）
   load_kalshi            读单合约成交、转 ET、过滤盘内、算 prob / prob_change
   load_etf               读单 ETF 高频 mid、转 ET、过滤盘内
-  bar_median_series      重采样成因果右沿 median bar（清 outlier 的核心）
-  causal_bars            同上（语义命名版，供 build_unified_xy 调用）
+  causal_bars            重采样成因果右沿 median bar（清 outlier 的核心，全项目统一调这套）
   build_unified_xy       两边同口径因果构造，产出 calendar 网格 + event 活跃序列
-  lookup_etf_mid         按时间就近匹配 ETF 报价（event 模式用）
-  run_joint_lag_regression  联合滞后回归引擎（两套模式共用）
+  lookup_etf_mid         向后匹配最近 ETF 报价（只取 <= query 的报价，因果无 look-ahead；event 模式用）
+  add_fdr                在每个"一次回归"族内做 BH-FDR 多重检验校正
+  choose_adl_order       ETF 自滞后阶 BIC 自选（供联合回归与 Granger 共用）
+  run_joint_lag_regression  联合滞后回归引擎（逐系数报告口径，两套模式共用）
+  run_granger_direction  标准 Granger 单向检验：单向回归 + cause 滞后块联合 Wald（hac-panel SE）
+  run_granger_probit     probit 版 Granger（ETF 涨/跌方向，对 forward Δprob 系数做联合 Wald）
 """
 from __future__ import annotations
 import datetime as _dt
@@ -64,7 +68,7 @@ MARKET_OPEN   = _dt.time(9, 30, 0)   # 正规盘开盘 09:30 ET
 MARKET_CLOSE  = _dt.time(16, 0, 0)   # 正规盘收盘 16:00 ET（左闭右开）
 
 # outlier 处理：不用任何 σ/绝对阈值或 Hampel 逐点删除；改用 resampling。
-# Outliers handled by resampling, not point-deletion — see bar_median_series():
+# Outliers handled by resampling, not point-deletion — see causal_bars():
 # bar 内取 median，瞬时尖峰被稳健吸收。
 
 # 回归设定
@@ -150,9 +154,10 @@ def load_kalshi(con, ticker: str, date_start: str, date_end: str) -> pd.DataFram
         return df
     df["date"] = df["ts_et"].dt.date
     df["prob"] = df["yes_price"] / 100.0
-    # 同一交易日内差分，不跨隔夜
+    # 同一交易日内差分，不跨隔夜（保留每天第一笔：其 prob_change=NaN，但 prob 是真实开盘概率状态，
+    # 下游 causal_bars 会重新按 bar 算 dprob，这里不能把第一笔删掉，否则每天第一根 bar 丢首 tick）
     df["prob_change"] = df.groupby("date")["prob"].diff()
-    return df.dropna(subset=["prob_change"]).reset_index(drop=True)
+    return df.reset_index(drop=True)
 
 
 def load_etf(con, etf: str, date_start: str, date_end: str) -> pd.DataFrame:
@@ -179,8 +184,8 @@ def load_etf(con, etf: str, date_start: str, date_end: str) -> pd.DataFrame:
     return df.reset_index(drop=True)
 
 
-# ====================== resampling 清 outlier ======================
-def bar_median_series(df: pd.DataFrame, value_col: str, freq: str) -> pd.DataFrame:
+# ====================== resampling 清 outlier + 因果取点构造（全项目统一调这套，杜绝 look-ahead） ======================
+def causal_bars(df: pd.DataFrame, value_col: str, freq: str) -> pd.DataFrame:
     """重采样成因果右沿 median bar，清掉瞬时尖峰。Resample into causal median bars.
 
     重采样到 freq 日历 bar，每个 bar 取 **median** 稳健吸收 bar 内瞬时尖峰；只保留有数据的
@@ -190,28 +195,6 @@ def bar_median_series(df: pd.DataFrame, value_col: str, freq: str) -> pd.DataFra
     因果取点 (label='right', closed='right')：bar 标签 t 代表窗口 (t-bar, t] 的中位数，只用
     <= t 的数据 -> 不含未来，相邻 bar 算出的 return 也不含未来（避免 look-ahead 制造假显著）。
     Right-edge, right-closed bars: label t summarizes (t-bar, t], using only data <= t (causal).
-    """
-    cols = ["ts_et", "date", value_col]
-    if df.empty:
-        return pd.DataFrame(columns=cols)
-    pieces = []
-    for d, g in df.groupby("date"):
-        s = (g.set_index("ts_et")[value_col]
-               .resample(freq, label="right", closed="right").median().dropna())
-        if len(s) == 0:
-            continue
-        piece = pd.DataFrame({"ts_et": s.index, value_col: s.values})
-        piece["date"] = d
-        pieces.append(piece[cols])
-    return pd.concat(pieces, ignore_index=True) if pieces else pd.DataFrame(columns=cols)
-
-
-# ====================== 因果取点构造（event/calendar 统一调这套，杜绝 look-ahead） ======================
-def causal_bars(df: pd.DataFrame, value_col: str, freq: str) -> pd.DataFrame:
-    """
-    右边沿、闭右 的 median bar：bar 标签 t = 窗口 (t-bar, t] 的右端，代表值 = 该窗口中位数。
-    => 代表值只用 ≤ t 的数据，因果、无"偷看未来"（修掉旧 event 模式 median 含 bar 内未来的问题）。
-    只保留有数据的 bar，逐交易日分组、不跨隔夜。返回 [ts_et, date, value_col]。
     """
     cols = ["ts_et", "date", value_col]
     if df.empty:
@@ -251,7 +234,8 @@ def build_unified_xy(kalshi: pd.DataFrame, etf_tk: pd.DataFrame, freq: str):
         end   = max(kd.index.max(), ed.index.max())
         grid = pd.date_range(start, end, freq=freq)
         prob = kd.reindex(grid).ffill()
-        mid  = ed.reindex(grid).ffill().bfill()
+        mid  = ed.reindex(grid).ffill()   # 只用过去报价 ffill；不 bfill（bfill 会用未来 mid 回填开头，look-ahead）
+                                          # 当天首个 ETF 报价之前的网格行 mid=NaN，由下面 dropna 自然删掉
         active = kd.reindex(grid).notna().values
         df = pd.DataFrame({"ts_et": grid, "prob": prob.values, "mid": mid.values,
                            "active": active, "date": d}).dropna(subset=["prob", "mid"])
@@ -273,7 +257,7 @@ def build_unified_xy(kalshi: pd.DataFrame, etf_tk: pd.DataFrame, freq: str):
     return al_cal, act
 
 
-# ====================== ETF 就近报价匹配（event 模式用） ======================
+# ============ ETF 向后匹配最近报价（只取 <= query 的报价，因果无 look-ahead；event 模式用） ============
 def lookup_etf_mid(etf_ns: np.ndarray, etf_mid: np.ndarray,
                    query_ns: np.ndarray, max_gap_ns: int) -> np.ndarray:
     idx    = np.searchsorted(etf_ns, query_ns, side="right") - 1
@@ -434,3 +418,231 @@ def run_joint_lag_regression(df_reg: pd.DataFrame, x_col: str, y_col: str,
             "n_ylags": int(y_lags),
         })
     return pd.DataFrame(rows)
+
+
+# ====================== 标准 Granger 联合检验（单向回归 + Wald block 检验） ======================
+def run_granger_direction(df_reg: pd.DataFrame, cause_col: str, effect_col: str,
+                          k: int, group_by_day: bool = False, own_lags="auto",
+                          return_coefs: bool = False,
+                          min_obs: Optional[int] = None) -> Optional[dict]:
+    """标准 Granger 单向因果检验（一个方向 = 一条回归 + 一个联合 Wald，给一个 p 值）：
+
+        effect_t = a + Σ_{i=1..p} φ_i·effect_{t-i}     ← 被解释变量自身的过去(p 由 BIC 选)
+                     + Σ_{j=1..k} b_j·cause_{t-j}        ← 只放「解释变量的过去」
+                     + 日固定效应 + ε                    ← 按日聚类稳健 SE(单日退化 HC3)
+        H0: b_1 = b_2 = … = b_k = 0   ⟺  「cause 不 Granger-导致 effect」
+
+    与项目里「对称大方程数系数」的关键区别（这才是教科书 Granger）：
+      - 只放 cause 的**过去**(j≥1)，剔除同期 j=0(瞬时相关,判不了方向)与未来 j<0(那是反方向)；
+      - 用一个 **Wald 联合检验**取代逐系数计数——聚类稳健协方差自动带入，因非同方差用 χ² 形式
+        而非基于 RSS 的普通 F；
+      - 反方向只需把 cause/effect 对调再调用一次(effect 换成 cause 自身也配 BIC 自滞后)。
+
+    返回一行 dict：wald_chi2 / wald_df / p_value / n_ylags(=p) / K / n_obs / n_days / n_active。
+    样本不足或估计失败返回 None。"""
+    df_reg = df_reg.copy()
+    if min_obs is None:
+        min_obs = 2 * k + 5
+
+    if group_by_day:
+        g = df_reg.groupby("date", group_keys=False)
+        cshift = lambda j: g[cause_col].shift(j)
+        eshift = lambda i: g[effect_col].shift(i)
+    else:
+        cshift = lambda j: df_reg[cause_col].shift(j)
+        eshift = lambda i: df_reg[effect_col].shift(i)
+
+    # 解释变量的过去 1..k（被联合检验的 block）
+    cause_cols = []
+    for j in range(1, k + 1):
+        col = f"causelag_{j}"
+        df_reg[col] = cshift(j)
+        cause_cols.append(col)
+
+    # 被解释变量自身过去阶数：BIC 自选("auto")，或指定 int
+    pmax = max(0, min(k, ADL_PMAX))
+    if isinstance(own_lags, str) and own_lags.lower() == "auto":
+        el_full = {f"efflag_{i}": eshift(i) for i in range(1, pmax + 1)}
+        etmp = pd.DataFrame(el_full, index=df_reg.index)
+        common = df_reg.assign(**{c: etmp[c] for c in etmp.columns})
+        common = common.dropna(subset=[effect_col] + cause_cols + list(etmp.columns))
+        if pmax > 0 and len(common) >= min_obs:
+            causeX = common[cause_cols].astype(float)
+            cs0 = common[cause_col].std()
+            if cs0 > 1e-12:
+                causeX = causeX / cs0
+            fe = pd.get_dummies(common["date"], prefix="d", drop_first=True, dtype=float) if group_by_day else None
+            p = choose_adl_order(common[effect_col], causeX, common[list(etmp.columns)].astype(float), fe, pmax)
+        else:
+            p = 0
+    else:
+        p = int(own_lags)
+
+    eff_cols = []
+    for i in range(1, p + 1):
+        col = f"efflag_{i}"
+        df_reg[col] = eshift(i)
+        eff_cols.append(col)
+
+    df_reg = df_reg.dropna(subset=[effect_col] + cause_cols + eff_cols)
+    if len(df_reg) < min_obs:
+        return None
+
+    # 标准化 cause（不改变联合检验 p，只让单系数可比、条件数更好）
+    cs = df_reg[cause_col].std()
+    if cs > 1e-12:
+        for col in cause_cols:
+            df_reg[col] = df_reg[col] / cs
+
+    df_reg = df_reg.sort_values("date", kind="stable")
+    day_dummies = pd.get_dummies(df_reg["date"], prefix="d", drop_first=True, dtype=float)
+    X = sm.add_constant(pd.concat([df_reg[cause_cols + eff_cols].astype(float), day_dummies], axis=1))
+    y = df_reg[effect_col].astype(float)
+    # 标准误：panel Newey-West HAC(带宽=k, 按交易日分组)，不用按日聚类。原因(见 GRANGER_TEST.md)：
+    #   事件合约常只有 1~几天数据，按日聚类的稳健协方差**秩 ≤ 天数**，联合检验 K 个约束时
+    #   当 K≥天数就秩亏 → Wald χ²/p 失效(会算出 p=0、1e-200 之类的假显著)。
+    #   hac-panel 满秩(单日/少数天都成立)，且在**每个交易日块内**算 Newey-West、不跨隔夜串扰，
+    #   是高频日内 lead-lag 的微观结构标准协方差。日固定效应仍保留；滞后仍按日 shift 不跨隔夜。
+    maxlags = max(1, k)
+    groups = pd.factorize(df_reg["date"])[0]
+    try:
+        model = sm.OLS(y, X).fit(cov_type="hac-panel",
+                                 cov_kwds={"groups": groups, "maxlags": maxlags})
+    except Exception as e:
+        print(f"  Granger OLS 失败: {e}")
+        return None
+
+    # Wald 联合检验：cause 的 k 个滞后系数同时为 0（用稳健/聚类协方差，χ² 形式）
+    names = list(X.columns)
+    R = np.zeros((len(cause_cols), len(names)))
+    for r, c in enumerate(cause_cols):
+        R[r, names.index(c)] = 1.0
+    try:
+        wt = model.wald_test(R, scalar=True, use_f=False)
+        chi2 = float(np.squeeze(wt.statistic))
+        pval = float(np.squeeze(wt.pvalue))
+    except Exception as e:
+        print(f"  Wald 失败: {e}")
+        return None
+
+    out = {
+        "K": k, "wald_df": len(cause_cols), "n_ylags": p,
+        "wald_chi2": chi2, "p_value": pval,
+        "n_obs": int(len(df_reg)), "n_days": int(df_reg["date"].nunique()),
+        "n_params": int(X.shape[1]),
+        "n_active": int((df_reg[cause_col].abs() > 1e-12).sum()),
+        "cov_type": "hac-panel",   # linear 无退回：hac-panel 失败直接返回 None，故恒为 hac-panel
+    }
+    if return_coefs:
+        # 被联合检验的 cause 过去滞后系数 + 各自 hac-panel p。
+        # coefs: cause 已除以自身 std -> "每 1 SD cause 的 effect 反应"。
+        # beta : 再除以 effect 的 std -> 全标准化系数(无量纲)，可跨 pair 比较。
+        sy = float(df_reg[effect_col].std())
+        out["lags"] = list(range(1, k + 1))
+        out["coefs"] = [float(model.params[c]) for c in cause_cols]
+        out["beta"] = [float(model.params[c]) / sy if sy > 1e-12 else float("nan") for c in cause_cols]
+        out["coef_p"] = [float(model.pvalues[c]) for c in cause_cols]
+    return out
+
+
+def run_granger_probit(df_reg: pd.DataFrame, x_col: str, y_col: str, k: int,
+                       group_by_day: bool = False, own_lags="auto",
+                       min_obs: int = 30, return_coefs: bool = False) -> Optional[dict]:
+    """probit 版 Granger（方向只做 Kalshi→ETF，被解释变量是「ETF 涨/跌」离散方向）：
+
+        Pr(up_t=1) = Φ( α + Σ_{i=1..p} φ_i·up_{t-i}   ← ETF 自身方向的过去(p 由 probit-BIC 选)
+                          + Σ_{j=1..k} b_j·x_{t-j} )    ← 只放「过去的 Δprob」
+        H0: b_1 = … = b_k = 0  ——「过去的 Kalshi 变化不 Granger-预测 ETF 方向」。
+
+    这是老师说的「direction-only probit 的联合检验对应版」：对 forward Δprob 那组系数做一个
+    联合 Wald(hac-panel 面板 Newey-West，按日分组，满秩)。up=1[y>0]，剔除 y==0 的 bar。
+    返回一行 dict：wald_chi2 / wald_df / p_value / n_ylags / K / n_obs / n_days / n_active。"""
+    df = df_reg.dropna(subset=[x_col, y_col]).copy()
+    df = df[df[y_col] != 0.0]
+    if len(df) < min_obs or df[x_col].std() < 1e-12:
+        return None
+    df["up"] = (df[y_col] > 0).astype(int)
+
+    if group_by_day:
+        g = df.groupby("date", group_keys=False)
+        xshift = lambda j: g[x_col].shift(j)
+        ushift = lambda i: g["up"].shift(i)
+    else:
+        xshift = lambda j: df[x_col].shift(j)
+        ushift = lambda i: df["up"].shift(i)
+
+    xstd = df[x_col].std()
+    cause_cols = []
+    for j in range(1, k + 1):
+        col = f"causelag_{j}"
+        df[col] = xshift(j) / xstd
+        cause_cols.append(col)
+
+    pmax = max(0, min(k, ADL_PMAX))
+    up_full = {f"uplag_{i}": ushift(i) for i in range(1, pmax + 1)}
+    utmp = pd.DataFrame(up_full, index=df.index)
+    common = df.assign(**{c: utmp[c] for c in utmp.columns})
+    common = common.dropna(subset=["up"] + cause_cols + list(utmp.columns))
+    if len(common) < min_obs or common["up"].nunique() < 2:
+        return None
+
+    # 自身方向滞后阶：probit-BIC 自选（"auto"）或指定 int
+    if isinstance(own_lags, str) and own_lags.lower() == "auto":
+        best_p, best_bic = 0, np.inf
+        for p in range(0, pmax + 1):
+            cols = cause_cols + [f"uplag_{i}" for i in range(1, p + 1)]
+            Xc = sm.add_constant(common[cols].astype(float))
+            try:
+                mp = sm.Probit(common["up"].astype(float), Xc).fit(disp=0, maxiter=200)
+            except Exception:
+                continue
+            if np.isfinite(mp.bic) and mp.bic < best_bic:
+                best_bic, best_p = mp.bic, p
+        p = best_p
+    else:
+        p = int(own_lags)
+
+    use_cols = cause_cols + [f"uplag_{i}" for i in range(1, p + 1)]
+    fit_df = common.dropna(subset=["up"] + use_cols).sort_values("date", kind="stable")
+    if len(fit_df) < min_obs or fit_df["up"].nunique() < 2:
+        return None
+    X = sm.add_constant(fit_df[use_cols].astype(float))
+    yv = fit_df["up"].astype(float)
+    grp = pd.factorize(fit_df["date"])[0]
+    try:
+        try:
+            model = sm.Probit(yv, X).fit(disp=0, maxiter=200, cov_type="hac-panel",
+                                         cov_kwds={"groups": grp, "maxlags": max(1, k)})
+            cov_used = "hac-panel"
+        except Exception:
+            model = sm.Probit(yv, X).fit(disp=0, maxiter=200)
+            cov_used = "default"   # hac-panel 失败退回普通标准误，记录下来供事后甄别
+    except Exception:
+        return None
+
+    names = list(X.columns)
+    R = np.zeros((len(cause_cols), len(names)))
+    for r, c in enumerate(cause_cols):
+        R[r, names.index(c)] = 1.0
+    try:
+        wt = model.wald_test(R, scalar=True, use_f=False)
+        chi2 = float(np.squeeze(wt.statistic))
+        pval = float(np.squeeze(wt.pvalue))
+    except Exception:
+        return None
+
+    out = {
+        "K": k, "wald_df": len(cause_cols), "n_ylags": p,
+        "wald_chi2": chi2, "p_value": pval,
+        "n_obs": int(len(fit_df)), "n_days": int(fit_df["date"].nunique()),
+        "n_params": int(X.shape[1]),
+        "n_active": int((fit_df[cause_cols[0]].abs() > 1e-12).sum()) if cause_cols else 0,
+        "cov_type": cov_used,
+    }
+    if return_coefs:
+        # probit 系数在潜变量(probit-index)尺度、每 1 SD Δprob；跨 pair 在 probit 内部可比。
+        out["lags"] = list(range(1, k + 1))
+        out["coefs"] = [float(model.params[c]) for c in cause_cols]
+        out["beta"] = list(out["coefs"])   # probit 无 y 方差可除，直接用 index-系数
+        out["coef_p"] = [float(model.pvalues[c]) for c in cause_cols]
+    return out

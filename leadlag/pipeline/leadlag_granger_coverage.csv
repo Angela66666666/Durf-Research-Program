@@ -1,0 +1,49 @@
+contract_ticker,etf,estimable,cal_bars,evt_bars,probit_obs,reason
+KXECKH276,VFH,True,,,,estimable
+KXECDJT316,VFH,True,,,,estimable
+KXECKH276,VIS,True,,,,estimable
+538APPROVEMAX-24OCT31-T43,VOX,False,2,2,2,"too few price-changing bars (cal=2, evt=2 < 11; probit=2 < 30)"
+KXAAAGASM-24NOV30-US-3.30,VFH,False,2,2,3,"too few price-changing bars (cal=2, evt=2 < 11; probit=3 < 30)"
+RATECUT-24SEP18,VCR,False,8,8,21,"too few price-changing bars (cal=8, evt=8 < 11; probit=21 < 30)"
+KXECKH287,VNQ,True,,,,estimable
+KXECKH276,VCR,True,,,,estimable
+FEDDECISION-24SEP-C25,VDC,True,,,,estimable
+KXECKH276,VDE,True,,,,estimable
+AAAGASM-24SEP30-US-3.15,VIS,False,5,5,6,"too few price-changing bars (cal=5, evt=5 < 11; probit=6 < 30)"
+AAAGASM-24SEP30-US-3.15,VGT,False,5,5,6,"too few price-changing bars (cal=5, evt=5 < 11; probit=6 < 30)"
+KXAAAGASM-24NOV30-US-3.30,VDE,False,2,2,3,"too few price-changing bars (cal=2, evt=2 < 11; probit=3 < 30)"
+KXECKH276,VOX,True,,,,estimable
+KXECKH276,VGT,True,,,,estimable
+KXAAAGASM-24NOV30-US-3.30,VDC,False,2,2,3,"too few price-changing bars (cal=2, evt=2 < 11; probit=3 < 30)"
+AAAGASM-24SEP30-US-3.15,VAW,False,5,5,6,"too few price-changing bars (cal=5, evt=5 < 11; probit=6 < 30)"
+KXECKH276,VDC,True,,,,estimable
+AAAGASM-24OCT31-US-3.20,VHT,False,3,3,5,"too few price-changing bars (cal=3, evt=3 < 11; probit=5 < 30)"
+KXECDJT316,VIS,True,,,,estimable
+KXECDJT316,VDE,True,,,,estimable
+KXAAAGASM-24NOV30-US-3.30,VNQ,False,2,2,3,"too few price-changing bars (cal=2, evt=2 < 11; probit=3 < 30)"
+KX538APPROVEMAX-24NOV30-T41,VGT,False,3,3,3,"too few price-changing bars (cal=3, evt=3 < 11; probit=3 < 30)"
+RATECUT-24SEP18,VOX,False,8,8,21,"too few price-changing bars (cal=8, evt=8 < 11; probit=21 < 30)"
+AAAGASM-24SEP30-US-3.15,VCR,False,5,5,6,"too few price-changing bars (cal=5, evt=5 < 11; probit=6 < 30)"
+KXECKH276,VAW,True,,,,estimable
+AAAGASM-24SEP30-US-3.15,VOX,False,5,5,6,"too few price-changing bars (cal=5, evt=5 < 11; probit=6 < 30)"
+538APPROVEMAX-24SEP30-T43,VAW,False,3,3,4,"too few price-changing bars (cal=3, evt=3 < 11; probit=4 < 30)"
+KXECDJT281,VNQ,True,,,,estimable
+FEDDECISION-24SEP-C25,VOX,True,,,,estimable
+FEDDECISION-24SEP-C25,VPU,True,,,,estimable
+RATECUT-24SEP18,VGT,False,8,8,21,"too few price-changing bars (cal=8, evt=8 < 11; probit=21 < 30)"
+KX538APPROVEMIN-24NOV30-T37,VFH,False,8,8,13,"too few price-changing bars (cal=8, evt=8 < 11; probit=13 < 30)"
+KX538APPROVEMAX-24NOV30-T41,VHT,False,3,3,3,"too few price-changing bars (cal=3, evt=3 < 11; probit=3 < 30)"
+538APPROVEMAX-24SEP30-T43,VIS,False,3,3,4,"too few price-changing bars (cal=3, evt=3 < 11; probit=4 < 30)"
+KXECDJT281,VOX,True,,,,estimable
+KXECDJT306,VDC,True,,,,estimable
+KX538APPROVEMIN-24NOV30-T37,VNQ,False,8,8,13,"too few price-changing bars (cal=8, evt=8 < 11; probit=13 < 30)"
+KXECDJT281,VGT,True,,,,estimable
+KXECDJT312,VAW,True,,,,estimable
+KXECDJT281,VCR,True,,,,estimable
+KXFEDDECISION-24DEC-C25,VFH,True,,,,estimable
+538APPROVEMAX-24SEP30-T43,VCR,False,3,3,4,"too few price-changing bars (cal=3, evt=3 < 11; probit=4 < 30)"
+AAAGASM-24OCT31-US-3.15,VPU,True,,,,estimable
+FEDDECISION-24NOV-H0,VDE,True,,,,estimable
+FEDDECISION-24NOV-H0,VNQ,True,,,,estimable
+KXFEDDECISION-24DEC-C25,VIS,True,,,,estimable
+KXFEDDECISION-24DEC-H0,VGT,True,,,,estimable
