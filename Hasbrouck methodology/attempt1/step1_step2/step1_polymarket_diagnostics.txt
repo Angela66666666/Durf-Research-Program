@@ -1,0 +1,97 @@
+TECHNICAL APPENDIX - all three sample specifications, plus robustness
+Produced by step1_step2_polymarket_beta_and_weights.py
+The readable version is step1_basket_report_EN.txt
+
+  event   +/-3 trading days around each of the three reaction days
+  window  every trading day 2024-06-20 to 2024-07-31   (headline)
+  long    every trading day 2024-01-05 to 2024-07-31
+
+========================================================================
+[event]  n = 19 trading days
+========================================================================
+ticker    beta     se  t_stat  p_value  n_obs  mimic_weight
+   VAW -0.0990 0.0657 -1.5062   0.1320     19       -2.2763
+   VCR -0.0637 0.0611 -1.0438   0.2966     19        1.2074
+   VDC -0.0500 0.0270 -1.8522   0.0640     19       -3.1777
+   VDE  0.0474 0.0549  0.8622   0.3886     19        1.9645
+   VFH  0.0542 0.0519  1.0439   0.2965     19        0.7549
+   VGT  0.0134 0.0625  0.2141   0.8305     19       -0.1685
+   VHT  0.0323 0.0816  0.3961   0.6920     19        4.0516
+   VIS -0.0515 0.0747 -0.6894   0.4906     19       -0.5117
+   VNQ -0.0256 0.0589 -0.4343   0.6641     19        0.7447
+   VOX -0.0060 0.0459 -0.1312   0.8957     19       -0.1503
+   VPU -0.1730 0.0530 -3.2623   0.0011     19       -2.4385
+
+  sum(w)                = 0.00e+00   (dollar neutral, should be 0)
+  w' beta               = 1.000000   (unit election exposure, should be 1)
+  mimicking R^2         = 0.7900   (the plan C basket, in-sample)
+  full-panel R^2        = 0.8267   (dprob on all eleven ETFs)
+  adjusted R^2          = 0.5544
+  joint F-test p        = 0.0755   (do the eleven ETFs jointly explain dprob)
+  leave-one-out OOS R^2 = -1.1430   (<0 = worse than predicting the mean)
+  betas with p<0.05     = 1 / 11
+
+========================================================================
+[window]  n = 29 trading days  <== HEADLINE
+========================================================================
+ticker    beta     se  t_stat  p_value  n_obs  mimic_weight
+   VAW -0.1229 0.0683 -1.7992   0.0720     29       -2.4585
+   VCR -0.0918 0.0642 -1.4303   0.1526     29        0.7874
+   VDC -0.0542 0.0287 -1.8879   0.0590     29       -1.3051
+   VDE  0.0434 0.0559  0.7776   0.4368     29        1.9105
+   VFH  0.0425 0.0531  0.8001   0.4237     29       -0.4137
+   VGT -0.0580 0.0858 -0.6752   0.4995     29        0.5499
+   VHT  0.0315 0.0747  0.4221   0.6729     29        3.9899
+   VIS -0.0801 0.0802 -0.9993   0.3177     29       -0.6037
+   VNQ -0.0323 0.0556 -0.5806   0.5615     29        1.2897
+   VOX -0.0359 0.0479 -0.7496   0.4535     29       -0.6264
+   VPU -0.1637 0.0533 -3.0694   0.0021     29       -3.1200
+
+  sum(w)                = -8.88e-16   (dollar neutral, should be 0)
+  w' beta               = 1.000000   (unit election exposure, should be 1)
+  mimicking R^2         = 0.7516   (the plan C basket, in-sample)
+  full-panel R^2        = 0.7537   (dprob on all eleven ETFs)
+  adjusted R^2          = 0.5943
+  joint F-test p        = 0.0022   (do the eleven ETFs jointly explain dprob)
+  leave-one-out OOS R^2 = -0.0083   (<0 = worse than predicting the mean)
+  betas with p<0.05     = 1 / 11
+
+
+========================================================================
+ROBUSTNESS CHECKS
+========================================================================
+(1) Drop one day at a time. Full-sample joint F-test p = 0.0022;
+    dropping any one day leaves p in [0.0007, 0.0096] -> not carried by any single day
+
+(2) Out-of-sample performance of the three weighting rules
+    (leave one day out; betas and weights refitted on each fold):
+      plan a  sign-equal       in-sample R^2 =  0.227   out-of-sample R^2 =  -0.180
+      plan b  beta-weighted    in-sample R^2 =  0.476   out-of-sample R^2 =  -0.227
+      plan c  min-variance     in-sample R^2 =  0.752   out-of-sample R^2 =   0.030
+
+(3) Controlling for the broad market (VTI): R^2 goes 0.754 -> 0.776, VTI's own t = 1.26, 0/11 betas change sign
+
+========================================================================
+[long]  n = 143 trading days
+========================================================================
+ticker    beta     se  t_stat  p_value  n_obs  mimic_weight
+   VAW -0.0462 0.0295 -1.5682   0.1168    143       -3.6305
+   VCR -0.0221 0.0370 -0.5960   0.5512    143       -3.7109
+   VDC -0.0099 0.0254 -0.3899   0.6966    143       -1.0516
+   VDE  0.0071 0.0409  0.1729   0.8627    143        1.3554
+   VFH  0.0261 0.0349  0.7488   0.4540    143        2.2280
+   VGT  0.0573 0.0430  1.3341   0.1822    143        2.1383
+   VHT  0.0445 0.0364  1.2209   0.2221    143        4.4634
+   VIS -0.0067 0.0333 -0.2028   0.8393    143       -2.4001
+   VNQ  0.0377 0.0301  1.2526   0.2104    143        3.5129
+   VOX  0.0291 0.0272  1.0700   0.2846    143        0.2660
+   VPU -0.0614 0.0456 -1.3462   0.1782    143       -3.1708
+
+  sum(w)                = 3.55e-15   (dollar neutral, should be 0)
+  w' beta               = 1.000000   (unit election exposure, should be 1)
+  mimicking R^2         = 0.1485   (the plan C basket, in-sample)
+  full-panel R^2        = 0.1601   (dprob on all eleven ETFs)
+  adjusted R^2          = 0.0896
+  joint F-test p        = 0.0144   (do the eleven ETFs jointly explain dprob)
+  leave-one-out OOS R^2 = -0.0388   (<0 = worse than predicting the mean)
+  betas with p<0.05     = 0 / 11
