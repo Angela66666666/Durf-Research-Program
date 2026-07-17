@@ -46,7 +46,7 @@ BASKET COMPOSITION  (ETFS + ADDS = 11 + 8 = 19 assets)
   (11 ETF + all 28 screened names fell to corr 0.71); leaders + diversity wins.
 
 INPUT   panel_daily.csv ; ../../prediction-market-analysis/.../trades_*
-OUTPUT  methodB_weights.csv, methodB_pair.csv, methodB.png  (+ printed gate)
+OUTPUT  methodB_weights.csv, methodB_pair.csv, methodB.png, methodB_results.txt
 ================================================================================
 """
 import os
@@ -98,8 +98,16 @@ def load_kalshi_daily():
 
 
 def main():
+    out_lines = []
+
+    def emit(s=""):
+        print(s)
+        out_lines.append(s)
+
     panel = pd.read_csv(PANEL, parse_dates=["date"]).set_index("date").sort_index()
     cols = ETFS + ADDS
+    emit("METHOD B -- level cointegrating basket vs Kalshi PRES-2024-DJT (daily, 16:00 ET)")
+    emit("basket = 11 sector ETFs + %s\n" % ", ".join(ADDS))
 
     # ======================================================================
     # STEP 1-2 -- FORM WEIGHTS BY A LEVEL COINTEGRATING REGRESSION
@@ -114,9 +122,9 @@ def main():
     w.to_csv(os.path.join(HERE, "methodB_weights.csv"))
     resid_p = _adf_p(reg.resid)
 
-    print("STEP 1-2  weights by LEVEL cointegrating regression, %s..%s (Polymarket)\n" % (EST_START, EST_END))
-    print("  n = %d days, in-sample R2 = %.3f  (level fit -- inflated, see header)" % (len(est), reg.rsquared))
-    print("  residual ADF p = %.3f -> in-sample %s" % (resid_p, "cointegrated" if resid_p < 0.05 else "NOT cointegrated"))
+    emit("STEP 1-2  weights by LEVEL cointegrating regression, %s..%s (Polymarket)\n" % (EST_START, EST_END))
+    emit("  n = %d days, in-sample R2 = %.3f  (level fit -- inflated, see header)" % (len(est), reg.rsquared))
+    emit("  residual ADF p = %.3f -> in-sample %s" % (resid_p, "cointegrated" if resid_p < 0.05 else "NOT cointegrated"))
 
     # ======================================================================
     # STEP 3 -- FIXED-SHARE DOLLAR BASKET, TWO-POINT CALIBRATION, COINTEGRATION
@@ -140,11 +148,11 @@ def main():
     joh = coint_johansen(np.column_stack([ip, m]), det_order=0, k_ar_diff=1)
     tr, cv = joh.lr1[0], joh.cvt[0, 1]
 
-    print("\nSTEP 3  dollar basket vs Kalshi -- cointegration gate (daily, %d obs)" % len(pair))
-    print("  implied_p range [%.3f, %.3f]" % (implied.min(), implied.max()))
-    print("  ADF spread(1,-1) p = %.3f -> %s" % (spread_p, "COINTEGRATED" if spread_p < 0.05 else "no"))
-    print("  Engle-Granger    p = %.3f -> %s  (slope b=%+.2f)" % (eg_p, "COINTEGRATED" if eg_p < 0.05 else "no", eg.params[1]))
-    print("  Johansen trace = %.2f vs 95%%=%.2f -> %s" % (tr, cv, "COINTEGRATED" if tr > cv else "no"))
+    emit("\nSTEP 3  dollar basket vs Kalshi -- cointegration gate (daily, %d obs)" % len(pair))
+    emit("  implied_p range [%.3f, %.3f]" % (implied.min(), implied.max()))
+    emit("  ADF spread(1,-1) p = %.3f -> %s" % (spread_p, "COINTEGRATED" if spread_p < 0.05 else "no"))
+    emit("  Engle-Granger    p = %.3f -> %s  (slope b=%+.2f)" % (eg_p, "COINTEGRATED" if eg_p < 0.05 else "no", eg.params[1]))
+    emit("  Johansen trace = %.2f vs 95%%=%.2f -> %s" % (tr, cv, "COINTEGRATED" if tr > cv else "no"))
 
     fig, ax = plt.subplots(figsize=(11, 5))
     ax.plot(pair.index, pair["implied_p"], "o-", color="#9467bd", lw=1.4, ms=4, label="Method B level-fit basket (implied P)")
@@ -153,7 +161,9 @@ def main():
     ax.set_ylabel("P(Trump wins)"); ax.legend(); ax.margins(x=.01)
     ax.set_title("attempt2 Method B -- level cointegrating basket vs Kalshi (daily, est %s..%s)" % (EST_START, EST_END))
     fig.tight_layout(); fig.savefig(os.path.join(HERE, "methodB.png"), dpi=140)
-    print("\nwritten -> methodB_weights.csv, methodB_pair.csv, methodB.png")
+    with open(os.path.join(HERE, "methodB_results.txt"), "w") as f:
+        f.write("\n".join(out_lines) + "\n")
+    emit("\nwritten -> methodB_weights.csv, methodB_pair.csv, methodB.png, methodB_results.txt")
 
 
 if __name__ == "__main__":
