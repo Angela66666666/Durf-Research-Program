@@ -1,0 +1,14 @@
+METHOD B -- level cointegrating basket vs Kalshi PRES-2024-DJT (daily, 16:00 ET)
+basket = 11 sector ETFs + MARA, COIN, GEO, IBKR, FSLR, RUN, DHI, TAN
+
+STEP 1-2  weights by LEVEL cointegrating regression, 2024-06-01..2024-09-30 (Polymarket)
+
+  n = 83 days, in-sample R2 = 0.948  (level fit -- inflated, see header)
+  residual ADF p = 0.000 -> in-sample cointegrated
+
+STEP 3  dollar basket vs Kalshi -- cointegration gate (daily, 24 obs)
+  implied_p = Q0 + (B_t - B_0), start-anchored, no look-ahead
+  implied_p range [0.444, 0.596]  (reaches 0.596 on election day, not forced to 1.0)
+  ADF spread(1,-1) p = 0.961 -> no
+  Engle-Granger    p = 0.002 -> COINTEGRATED  (slope b=+0.30; scale-invariant, the headline test)
+  Johansen trace = 14.08 vs 95%=15.49 -> no

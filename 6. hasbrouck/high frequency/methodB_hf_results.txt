@@ -1,0 +1,14 @@
+METHOD B (HIGH FREQUENCY) -- 1-minute basket vs Kalshi PRES-2024-DJT
+basket = 11 sector ETFs + MARA, COIN, GEO, IBKR, FSLR, RUN, DHI, TAN
+weights: daily Jun-Sep Polymarket level regression (NOT re-fitted intraday)
+
+STEP 3-HF  1-minute pair, 9361 obs over 24 trading days (RTH only)
+  anchor = Kalshi's first minute = 0.490  (causal; no look-ahead)
+  implied_p range [0.423, 0.660]   kalshi range [0.490, 0.990]
+  level correlation  = +0.572
+  basket move / Kalshi move (first->last) = 0.34
+
+  cointegration gate (1-minute):
+    ADF spread(1,-1) p = 0.5825 -> no
+    Engle-Granger    p = 0.3219 -> no  (slope b=+0.279)  <- headline, scale-invariant
+    Johansen trace = 6.98 vs 95%=15.49 (k_ar_diff=5) -> no
