@@ -1,0 +1,16 @@
+METHOD B -- CHANGE-screen-selected thematic stocks, Method-B build, Oct-Nov vs Kalshi
+fetched: AES, CLSK, COIN, CSIQ, DHI, DJT, FND, FSLR, GEO, IBKR, MARA, MSTR, NEE, RIOT, RUM, RUN, TAN, VAW, VCR, VDC, VDE, VFH, VGT, VHT, VIS, VNQ, VOX, VPU
+missing: none
+corr = honest tracking; cointegration: ADF/EG p<0.05 or Johansen>15.49
+
+  universe                                 k   corr   RMSE    ADF     EG  Johan
+  ----------------------------------------------------------------------------
+  baseline: 11ETF + DJT+COIN+TAN+GEO      15   0.91  0.042  0.014  0.013  10.63
+  screened stocks only (long+short)       17   0.91  0.056  0.269  0.015  26.38
+  11ETF + screened stocks                 28   0.71  0.120  0.491  0.500  11.41
+  compact leaders only (8)                 8   0.91  0.053  0.128  0.392  11.48
+  11ETF + compact leaders                 19   0.89  0.052  0.015  0.002  14.08
+
+Read: prefer HIGH corr AND passing tests. A basket of many meme/crypto
+names can have election beta yet track poorly (idiosyncratic noise); the
+sector-ETF base plus a few theme names is usually the steadier tracker.

@@ -1,0 +1,16 @@
+STEP 3 [daily] - ETF BASKET LEVEL SERIES (construction only, no probability)
+==============================================================================
+window        = 2024-10-04 to 2024-11-06   (RTH 09:30-16:00 ET, daily close-to-close)
+observations  = 24   over 24 trading days
+basket plans  = A_sign_equal, B_beta_weighted, C_min_variance
+
+Each B is the cumulative basket return w'(ETF log-returns), one observation
+per trading day (close-to-close), so each step spans one overnight plus one
+trading day; intraday minute noise is dropped.
+The level is in return units; Step 4 calibrates it onto a [0,1] probability
+scale and aligns it with Kalshi.
+
+Terminal level B (window end minus window start):
+  plan A_sign_equal     +0.0870
+  plan B_beta_weighted  +0.1568
+  plan C_min_variance   +0.0035

@@ -1,0 +1,56 @@
+SYSTEMATIC SCREEN  window 2024-06-01..2024-09-30  (liquid names: 1303)
+
+=== CHANGE screen (Method A): return ~ dP(Trump), by t ===
+TOP POSITIVE:
+symbol chg_t chg_corr
+  MARA +4.53    +0.44
+  RIOT +4.48    +0.44
+   RUM +4.20    +0.42
+  CLSK +3.69    +0.37
+   DJT +3.28    +0.34
+  COIN +3.24    +0.33
+   RXO +3.02    +0.31
+   GEO +2.98    +0.31
+  BILL +2.80    +0.29
+  IBKR +2.68    +0.28
+   HUT +2.61    +0.27
+  MSTR +2.61    +0.27
+TOP NEGATIVE:
+symbol chg_t chg_corr
+   AES -4.54    -0.44
+   RUN -4.09    -0.41
+  FSLR -4.07    -0.41
+  CSIQ -3.83    -0.39
+   NEE -3.58    -0.36
+   FND -3.28    -0.34
+   DHI -3.07    -0.32
+  CELH -3.03    -0.31
+
+=== LEVEL screen (Method B): price level cointegrates with P(Trump) level ===
+(ranked by cointegration residual ADF p -- smaller = price level tracks prob level)
+symbol lvl_coint_p lvl_corr chg_t
+    BG       0.000    +0.88 +0.53
+  FLNA       0.000    -0.87 -0.47
+  SAVA       0.000    -0.87 -0.47
+  CGNX       0.000    +0.88 +0.64
+  AVDX       0.001    +0.91 +2.14
+  ENVX       0.001    +0.86 +0.44
+ LAZRQ       0.002    +0.85 +0.20
+  LAZR       0.002    +0.85 +0.20
+  RMBS       0.002    +0.86 -0.37
+  BROS       0.003    +0.84 +0.56
+    KD       0.004    +0.83 +0.95
+  ATEC       0.004    +0.87 +0.67
+  QGEN       0.005    -0.83 -0.75
+   MGM       0.005    +0.83 +0.18
+  IRWD       0.006    +0.82 -0.51
+
+Where the hand-picked names land:
+  GEO   change-rank 8/1303 (t=+2.98) | level-coint-rank 790/1303 (resid ADF p=0.380)
+  DJT   change-rank 5/1303 (t=+3.28) | level-coint-rank 610/1303 (resid ADF p=0.288)
+  COIN  change-rank 6/1303 (t=+3.24) | level-coint-rank 435/1303 (resid ADF p=0.206)
+
+Note: CHANGE screen isolates election sensitivity (differencing kills the
+common summer up-trend). LEVEL raw correlation is spurious (co-trending), so
+the level screen ranks by cointegration, matching Method B. Validate out of
+sample (Oct-Nov) before trusting any single name.

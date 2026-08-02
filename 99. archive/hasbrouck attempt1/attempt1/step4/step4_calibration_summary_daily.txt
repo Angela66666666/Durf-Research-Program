@@ -1,0 +1,37 @@
+STEP 4 [daily] PART 1 - TWO-POINT CALIBRATION OF THE BASKET TO A PROBABILITY
+==============================================================================
+reference p0 (sample start): P(Trump) = 0.447  (Silver Bulletin, 2024-09-30/10-01)
+terminal  p1 (election night): P(Trump) = 1.0  (Trump won)
+
+implied_p_t = q0 + (B_t - B@p0) * (q1 - q0) / (B@p1 - B@p0)
+
+All three plans are calibrated and written to step4_implied_prob.csv. The
+slope is probability points per unit basket return; the last two columns show
+how far each calibrated series strays outside [0,1].
+
+  plan              B_terminal    slope  impl_p min  impl_p max
+  ------------------------------------------------------------
+  A_sign_equal         +0.0870    +6.36      -0.605      +1.000
+  B_beta_weighted      +0.1568    +3.53      +0.208      +1.000
+  C_min_variance       +0.0035  +156.79     -26.002     +15.290
+
+WHY PLAN C SHOULD NOT BE USED DOWNSTREAM
+------------------------------------------------------------
+Over the window P(Trump) rose from 0.447 to 1.0, but the plan C basket level
+FELL (B_terminal = -0.028). The two-point slope is therefore NEGATIVE
+(-20.0): its calibrated 'probability' moves the wrong way -- it goes down
+when Trump's odds go up. That is an inverted signal, not a probability, so
+plan C cannot be read as P(Trump) and should be dropped from the
+cointegration / Hasbrouck stage. It is kept in the CSV only for transparency.
+This matches its Step-2 out-of-sample weakness: the min-variance weights, best
+in-sample, do not hold up out-of-sample.
+
+ON PLAN A
+------------------------------------------------------------
+Plan A calibrates with a positive slope but its steep slope (+6.03) sends the
+implied probability well outside [0,1] (down to -0.74), i.e. the sign-equal
+basket is too noisy to be a clean probability proxy. Plan B (beta-weighted)
+stays close to [0,1] and is the best-behaved of the three.
+
+Note: the reference is Silver's ~Oct 1 update while the basket starts Oct 4;
+the ~3-day offset is the nearest model update to the sample start.

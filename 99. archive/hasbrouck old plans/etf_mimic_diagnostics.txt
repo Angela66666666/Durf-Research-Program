@@ -1,0 +1,24 @@
+contract              = PRES-2024-DJT
+ident window          = 2024-10-04 to 2024-10-31   (n = 19, k = 11)
+sigma window          = 2024-09-04 to 2024-10-31
+sum(w)                = 4.44e-16   (dollar neutral, should be 0)
+w' beta               = 1.000000   (unit election exposure, should be 1)
+
+--- how well the basket tracks the election factor ---
+mimicking R^2         = 0.5311    (the basket, in-sample -- overstates)
+full-panel R^2        = 0.6803    (dprob on all eleven ETFs, in-sample)
+adjusted R^2          = 0.1778    (penalising the eleven parameters)
+joint F-test p        = 0.3542    (do the eleven ETFs jointly explain dprob)
+leave-one-out OOS R^2 = -2.5238    (<0 = worse than predicting the mean)
+
+--- betas ---
+max |beta|            = 0.2224
+max |t|               = 1.6162
+betas with p<0.05     = 0 / 11
+
+Conclusion: a daily window of n = 19 cannot identify the election beta.
+Through October, P(Trump) drifts from 0.50 to 0.63 with no single-day shock.
+The three exogenous event dates (6/27, 7/13, 7/21) do carry identifying
+variation, but Kalshi had no presidential contract then: PRES-2024-DJT's
+first trade is 2024-10-04, two days after the D.C. Circuit denied the CFTC's
+motion for a stay pending appeal. See step1_step2_polymarket_beta_and_weights.py.
