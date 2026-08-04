@@ -1,0 +1,49 @@
+rank,order_idx,tag,contract_ticker,etf,contract_title,has_result,n_sig,best_p,n_trades,has_zoom,zoom_bar
+1,47,47_KXFEDDECISION-24DEC-C25_VIS,KXFEDDECISION-24DEC-C25,VIS,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?,True,14,0.0373998769200194,2308,False,
+2,42,42_KXFEDDECISION-24DEC-C25_VFH,KXFEDDECISION-24DEC-C25,VFH,Will the Federal Reserve Cut rates by 25bps at their December 2024 meeting?,True,9,0.049118304585707,2308,False,
+3,48,48_KXFEDDECISION-24DEC-H0_VGT,KXFEDDECISION-24DEC-H0,VGT,Will the Federal Reserve Hike rates by 0bps at their December 2024 meeting?,True,12,0.0736716557842036,1375,False,
+4,30,30_FEDDECISION-24SEP-C25_VOX,FEDDECISION-24SEP-C25,VOX,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?,True,7,0.0068316568198563,1125,True,1min
+5,31,31_FEDDECISION-24SEP-C25_VPU,FEDDECISION-24SEP-C25,VPU,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?,True,6,0.4251225886014084,1125,True,1min
+6,9,09_FEDDECISION-24SEP-C25_VDC,FEDDECISION-24SEP-C25,VDC,Will the Federal Reserve Cut rates by 25bps at their September 2024 meeting?,True,4,0.6219363002744647,1125,True,1min
+7,46,46_FEDDECISION-24NOV-H0_VNQ,FEDDECISION-24NOV-H0,VNQ,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?,True,3,0.3306682858922198,452,False,
+8,45,45_FEDDECISION-24NOV-H0_VDE,FEDDECISION-24NOV-H0,VDE,Will the Federal Reserve Hike rates by 0bps at their November 2024 meeting?,True,0,0.7963348673506031,452,False,
+9,29,29_KXECDJT281_VNQ,KXECDJT281,VNQ,"Will Trump win 281-257 - AZ, GA, NC, PA?",True,9,4.347045957239637e-06,308,True,5min
+10,36,36_KXECDJT281_VOX,KXECDJT281,VOX,"Will Trump win 281-257 - AZ, GA, NC, PA?",True,6,1.622227584126551e-05,308,True,5min
+11,39,39_KXECDJT281_VGT,KXECDJT281,VGT,"Will Trump win 281-257 - AZ, GA, NC, PA?",True,4,3.825929333466493e-05,308,True,5min
+12,41,41_KXECDJT281_VCR,KXECDJT281,VCR,"Will Trump win 281-257 - AZ, GA, NC, PA?",True,4,0.0114316507286309,308,True,5min
+13,40,40_KXECDJT312_VAW,KXECDJT312,VAW,Will Trump win 312-226 - swing state sweep?,True,7,0.0076413967767411,232,True,10min
+14,37,37_KXECDJT306_VDC,KXECDJT306,VDC,"Will Trump win 306-232 - AZ, GA, MI, PA, WI, NC?",True,8,2.3549325932950764e-19,123,True,10min
+15,2,02_KXECDJT316_VFH,KXECDJT316,VFH,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?",True,3,0.0019501817782649,59,True,10min
+16,20,20_KXECDJT316_VIS,KXECDJT316,VIS,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?",True,3,0.0077088517108088,59,True,10min
+17,21,21_KXECDJT316_VDE,KXECDJT316,VDE,"Will Trump win 316-222 - AZ, GA, MI, MN, NC, PA, WI?",True,3,0.0852472122307927,59,True,10min
+18,44,44_AAAGASM-24OCT31-US-3.15_VPU,AAAGASM-24OCT31-US-3.15,VPU,Will average **gas prices** be above $3.15?,True,4,3.350514628078897e-17,58,True,10min
+19,14,14_KXECKH276_VOX,KXECKH276,VOX,"Will Harris win 276-262 - PA, NV, MI, WI?",True,12,1.4701745725994033e-35,43,True,10min
+20,1,01_KXECKH276_VFH,KXECKH276,VFH,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+21,3,03_KXECKH276_VIS,KXECKH276,VIS,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+22,8,08_KXECKH276_VCR,KXECKH276,VCR,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+23,10,10_KXECKH276_VDE,KXECKH276,VDE,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+24,15,15_KXECKH276_VGT,KXECKH276,VGT,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+25,18,18_KXECKH276_VDC,KXECKH276,VDC,"Will Harris win 276-262 - PA, NV, MI, WI?",True,7,0.0,43,True,10min
+26,26,26_KXECKH276_VAW,KXECKH276,VAW,"Will Harris win 276-262 - PA, NV, MI, WI?",True,5,6.346648309807853e-25,43,True,10min
+27,7,07_KXECKH287_VNQ,KXECKH287,VNQ,"Will Harris win 287-251 - PA, NV, MI, WI, AZ?",True,2,6.98791863797713e-247,39,True,10min
+28,33,33_KX538APPROVEMIN-24NOV30-T37_VFH,KX538APPROVEMIN-24NOV30-T37,VFH,"Will the President's approval rating ever get below 37% by Nov 30, 2024?",False,0,,65,False,
+29,38,38_KX538APPROVEMIN-24NOV30-T37_VNQ,KX538APPROVEMIN-24NOV30-T37,VNQ,"Will the President's approval rating ever get below 37% by Nov 30, 2024?",False,0,,65,False,
+30,6,06_RATECUT-24SEP18_VCR,RATECUT-24SEP18,VCR,"Will the Federal Reserve cut rates before September 19, 2024?",False,0,,53,False,
+31,24,24_RATECUT-24SEP18_VOX,RATECUT-24SEP18,VOX,"Will the Federal Reserve cut rates before September 19, 2024?",False,0,,53,False,
+32,32,32_RATECUT-24SEP18_VGT,RATECUT-24SEP18,VGT,"Will the Federal Reserve cut rates before September 19, 2024?",False,0,,53,False,
+33,19,19_AAAGASM-24OCT31-US-3.20_VHT,AAAGASM-24OCT31-US-3.20,VHT,Will average **gas prices** be above $3.20?,False,0,,44,True,10min
+34,28,28_538APPROVEMAX-24SEP30-T43_VAW,538APPROVEMAX-24SEP30-T43,VAW,"Will the President's approval rating ever get above 43% by Sep 30, 2024?",False,0,,30,False,
+35,35,35_538APPROVEMAX-24SEP30-T43_VIS,538APPROVEMAX-24SEP30-T43,VIS,"Will the President's approval rating ever get above 43% by Sep 30, 2024?",False,0,,30,False,
+36,43,43_538APPROVEMAX-24SEP30-T43_VCR,538APPROVEMAX-24SEP30-T43,VCR,"Will the President's approval rating ever get above 43% by Sep 30, 2024?",False,0,,30,False,
+37,11,11_AAAGASM-24SEP30-US-3.15_VIS,AAAGASM-24SEP30-US-3.15,VIS,Will average **gas prices** be above $3.15?,False,0,,24,True,10min
+38,12,12_AAAGASM-24SEP30-US-3.15_VGT,AAAGASM-24SEP30-US-3.15,VGT,Will average **gas prices** be above $3.15?,False,0,,24,True,10min
+39,17,17_AAAGASM-24SEP30-US-3.15_VAW,AAAGASM-24SEP30-US-3.15,VAW,Will average **gas prices** be above $3.15?,False,0,,24,True,10min
+40,25,25_AAAGASM-24SEP30-US-3.15_VCR,AAAGASM-24SEP30-US-3.15,VCR,Will average **gas prices** be above $3.15?,False,0,,24,True,10min
+41,27,27_AAAGASM-24SEP30-US-3.15_VOX,AAAGASM-24SEP30-US-3.15,VOX,Will average **gas prices** be above $3.15?,False,0,,24,True,10min
+42,23,23_KX538APPROVEMAX-24NOV30-T41_VGT,KX538APPROVEMAX-24NOV30-T41,VGT,"Will the President's approval rating ever get above 41% by Nov 30, 2024?",False,0,,22,False,
+43,34,34_KX538APPROVEMAX-24NOV30-T41_VHT,KX538APPROVEMAX-24NOV30-T41,VHT,"Will the President's approval rating ever get above 41% by Nov 30, 2024?",False,0,,22,False,
+44,5,05_KXAAAGASM-24NOV30-US-3.30_VFH,KXAAAGASM-24NOV30-US-3.30,VFH,Will average **gas prices** be above $3.30?,False,0,,14,True,10min
+45,13,13_KXAAAGASM-24NOV30-US-3.30_VDE,KXAAAGASM-24NOV30-US-3.30,VDE,Will average **gas prices** be above $3.30?,False,0,,14,True,10min
+46,16,16_KXAAAGASM-24NOV30-US-3.30_VDC,KXAAAGASM-24NOV30-US-3.30,VDC,Will average **gas prices** be above $3.30?,False,0,,14,True,10min
+47,22,22_KXAAAGASM-24NOV30-US-3.30_VNQ,KXAAAGASM-24NOV30-US-3.30,VNQ,Will average **gas prices** be above $3.30?,False,0,,14,True,10min
+48,4,04_538APPROVEMAX-24OCT31-T43_VOX,538APPROVEMAX-24OCT31-T43,VOX,"Will the President's approval rating ever get above 43% by Oct 31, 2024?",False,0,,11,False,

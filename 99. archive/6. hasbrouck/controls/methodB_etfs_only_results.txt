@@ -1,0 +1,14 @@
+METHOD B, ETFs ONLY (11 assets, no election adds)
+  level fit 2024-06-01..2024-09-30: in-sample R2 = 0.882, residual ADF p = 0.000 -> in-sample cointegrated
+
+COINTEGRATION GATE (daily, 24 obs, vs full Method B with adds in brackets):
+  ADF spread(1,-1) p = 0.002 -> COINTEGRATED [with adds: 0.014]
+  Engle-Granger    p = 0.007 -> COINTEGRATED [with adds: 0.013]  (b=+1.05)
+  Johansen trace = 11.04 vs 95%=15.49 -> no           [with adds: 10.63]
+
+HASBROUCK / VECM (indicative -- see caveat):
+  alpha: basket -0.085 , kalshi +0.233  -> basket leads (smaller |alpha|)
+  Gonzalo-Granger: basket 73.1% , kalshi 26.9%
+  Hasbrouck IS (resid corr +0.51): basket [59.2%, 97.6%], kalshi [2.4%, 40.8%]
+
+Caveat: 24 daily obs, small sample, Johansen not confirmed -> indicative only.

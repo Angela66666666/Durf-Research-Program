@@ -1,0 +1,21 @@
+STEP 4 [high_frequency] PART 2b - COINTEGRATION GATE (implied_p vs Kalshi)
+==============================================================================
+Cointegrated (Hasbrouck legitimate) requires a stationary spread: ADF/EG
+p < 0.05, or Johansen trace > its 95% critical value. Otherwise NOT
+cointegrated.
+
+[full window 2024-10-04..11-06]  n = 9325 obs, 24 days, Kalshi fresh 75%
+  A_sign_equal      spread(1,-1) ADF p=0.461->no           | EngleGranger b= -0.01 ADF p=0.534->no           | Johansen trace=  3.31 vs 95%=15.49 -> no
+  B_beta_weighted   spread(1,-1) ADF p=0.499->no           | EngleGranger b= +0.54 ADF p=0.653->no           | Johansen trace=  2.98 vs 95%=15.49 -> no
+  C_min_variance    spread(1,-1) ADF p=0.503->no           | EngleGranger b= +4.49 ADF p=0.665->no           | Johansen trace=  4.42 vs 95%=15.49 -> no
+
+[high-liquidity sub-window 2024-10-21..11-06]  n = 5051 obs, 13 days, Kalshi fresh 95%
+  A_sign_equal      spread(1,-1) ADF p=0.797->no           | EngleGranger b= +2.56 ADF p=0.383->no           | Johansen trace=  4.67 vs 95%=15.49 -> no
+  B_beta_weighted   spread(1,-1) ADF p=0.794->no           | EngleGranger b= +1.44 ADF p=0.587->no           | Johansen trace=  3.21 vs 95%=15.49 -> no
+  C_min_variance    spread(1,-1) ADF p=0.681->no           | EngleGranger b= -4.15 ADF p=0.377->no           | Johansen trace=  7.32 vs 95%=15.49 -> no
+
+Reading: the two-point calibration forces implied_p and Kalshi to agree only
+at the two anchors (sample start and election night). Between them the basket
+is driven by moves the market may not share, so the spread can wander even
+though the endpoints match. Cointegration is the honest test of whether the
+pair shares one price over time.
