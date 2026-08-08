@@ -1,0 +1,271 @@
+================================================================================
+STEP 1 + STEP 2 - AN ELECTION FACTOR-MIMICKING BASKET OF SECTOR ETFs
+================================================================================
+
+WHAT THIS IS
+--------------------------------------------------------------------------------
+A recipe: which of the eleven Vanguard sector ETFs to buy, which to sell
+short, and how much of each.
+
+The basket is scaled so that when the probability of "Trump wins the 2024
+election" rises by one percentage point, the basket returns +1%.
+
+This collapses eleven ETFs into ONE tradable series that can be compared
+directly with the prediction market. Hasbrouck's method and the VECM in
+Steps 3 and 4 both require two securities that share one common fundamental
+value, so this basket is the prerequisite for everything that follows.
+
+
+HOW THE BETAS ARE ESTIMATED
+--------------------------------------------------------------------------------
+For each ETF we run one regression on daily data:
+
+    (ETF return on day d)  =  a  +  beta * (change in P(Trump) on day d)  +  e
+
+Sample: 29 trading days, 2024-06-20 to 2024-07-31.
+That window contains three events that moved the election odds but did not
+directly change any sector's fundamentals. All three happened while the stock
+market was closed, so each ETF's response falls on the next trading day:
+
+    2024-06-28   change in P(Trump) = +0.020   <-  first presidential debate  (Jun 27, 21:00 ET, Thu)
+    2024-07-15   change in P(Trump) = +0.110   <-  Butler rally shooting      (Jul 13, 18:11 ET, Sat)
+    2024-07-22   change in P(Trump) = -0.020   <-  Biden's withdrawal         (Jul 21, 13:54 ET, Sun)
+
+    As a robustness check, the tighter design that uses only +/-3 trading
+    days around each of the three events (19 days) gives the same signs;
+    the wider window is reported here because it is better identified.
+
+All eleven betas are kept. None is dropped for being statistically
+insignificant: keeping only the significant ones would bias the surviving
+estimates upward, and the quantity that matters is the R-squared of the
+portfolio as a whole rather than a star on each individual beta.
+
+
+THE BASKET
+--------------------------------------------------------------------------------
+ETF   Sector            beta      t    |  A sign-equal  B beta-wtd    C min-var
+--------------------------------------------------------------------------------
+VPU   Utilities        -0.1637  -3.07  |     -1.050       -2.565       -3.120
+VAW   Materials        -0.1229  -1.80  |     -1.050       -1.666       -2.458
+VCR   Cons. Discret.   -0.0918  -1.43  |     -1.050       -0.979       +0.787
+VIS   Industrials      -0.0801  -1.00  |     -1.050       -0.721       -0.604
+VGT   Info Tech        -0.0580  -0.68  |     -1.050       -0.233       +0.550
+VDC   Cons. Staples    -0.0542  -1.89  |     -1.050       -0.149       -1.305
+VOX   Comm. Services   -0.0359  -0.75  |     -1.050       +0.253       -0.626
+VNQ   Real Estate      -0.0323  -0.58  |     -1.050       +0.333       +1.290
+VHT   Health Care      +0.0315  +0.42  |     +2.801       +1.741       +3.990
+VFH   Financials       +0.0425  +0.80  |     +2.801       +1.982       -0.414
+VDE   Energy           +0.0434  +0.78  |     +2.801       +2.003       +1.911
+--------------------------------------------------------------------------------
+Long total                     |      +8.403      +6.312      +8.527
+Short total                    |      -8.403      -6.312      -8.527
+Net (should be 0)              |      +0.000      -0.000      -0.000
+w'beta (should be 1)           |      +1.000      +1.000      +1.000
+
+Positive = buy (long).  Negative = sell short.
+
+beta    the slope above. VPU beta = -0.164 means: when P(Trump) rises by one
+        percentage point, the utilities ETF falls by about 0.164%.
+se      standard error - how precisely beta is estimated. With 29 days, a
+        different 29 days would give a somewhat different beta, and se
+        measures how much it would move. VPU: -0.164 +/- 2*0.053 gives
+        [-0.27, -0.058], an interval that does not cross zero.
+t       beta divided by its standard error. |t| above roughly 2 means the
+        beta is clearly different from zero.
+p       if the true beta were zero, how often chance alone would produce a
+        beta this large. VPU: 0.0021. VHT: 0.67.
+n_obs   how many rows the regression used. Here 29, one per trading day; each
+        carries that day's ETF return and that day's change in P(Trump).
+
+The signs line up with the usual reading of the trade: higher odds of a Trump
+win go with financials and energy up, and utilities and materials down.
+
+
+HOW THE THREE SETS OF WEIGHTS ARE BUILT
+--------------------------------------------------------------------------------
+All three plans use the same eleven betas and differ only in the rule that
+turns betas into weights. Each starts from a raw weight and then applies the
+same two normalisations:
+
+    w = w - mean(w)       dollar neutrality: total bought = total sold, so
+                          the basket takes no bet on the market's direction
+
+    w = w / (w . beta)    unit election exposure: w'beta = 1, so a one-point
+                          rise in P(Trump) moves the basket by exactly +1%
+
+The second step is needed because de-meaning destroys the unit exposure that
+the closed-form solution carries by construction.
+
+    plan A   sign-equal.      w = sign(beta)
+             Uses only the direction of each beta, not its size. Simplest and
+             most stable, but discards the fact that VPU is about five times
+             as sensitive as VOX.
+
+    plan B   beta-weighted.   w = beta / sum(|beta|)
+             Keeps the magnitudes, but ignores the correlations among the
+             ETFs, so exposure that several sectors share is double-counted.
+
+    plan C   minimum-variance mimicking portfolio.
+             w = (beta' S^-1 beta)^-1 * S^-1 beta
+             S is the 11x11 covariance matrix of the ETFs' daily returns over
+             the same 29 days. S^-1 hedges away the variation the ETFs share
+             with one another and leaves the election component. Subject to
+             'election exposure = 1', this basket has the smallest variance.
+
+
+COMPARING THE THREE PLANS
+--------------------------------------------------------------------------------
+Plan               In-sample   Out-of-sample   Gross      Weight sign
+                     R^2           R^2       leverage   follows beta?
+----------------------------------------------------------------------------
+A  sign-equal        +0.227        -0.180       16.81x        yes 
+B  beta-weighted     +0.476        -0.227       12.62x        no  
+C  min-variance      +0.752        +0.030       17.05x        no    <== only plan with positive out-of-sample R^2
+----------------------------------------------------------------------------
+
+In-sample R^2      how much of the change in P(Trump) the basket explains on
+                   the same 29 days used to build it. Flattered by overfitting.
+Out-of-sample R^2  leave one day out, refit the betas and the weights on the
+                   other 28 days, then predict the day held out. A negative
+                   value means the basket does worse than always predicting
+                   the average. This is the number that matters.
+Gross leverage     sum of |weight|, i.e. dollars traded per unit of election
+                   exposure.
+Weight sign        whether every ETF's weight has the same sign as its beta.
+                   Only plan A does. In plan B, de-meaning for dollar
+                   neutrality shifts every weight by the same amount, which
+                   pushes the two smallest negative betas (VNQ -0.032 and
+                   VOX -0.036) across zero. Plan C differs more widely
+                   because it also hedges the correlations among the ETFs.
+
+Plan C explains the most and is the only one with positive out-of-sample
+power, but the margin is small: no basket built from these eleven ETFs
+tracks the election factor closely. Plan A is the easiest to read, since it
+is the only one whose positions all point the way its betas do.
+
+
+TWO THINGS THE TABLE MAY LOOK ODD
+--------------------------------------------------------------------------------
+1. In plan C, Financials (VFH) has a positive beta but a negative weight.
+   beta asks: taken on its own, does this ETF move with P(Trump)?
+   The weight asks: inside a portfolio that already holds the other ten,
+   should this one be bought or sold?
+   VFH correlates 0.68 with Industrials and 0.56 with Materials, both of
+   which plan C is already heavily short. Buying VFH would add back the
+   common market variation those shorts just hedged away, so S^-1 assigns it
+   a small short instead. Only plan A keeps every weight pointing the way its
+   beta does. This is why all three plans are reported side by side.
+
+2. The weights are large (around +/-4, gross leverage about 17x).
+   That is only a unit of account. A single ETF moves 0.03% to 0.16% when
+   P(Trump) moves one point, so reaching the defined +1% requires scaling up
+   by roughly 17x. Step 4 uses only the basket's path, not its absolute size.
+
+
+HOW WELL THE BASKET TRACKS THE ELECTION FACTOR
+--------------------------------------------------------------------------------
+Projecting the change in P(Trump) on all eleven ETF returns:
+
+    Joint F-test, the eleven ETFs together      p = 0.0022
+    In-sample R-squared                             0.754
+    Adjusted R-squared                              0.594
+    Leave-one-out out-of-sample R-squared          -0.008
+
+The relationship is real: the eleven ETFs jointly explain changes in P(Trump)
+with p = 0.0022. But the in-sample R-squared of 0.75 is largely fitting noise -
+eleven parameters against 29 observations - and out of sample the projection
+explains close to nothing. The eleven sector ETFs span the election factor
+only partially. This is worth stating explicitly in the paper.
+
+The same measure for each of the three baskets (leave one day out, refit the
+betas and the weights on the remaining days, predict the day held out):
+
+    plan A  sign-equal       -0.180
+    plan B  beta-weighted    -0.227
+    plan C  min-variance     +0.030
+
+Plan C is the only basket with positive out-of-sample explanatory power, and
+the margin is small. Reporting all three is the honest presentation.
+
+
+ROBUSTNESS
+--------------------------------------------------------------------------------
+1. Dropping any single day leaves the joint F-test p between 0.0007 and
+   0.0096. The result is not carried by one observation - not by July 15
+   (the first trading day after the shooting) and not by July 11 (a CPI
+   release).
+
+2. Adding the broad market (VTI) as a control raises R-squared from 0.754 to
+   0.776; VTI's own coefficient has t = 1.26 and none of the eleven betas
+   changes sign. The betas are not an artefact of market exposure.
+
+3. The largest shock is the one the ETFs fit least well. On July 15 the actual
+   change in P(Trump) was +0.110 while the eleven ETFs together account for
+   +0.070, about 64% of it.
+
+
+DATA
+--------------------------------------------------------------------------------
+P(Trump wins)      Polymarket, "Will Donald Trump win the 2024 US Presidential
+                   Election?" (about $1.53B traded), daily closes.
+                   Coverage 2024-01-04 to 2024-11-05
+
+ETF daily returns  yfinance, eleven Vanguard sector ETFs, total return with
+                   dividends included.
+                   Coverage 2024-01-03 to 2024-08-05
+
+Beta window        2024-06-20 to 2024-07-31 (29 trading days)
+Covariance window  the same 29 days, so S and beta come from one sample
+
+Polymarket's daily points are stamped 19:00/20:00 ET, so the change in
+P(Trump) for day d also contains the 16:00-20:00 after-hours stretch. beta is
+a contemporaneous exposure, not a predictive coefficient, so this does not
+affect its definition.
+
+
+WHY POLYMARKET RATHER THAN KALSHI FOR THIS STEP
+--------------------------------------------------------------------------------
+The identification needs a probability of 'Trump wins' that spans the three
+events. On Kalshi, the binary contract PRES-2024-DJT has its first trade on
+2024-10-04. That is a regulatory boundary rather than a gap in the data: the
+CFTC prohibited political event contracts in September 2023, and Kalshi could
+list them only after the D.C. Circuit denied the CFTC's motion for a stay
+pending appeal on 2024-10-02. All three event dates fall inside that period.
+Polymarket's contract on the same question has traded since 2024-01-05.
+
+The Kalshi-only version was carried through to a conclusion, estimating the
+betas on 2024-10-04 to 10-31 (see step1_election_beta.py):
+
+    daily,      n = 19 days    joint F-test p = 0.35, out-of-sample R2 = -2.52
+    1-minute,   n = 5,455 bars R-squared = 0.0026
+
+Through October, P(Trump) drifts from 0.50 to 0.63 with no single-day jump, so
+there is nothing to identify from. Over the weekend of July 13 it moves from
+0.595 to 0.705 - one event supplies more variation than all of October. The
+event-based design is therefore necessary, not merely preferable, and it
+requires the Polymarket series.
+
+
+CIRCULARITY
+--------------------------------------------------------------------------------
+The betas must not be estimated on the data the Hasbrouck / VECM test will
+later use, or the instrument is fitted to what it is meant to evaluate.
+
+The test window for Steps 3 and 4 is not fixed yet, but no overlap is possible
+however it is chosen. The betas end on 2024-07-31, and Kalshi's presidential
+contract has no trades before 2024-10-04, so any Kalshi-based test lies
+entirely after the beta window. The two sides also come from different venues,
+which rules out mechanical correlation from a shared order book.
+
+
+FILES
+--------------------------------------------------------------------------------
+step1_step2_polymarket_beta_and_weights.py   produces everything below
+etf_election_beta_polymarket.csv             the eleven betas and the three
+                                             sets of weights; Steps 3 and 4
+                                             read this file
+polymarket_trump_2024_daily.csv              the daily P(Trump) series, cached
+step1_basket_report_EN.txt                   this document
+step1_polymarket_diagnostics.txt             technical appendix: all three
+                                             sample specifications and the
+                                             robustness output
